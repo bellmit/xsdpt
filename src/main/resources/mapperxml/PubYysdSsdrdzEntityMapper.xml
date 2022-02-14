@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubYysdSsdrdzEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubYysdSsdrdzEntity">
+    <constructor>
+      <idArg column="bh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sdp_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="id_card" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lx" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="dz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="dzly" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="label" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    bh, sdp_name, id_card, lx, dz, yysdbh, ssdrbh, dzly, createtime, label
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pub_yysd_ssdrdz
+    where bh = #{bh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_yysd_ssdrdz
+    where bh = #{bh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubYysdSsdrdzEntity">
+    <selectKey keyProperty="bh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_yysd_ssdrdz_bh_seq'::regclass)
+    </selectKey>
+    insert into pub_yysd_ssdrdz (bh, sdp_name, id_card,
+    lx, dz, yysdbh, ssdrbh,
+    dzly, createtime, label
+    )
+    values (#{bh,jdbcType=INTEGER}, #{sdpName,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR},
+    #{lx,jdbcType=INTEGER}, #{dz,jdbcType=VARCHAR}, #{yysdbh,jdbcType=INTEGER}, #{ssdrbh,jdbcType=INTEGER},
+    #{dzly,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{label,jdbcType=VARCHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubYysdSsdrdzEntity">
+    <selectKey keyProperty="bh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_yysd_ssdrdz_bh_seq'::regclass)
+    </selectKey>
+    insert into pub_yysd_ssdrdz
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      bh,
+      <if test="sdpName != null">
+        sdp_name,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="lx != null">
+        lx,
+      </if>
+      <if test="dz != null">
+        dz,
+      </if>
+      <if test="yysdbh != null">
+        yysdbh,
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh,
+      </if>
+      <if test="dzly != null">
+        dzly,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{bh,jdbcType=INTEGER},
+      <if test="sdpName != null">
+        #{sdpName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="lx != null">
+        #{lx,jdbcType=INTEGER},
+      </if>
+      <if test="dz != null">
+        #{dz,jdbcType=VARCHAR},
+      </if>
+      <if test="yysdbh != null">
+        #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="dzly != null">
+        #{dzly,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubYysdSsdrdzEntity">
+    update pub_yysd_ssdrdz
+    <set>
+      <if test="sdpName != null">
+        sdp_name = #{sdpName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="lx != null">
+        lx = #{lx,jdbcType=INTEGER},
+      </if>
+      <if test="dz != null">
+        dz = #{dz,jdbcType=VARCHAR},
+      </if>
+      <if test="yysdbh != null">
+        yysdbh = #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="dzly != null">
+        dzly = #{dzly,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bh = #{bh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubYysdSsdrdzEntity">
+    update pub_yysd_ssdrdz
+    set sdp_name = #{sdpName,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      lx = #{lx,jdbcType=INTEGER},
+      dz = #{dz,jdbcType=VARCHAR},
+      yysdbh = #{yysdbh,jdbcType=INTEGER},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      dzly = #{dzly,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      label = #{label,jdbcType=VARCHAR}
+    where bh = #{bh,jdbcType=INTEGER}
+  </update>
+</mapper>

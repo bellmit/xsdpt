@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.RpoEmsInfoEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.RpoEmsInfoEntity">
+    <constructor>
+      <idArg column="bh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="dsrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="scrq" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="kdid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sdjg" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="submittime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="sddz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wsnum" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="kddh" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    bh, yysdbh, dsrbh, scrq, kdid, sdjg, submittime, sddz,wsnum,kddh
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rpo_ems_info
+    where bh = #{bh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rpo_ems_info
+    where bh = #{bh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.RpoEmsInfoEntity">
+    <selectKey keyProperty="bh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('rpo_ems_info_bh_seq'::regclass)
+    </selectKey>
+    insert into rpo_ems_info (bh, yysdbh, dsrbh,
+    scrq, kdid, sdjg,
+    submittime, sddz,wsnum, kddh)
+    values (#{bh,jdbcType=INTEGER}, #{yysdbh,jdbcType=INTEGER}, #{dsrbh,jdbcType=INTEGER},
+    #{scrq,jdbcType=TIMESTAMP}, #{kdid,jdbcType=INTEGER}, #{sdjg,jdbcType=VARCHAR},
+    #{submittime,jdbcType=TIMESTAMP}, #{sddz,jdbcType=VARCHAR},#{wsnum,jdbcType=INTEGER}, #{kddh,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.RpoEmsInfoEntity">
+    <selectKey keyProperty="bh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('rpo_ems_info_bh_seq'::regclass)
+    </selectKey>
+    insert into rpo_ems_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      bh,
+      <if test="yysdbh != null">
+        yysdbh,
+      </if>
+      <if test="dsrbh != null">
+        dsrbh,
+      </if>
+      <if test="scrq != null">
+        scrq,
+      </if>
+      <if test="kdid != null">
+        kdid,
+      </if>
+      <if test="sdjg != null">
+        sdjg,
+      </if>
+      <if test="submittime != null">
+        submittime,
+      </if>
+      <if test="sddz != null">
+        sddz,
+      </if>
+      <if test="wsnum != null">
+        wsnum,
+      </if>
+      <if test="kddh != null">
+        kddh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{bh,jdbcType=INTEGER},
+      <if test="yysdbh != null">
+        #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="dsrbh != null">
+        #{dsrbh,jdbcType=INTEGER},
+      </if>
+      <if test="scrq != null">
+        #{scrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kdid != null">
+        #{kdid,jdbcType=INTEGER},
+      </if>
+      <if test="sdjg != null">
+        #{sdjg,jdbcType=VARCHAR},
+      </if>
+      <if test="submittime != null">
+        #{submittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sddz != null">
+        #{sddz,jdbcType=VARCHAR},
+      </if>
+      <if test="wsnum != null">
+        #{wsnum,jdbcType=INTEGER},
+      </if>
+      <if test="kddh != null">
+        #{kddh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.RpoEmsInfoEntity">
+    update rpo_ems_info
+    <set>
+      <if test="yysdbh != null">
+        yysdbh = #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="dsrbh != null">
+        dsrbh = #{dsrbh,jdbcType=INTEGER},
+      </if>
+      <if test="scrq != null">
+        scrq = #{scrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kdid != null">
+        kdid = #{kdid,jdbcType=INTEGER},
+      </if>
+      <if test="sdjg != null">
+        sdjg = #{sdjg,jdbcType=VARCHAR},
+      </if>
+      <if test="submittime != null">
+        submittime = #{submittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sddz != null">
+        sddz = #{sddz,jdbcType=VARCHAR},
+      </if>
+      <if test="wsnum != null">
+        wsnum = #{wsnum,jdbcType=INTEGER},
+      </if>
+      <if test="kddh != null">
+        kddh = #{kddh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bh = #{bh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.RpoEmsInfoEntity">
+    update rpo_ems_info
+    set yysdbh = #{yysdbh,jdbcType=INTEGER},
+      dsrbh = #{dsrbh,jdbcType=INTEGER},
+      scrq = #{scrq,jdbcType=TIMESTAMP},
+      kdid = #{kdid,jdbcType=INTEGER},
+      sdjg = #{sdjg,jdbcType=VARCHAR},
+      submittime = #{submittime,jdbcType=TIMESTAMP},
+      sddz = #{sddz,jdbcType=VARCHAR},
+      wsnum = #{wsnum,jdbcType=INTEGER},
+      kddh = #{kddh,jdbcType=VARCHAR}
+    where bh = #{bh,jdbcType=INTEGER}
+  </update>
+</mapper>

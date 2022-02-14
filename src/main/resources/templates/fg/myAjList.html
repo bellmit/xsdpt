@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>法官-案件列表</title>
+    <link rel="stylesheet" href="/css/wbrywdsd_new.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+<!--    <script src="/js/common/bootstrap.min.js"></script>-->
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+</head>
+<body>
+
+<!--<div style="width: 100%;height: 80px;background-color: rgb(0,169,238)">-->
+<!--    <div style="padding-top: 10px;padding-left: 30px;">-->
+<!--        <div style="float: left">-->
+<!--            <img  src="/css/img/mySd_fahui.png" height="50px" width="50px" style="margin-top: 5px">-->
+<!--        </div>-->
+<!--        <div style="float: left;padding-top: 10px;padding-bottom: 5px;margin-left: 10px;">-->
+<!--            <div style="color: white;font-size: 30px;" id="current_fymc">天津市高级人民法院</div>-->
+<!--        </div>-->
+
+<!--        <div  id="logout" class="headLogout"><img  src="/css/img/mySD_tuichu.jpg" height="30px" width="100px"> </div>-->
+<!--        <div style="margin-right: 100px">-->
+<!--            <div id="userName"  style="color: white;font-size: 15px;margin-top: 20px;float: right;">-->
+<!--            </div>-->
+<!--            <div  style="color: white;font-size: 15px;margin-top: 20px;float: right;">欢迎 &nbsp; ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>-->
+<!--        </div>-->
+<!--        <div style="float: right">-->
+<!--            <img  src="/css/img/mySd_fahui.png" id="circle" width="50px" height="50px" style="margin-right: 20px;margin-top: 5px">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div style="background-color: rgb(245,245,245);min-height: 60px">-->
+<!--    <div style="float: left">-->
+<!--        <img src="/css/img/mySd_index.png">-->
+<!--    </div>-->
+<!--    <div style="float: left;margin-top: 15px">-->
+<!--        <h5>&nbsp;&nbsp;当前位置：首页 - &nbsp;&nbsp; </h5>-->
+<!--    </div>-->
+<!--    <div style="float: left;margin-top: 15px">-->
+<!--        <h5 style="color: rgb(0,169,238)">案件列表</h5>-->
+<!--    </div>-->
+<!--</div>-->
+<div id="top" class="fixed-top d-flex flex-column" style="height: 15%;">
+    <div class="d-flex bd-highlight" style="height: 75%;">
+        <div style="width:25%">
+            <div id="logo" class="float-left align-middle" style="margin-left: 17%;margin-top: 4%;font-size: 13px;">
+            </div>
+        </div>
+        <div class="d-flex flex-column" style="width: 75%;">
+            <div style="height: 40%;">
+                <div class="float-right" style="font-size:13px; color: white;padding-top: 1%;padding-right: 4%;">
+                    <span style="font-size: 18px">欢迎您 <span id="userName"></span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                    <button id="logout"  type="button" class="btn btn-default"
+                            style="color:white;float: right;padding: 0px">退出系统
+                    </button>
+                </div>
+                <div>
+                    <div class="d-flex flex-row float-right" style="padding-right: 20%;font-size: 14px;">
+                        <!--                        <a href="#dhsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">电话送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#dxtz" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label focus">短信通知</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#lylq" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">来院领取</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#emssd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">EMS送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#zjsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">直接送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#wtdc" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">委托送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#ggsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">公告送达</div>-->
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="float-right" style="font-size: 14px;padding-left: 8%;">
+        当前位置：首页 - 案件列表
+    </div>
+</div>
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 10%;background-color: white;min-height: 500px">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div style="margin-top: 10px;min-height: 35px">
+        <div style="float: left;margin-left: 20px">
+            案件列表
+        </div>
+        <div id="return_main" style="float: right;margin-right: 10px;cursor: pointer">
+            <button class="btn btn-primary btm-sm" >
+                返回
+            </button>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped table-condensed" id="ajjbxx_table">
+            <thead>
+            <tr>
+                <th style="text-align: center;width:5% ">序号</th>
+                <th style="text-align: center;width:20%">案号</th>
+                <th style="text-align: center;width:40%">案件名称</th>
+                <th style="text-align: center;width:20%">立案日期</th>
+                <th style="text-align: center;width:10%">承办人</th>
+                <th style="text-align: center;width:15%" >操作</th>
+                <th style="text-align: center;width:15%" >文件下载</th>
+            </tr>
+            </thead>
+            <tbody id="ajjbxx_tbody">
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<script id="test" type="text/html">
+    {{if isAdmin}}
+    {{each list value i}}
+    <tr>
+        <td style="text-align: center">{{i+1}}</td>
+        <td>{{list[i].ah}}</td>
+        <td>{{list[i].ajmc}}</td>
+        <td>{{list[i].larqStr}}</td>
+        <td>{{list[i].cbr}}</td>
+        <td> <button class="btn btn-primary" type="button" onclick="sd(this)" data-index={{i}}>送达</button></td>
+        {{if list[i].sfscwj == 'Y'}}
+        <td><button class="btn btn-primary" type="button" onclick="downloadWj(this)" data-index={{i}}>下载</button>
+    </tr>
+    {{/each}}
+    {{/if}}
+</script>
+<script src="/js/fg/myAjList.js?v=1.1"></script>
+<style>
+    #circle{
+        border-radius: 50%;      -moz-border-radius: 50%;      -webkit-border-radius: 50%;
+    }
+    body{
+        background-color: rgb(241,241,241);
+    }
+</style>
+</body>
+</html>
+

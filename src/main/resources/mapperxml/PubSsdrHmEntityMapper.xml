@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubSsdrHmEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubSsdrHmEntity">
+    <constructor>
+      <idArg column="bh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sdp_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="id_card" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="operator_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="show_tel" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="operator_tel" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tel_batch_no" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="end_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="newphonestatus" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="isconfirm" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="hmly" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="label" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    bh, sdp_name, id_card, operator_type, show_tel, operator_tel, tel_batch_no, end_time,
+    create_time, newphonestatus, isconfirm, yysdbh, ssdrbh, hmly, label
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pub_ssdr_hm
+    where bh = #{bh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_ssdr_hm
+    where bh = #{bh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubSsdrHmEntity">
+    <selectKey keyProperty="bh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_ssdr_hm_bh_seq'::regclass)
+    </selectKey>
+    insert into pub_ssdr_hm (bh, sdp_name, id_card,
+    operator_type, show_tel, operator_tel,
+    tel_batch_no, end_time, create_time,
+    newphonestatus, isconfirm, yysdbh,
+    ssdrbh, hmly, label
+    )
+    values (#{bh,jdbcType=INTEGER}, #{sdpName,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR},
+    #{operatorType,jdbcType=VARCHAR}, #{showTel,jdbcType=VARCHAR}, #{operatorTel,jdbcType=VARCHAR},
+    #{telBatchNo,jdbcType=VARCHAR}, #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
+    #{newphonestatus,jdbcType=INTEGER}, #{isconfirm,jdbcType=INTEGER}, #{yysdbh,jdbcType=INTEGER},
+    #{ssdrbh,jdbcType=INTEGER}, #{hmly,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubSsdrHmEntity">
+    <selectKey keyProperty="bh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_ssdr_hm_bh_seq'::regclass)
+    </selectKey>
+    insert into pub_ssdr_hm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      bh,
+      <if test="sdpName != null">
+        sdp_name,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="operatorType != null">
+        operator_type,
+      </if>
+      <if test="showTel != null">
+        show_tel,
+      </if>
+      <if test="operatorTel != null">
+        operator_tel,
+      </if>
+      <if test="telBatchNo != null">
+        tel_batch_no,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="newphonestatus != null">
+        newphonestatus,
+      </if>
+      <if test="isconfirm != null">
+        isconfirm,
+      </if>
+      <if test="yysdbh != null">
+        yysdbh,
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh,
+      </if>
+      <if test="hmly != null">
+        hmly,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{bh,jdbcType=INTEGER},
+      <if test="sdpName != null">
+        #{sdpName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorType != null">
+        #{operatorType,jdbcType=VARCHAR},
+      </if>
+      <if test="showTel != null">
+        #{showTel,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTel != null">
+        #{operatorTel,jdbcType=VARCHAR},
+      </if>
+      <if test="telBatchNo != null">
+        #{telBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newphonestatus != null">
+        #{newphonestatus,jdbcType=INTEGER},
+      </if>
+      <if test="isconfirm != null">
+        #{isconfirm,jdbcType=INTEGER},
+      </if>
+      <if test="yysdbh != null">
+        #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="hmly != null">
+        #{hmly,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubSsdrHmEntity">
+    update pub_ssdr_hm
+    <set>
+      <if test="sdpName != null">
+        sdp_name = #{sdpName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorType != null">
+        operator_type = #{operatorType,jdbcType=VARCHAR},
+      </if>
+      <if test="showTel != null">
+        show_tel = #{showTel,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTel != null">
+        operator_tel = #{operatorTel,jdbcType=VARCHAR},
+      </if>
+      <if test="telBatchNo != null">
+        tel_batch_no = #{telBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newphonestatus != null">
+        newphonestatus = #{newphonestatus,jdbcType=INTEGER},
+      </if>
+      <if test="isconfirm != null">
+        isconfirm = #{isconfirm,jdbcType=INTEGER},
+      </if>
+      <if test="yysdbh != null">
+        yysdbh = #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="hmly != null">
+        hmly = #{hmly,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bh = #{bh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubSsdrHmEntity">
+    update pub_ssdr_hm
+    set sdp_name = #{sdpName,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      operator_type = #{operatorType,jdbcType=VARCHAR},
+      show_tel = #{showTel,jdbcType=VARCHAR},
+      operator_tel = #{operatorTel,jdbcType=VARCHAR},
+      tel_batch_no = #{telBatchNo,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      newphonestatus = #{newphonestatus,jdbcType=INTEGER},
+      isconfirm = #{isconfirm,jdbcType=INTEGER},
+      yysdbh = #{yysdbh,jdbcType=INTEGER},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      hmly = #{hmly,jdbcType=VARCHAR},
+      label = #{label,jdbcType=VARCHAR}
+    where bh = #{bh,jdbcType=INTEGER}
+  </update>
+</mapper>

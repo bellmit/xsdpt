@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工单-任务分配</title>
+    <link rel="stylesheet" href="/css/wbrywdsd_new.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+</head>
+<body>
+<div id="top" class="fixed-top d-flex flex-column" style="height: 15%;">
+    <div class="d-flex bd-highlight" style="height: 75%;">
+        <div style="width:25%">
+            <div id="logo" class="float-left align-middle" style="margin-left: 17%;margin-top: 4%;font-size: 13px;">
+            </div>
+        </div>
+        <div class="d-flex flex-column" style="width: 75%;">
+            <div style="height: 40%;">
+                <div class="float-right" style="font-size:13px; color: white;padding-top: 1%;padding-right: 4%;">
+                    <span style="font-size: 18px">欢迎您 <span id="userName"></span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                    <button id="logout" type="button" class="btn btn-default"
+                            style="color:white;float: right;padding: 0px">退出系统
+                    </button>
+                </div>
+                <div>
+                    <div class="d-flex flex-row float-right" style="padding-right: 20%;font-size: 14px;">
+                        <!--                        <a href="#dhsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">电话送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#dxtz" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label focus">短信通知</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#lylq" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">来院领取</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#emssd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">EMS送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#zjsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">直接送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#wtdc" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">委托送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#ggsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">公告送达</div>-->
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="float-right" style="font-size: 14px;padding-left: 8%;">
+        当前位置：首页 - 任务分配
+    </div>
+</div>
+<!--<div style="background-color: rgb(245,245,245);min-height: 60px">-->
+<!--    <div style="float: left">-->
+<!--        <img src="/css/img/mySd_index.png">-->
+<!--    </div>-->
+<!--    <div style="float: left;margin-top: 15px">-->
+<!--        <h5>&nbsp;&nbsp;当前位置：首页 - &nbsp;&nbsp; </h5>-->
+<!--    </div>-->
+<!--    <div style="float: left;margin-top: 15px">-->
+<!--        <h5 style="color: rgb(0,169,238)">案件列表</h5>-->
+<!--    </div>-->
+<!--    <div class="input-group" style="float: right">-->
+<!--        <div >-->
+<!--            <form class="bs-example bs-example-form" role="form">-->
+<!--                <div class="input-group"style="margin-top: 15px">-->
+<!--                    <input type="text" class="form-control"height="30px" placeholder="站内搜索">-->
+<!--                    <span class="input-group-addon" style="background-color: rgb(221,221,221)"><img src="/css/img/search_icon.png" height="20px" width="20px"></span>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 10%;background-color: white;min-height: 500px">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div style="margin-top: 10px;min-height: 40px;margin-bottom: 20px;">
+        <div style="float: left;margin-left: 20px;margin-top: 5px;font-size: 15px;">
+            工单列表
+        </div>
+        <div style="margin-left: 20px;float: left;margin-top: 5px;">
+            <select style="width: 100px; height: 25px;" id="select_distribute">
+                <option value="1">未分配</option>
+                <option value="2">已分配</option>
+            </select>
+
+        </div>
+
+        <div id="return_main" style="float: right;margin-right: 10px;cursor: pointer">
+            <button class="btn btn-primary btm-sm">
+                返回
+            </button>
+        </div>
+        <div style="float: left;margin-left: 10px;margin-top: 5px;">
+            时间范围选择：
+            <div class="layui-inline">
+                <input type="text" class="layui-input" id="select_time1">
+            </div>
+            至
+            <div class="layui-inline">
+                <input type="text" class="layui-input" id="select_time2">
+            </div>
+        </div>
+        <div style="margin-left: 20px;float: left">
+            <button class="btn btn-primary btm-sm" id=select_range_time>
+                查询
+            </button>
+        </div>
+        <div>
+            <button id="distribute" class="btn btn-primary btm-sm"
+                    style="margin-left: 20px;float: left">
+                任务分配
+            </button>
+        </div>
+<!--        <div style="margin-left: 20px;float: left">-->
+<!--            <button class="btn btn-primary btm-sm" id=download_sdfk_excel>-->
+<!--                导出已分配工单信息-->
+<!--            </button>-->
+<!--        </div>-->
+
+
+    </div>
+    <div class="col-md-12">
+        <div id="myfp">
+            <table class="table table-bordered table-striped table-condensed" id="ajjbxx_table">
+                <thead>
+                <tr>
+                    <th style="text-align: center;width:3%"><label><input type="checkbox"
+                                                                          id="myfp_checkOrCancelAll"></label>操作
+                    </th>
+                    <th style="text-align: center;width:5% ">工单号</th>
+                    <th style="text-align: center;width:11%">案号</th>
+                    <th style="text-align: center;width:10%">所属法院</th>
+                    <th style="text-align: center;width:20%">案件名称</th>
+                    <th style="text-align: center;width:8%">预约日期</th>
+                    <th style="text-align: center;width:15%">当事人</th>
+                    <th style="text-align: center;width:5%">预约人</th>
+                    <th style="text-align: center;width:10%">部门名称</th>
+                    <th style="text-align: center;width:10%">开庭时间</th>
+                    <th style="text-align: center;width:5%">操作</th>
+                </tr>
+                </thead>
+                <tbody id="ajjbxx_tbody">
+                </tbody>
+            </table>
+        </div>
+        <div id="yjfp" style="display: none;">
+            <table class="table table-bordered table-striped table-condensed" id="ajjbxx_distribute_table">
+                <thead>
+                <tr>
+                    <th style="text-align: center;width:3%"><label><input type="checkbox"
+                                                                          id="yjfp_checkOrCancelAll"></label>操作
+                    </th>
+                    <th style="text-align: center;width:5% ">工单号</th>
+                    <th style="text-align: center;width:10%">案号</th>
+                    <th style="text-align: center;width:10%">所属法院</th>
+                    <th style="text-align: center;width:15%">案件名称</th>
+                    <th style="text-align: center;width:8%">预约日期</th>
+                    <th style="text-align: center;width:15%">当事人</th>
+                    <th style="text-align: center;width:5%">预约人</th>
+                    <th style="text-align: center;width:10%">部门名称</th>
+                    <th style="text-align: center;width:10%">开庭时间</th>
+                    <th style="text-align: center;width:10%">送达员名称</th>
+                    <th style="text-align: center;width:5%">操作</th>
+                </tr>
+                </thead>
+                <tbody id="ajjbxx_distribute_tbody">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    请进行分配工作
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div style="width: 100%;height: 100px;margin-top: 30px;">
+                    <span style="font-size: 20px;">本院送达员：</span>
+                    <select name="" id="sdry_select" style="height: 30px;">
+                        <option value="">请选择送达员</option>
+                    </select>
+                    <br>
+                    <div style="margin-top: 30px">
+                        <span style="font-size: 20px;float: left;">全市送达员：</span>
+                        <select name="" id="sdfy_select" style="height: 30px;float: left">
+                            <option value="">请选择法院</option>
+                        </select>
+                        <select name="" id="sdfysdy_select"
+                                style="height: 30px;float: left;margin-left: 10px;width: 100px">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="define_change">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script id="test" type="text/html">
+    {{if isAdmin}}
+    {{each list value i}}
+    <tr>
+        <td style="text-align: center"><label><input name="ids" type="checkbox" value="{{list[i].yysdbh}}"></label></td>
+        <td style="text-align: center">{{list[i].yysdbh}}</td>
+        <td>{{list[i].ah}}</td>
+        <td>{{list[i].fymc}}</td>
+        <td>{{list[i].ajmc}}</td>
+        <td>{{list[i].yysj}}</td>
+        <td>{{list[i].dsrmc}}</td>
+        <td>{{list[i].yyr}}</td>
+        <td>{{list[i].bmmc}}</td>
+        <td>{{list[i].ktsj}}</td>
+        <td>
+            <button class="btn" type="button" onclick="info(this)" data-index={{list[i].yysdbh}}>
+                <img src="/img/jbxx_write.png" height="16" width="16" style="margin: 0" title="查看">
+            </button>
+        </td>
+    </tr>
+    {{/each}}
+    {{/if}}
+</script>
+<script id="test1" type="text/html">
+    {{if isAdmin}}
+    {{each list value i}}
+    <tr>
+        <td style="text-align: center"><label><input name="ids" type="checkbox" value="{{list[i].yysdbh}}"></label></td>
+        <td style="text-align: center">{{list[i].yysdbh}}</td>
+        <td>{{list[i].ah}}</td>
+        <td>{{list[i].fymc}}</td>
+        <td>{{list[i].ajmc}}</td>
+        <td>{{list[i].yysj}}</td>
+        <td>{{list[i].dsrmc}}</td>
+        <td>{{list[i].yyr}}</td>
+        <td>{{list[i].bmmc}}</td>
+        <td>{{list[i].ktsj}}</td>
+        <td>{{list[i].sdymc}}</td>
+        <td>
+            <button class="btn p-2" type="button" onclick="info(this)" data-index={{list[i].yysdbh}}>
+                <img src="/img/jbxx_write.png" height="16" width="16" style="margin: 0" title="查看">
+            </button>
+        </td>
+    </tr>
+    {{/each}}
+    {{/if}}
+</script>
+<script src="/js/gd/wbrySdList.js?v=1.16"></script>
+<style>
+    #circle {
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    body {
+        background-color: rgb(241, 241, 241);
+    }
+
+    #ajjbxx_table_filter {
+        float: right;
+        margin-right: 100px;
+        margin-top: -50px;
+        font-size: 15px;
+    }
+
+    #ajjbxx_distribute_table_filter {
+        float: right;
+        margin-right: 100px;
+        margin-top: -50px;
+        font-size: 15px;
+    }
+
+    .layui-input {
+        height: 25px;
+    }
+
+    .layui-laydate .layui-this {
+        background-color: #2D93CA !important;
+        color: #fff !important;
+    }
+</style>
+</body>
+</html>
+

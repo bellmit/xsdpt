@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工单系统-登录</title>
+    <link rel="stylesheet" href="/css/wdds.css?v=1.1">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+<!--    <link rel="stylesheet" href="/css/index.css">-->
+
+    <!--    <link rel="stylesheet" href="/css/signin.css">-->
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+
+    <style>
+
+    </style>
+</head>
+<body style="background-image: url('/img/index.jpg')">
+<div class="container-fluid">
+    <div class="fixed-top">
+        <!-- <div class="d-flex justify-content-around" style="padding-top: 0.3%;">
+            <div style="padding-top: 0.8%;padding-left: 0.2%;">LOGO</div>
+            <div style="width: 51%;"></div>
+            <div style="color: white;padding-left: 35px;">欢迎您 XXX|登录登出</div>
+        </div> -->
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #027bf0;">
+            <div style="margin-left: 4%;width: 30%;">
+                <img src="../img/fh.png" style="width: 10%;height: 10.5%;">
+                <span class="align-middle topnav" style="padding-left: 1%;" id="current_fymc">天津市高级人民法院</span>
+            </div>
+
+        </nav>
+    </div>
+    <div>
+        <div align="center" style="margin-top: 16.5%;">
+            <span style="font-size: 36px;font-family: 华文中宋;">送达数</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="font-size: 36px;font-family: Times New Roman;color: #ff6c00;font-weight: bolder;">4532</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="font-size: 36px;">|</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="font-size: 36px;font-family: 华文中宋;">送达完成数</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="font-size: 36px;font-family: Times New Roman;color: #ff6c00;font-weight: bolder;">4532</span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+    <div>
+        <div style="margin-top: 5%" align="center">
+            <div style="width: 30%">
+                <input type="text" name="username" id="username" placeholder="请输入用户名" class="layui-input" style="width: 50%;font-size: 20px">
+            </div>
+            <div style="margin-top: 20px;width: 30%;">
+                <input type="password" name="password" id="password" placeholder="请输入密码" class="layui-input" style="width: 50%;font-size: 20px">
+                <span id="tishi" style="font-size: 14px;color: red"></span>
+            </div>
+            <div style="margin-top: 20px;width: 30%;text-align: center">
+                <button id="login" class="btn btn-primary">登录</button>
+                <!--                        <button id="chrome" class="btn" style="margin-left: 20px">浏览器下载</button>-->
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--<script src="/js/gd/wbryIndex.js?v=1.142"></script>-->
+<!--</body>-->
+
+
+<!--<div>-->
+<!--    <div class="row" style="width: 100%;">-->
+<!--        <div class="col-md-4" style="">-->
+<!--            <div style="margin-top: 40%;">-->
+<!--                <div style="margin-left: 15%;">-->
+<!--                    <div style="width: 300px;">-->
+<!--                        <input type="text" name="username" id="username" placeholder="请输入用户名" class="layui-input" >-->
+<!--                    </div>-->
+<!--                    <div style="margin-top: 20px;width: 300px;">-->
+<!--                        <input type="password" name="password" id="password" placeholder="请输入密码" class="layui-input">-->
+<!--                        <span id="tishi" style="font-size: 14px;color: red"></span>-->
+<!--                    </div>-->
+<!--                    <div style="margin-top: 20px;width: 300px;text-align: center">-->
+<!--                        <button id="login" class="btn btn-primary">登录</button>-->
+<!--&lt;!&ndash;                        <button id="chrome" class="btn" style="margin-left: 20px">浏览器下载</button>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-md-8" style="height: 900px;background: url(/css/img/bg.png) no-repeat;background-size: cover;">-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<script>
+    $("#login").click(function () {
+        clearAllCookie();
+        $.cookie('yhm', $("#username").val());
+        var login_data = {
+            username: $("#username").val(),
+            password: $("#password").val()
+        };
+        $.ajax({
+            url: '/login.do',
+            type: 'post',
+            data: login_data,
+            success: function (data) {
+                $.cookie('mc',data.yhmc)
+                $.cookie('fybh',data.fybh)
+                if (data.nr == 'wbryIndex') {
+                    $.cookie('yhjs', 'admin');
+                    location.href = data.nr
+                } else if (data.nr == 'gdIndex') {
+                    $.cookie('yhjs', 'user');
+                    location.href = data.nr
+                } else if (data.nr == 'zjzyIndex') {
+                    $.cookie('yhjs', 'zjzy');
+
+                    location.href = data.nr
+                } else {
+                    //other
+                    $("#tishi").text("用户名或密码不正确！")
+                }
+            },
+
+        });
+    });
+
+    $("#chrome").click(function () {
+        window.open("chromeDownload.do?version=64");
+    });
+
+
+</script>
+</body>
+</html>

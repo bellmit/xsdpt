@@ -1,0 +1,329 @@
+<script id="gdxqxx" type="text/html">
+    <div class="infoArea">
+        <blockquote align="center" class="quote" style="font-size: 18px;font-family: 华文中宋;font-weight: bolder;margin: 20px">工单基本信息</blockquote>
+        <table class="table table-hover table-bordered" style="width:80%" align="center">
+            <tbody>
+            <tr>
+                <td width="15%;" style="font-weight: bolder">案号：</td>
+                <td width="35%;">{{gdxqxx.jb.ah}}</td>
+                <td width="15%;" style="font-weight: bolder">案件名称：</td>
+                <td width="35%;">{{gdxqxx.jb.ajmc}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bolder">审理程序：</td>
+                <td >{{gdxqxx.jb.slcx}}</td>
+                <td style="font-weight: bolder"> 预约时间</td>
+                <td>{{gdxqxx.jb.yysj}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bolder"> 预约人名称：</td>
+                <td >{{gdxqxx.jb.yyrxm}}</td>
+                <td style="font-weight: bolder"> 所属法院：</td>
+                <td >{{gdxqxx.fymc}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bolder"> 预约人部门：</td>
+                <td >{{gdxqxx.jb.bmmc}}</td>
+                <td style="font-weight: bolder"> 预约人办公电话：</td>
+                <td >{{gdxqxx.jb.bgdh}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bolder"> 预约人手机号码：</td>
+                <td >{{gdxqxx.jb.sjhm}}</td>
+                <td style="font-weight: bolder"> 预约人备注：</td>
+                <td >{{gdxqxx.jb.yysdbz}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        {{each gdxqxx.pubYysdSsdrModelList ssdrItem ssdrIndex}}
+        <blockquote align="center" class="quote" style="font-size: 18px;font-family: 华文中宋;font-weight: bolder;color:rgb(0,169,238);padding-bottom: 1px;margin: 20px">当事人信息{{ssdrIndex+1}}</blockquote>
+        <table class="table table-hover table-bordered" style="width:80%" align="center">
+            <tr>
+                <td width="15%;" style="font-weight: bolder"> 当事人名称：</td>
+                <td width="35%;">{{ssdrItem.ssdrmc}}</td>
+                <td width="15%;" style="font-weight: bolder">当事人诉讼地位：</td>
+                <td width="35%;" colspan="2">{{ssdrItem.ssdrssdw}}</td>
+            </tr>
+            <tr>
+
+                <td width="15%;" style="font-weight: bolder"> 修复状态：</td>
+                <td width="35%;">
+                    {{if ssdrItem.repairstatus == 'RPBS002'}}
+                    修复中
+                    {{else if ssdrItem.repairstatus == 'RPBS003'}}
+                    修复成功
+                    {{else if ssdrItem.repairstatus == 'RPBS004'}}
+                    修复失败
+                    {{else}}
+                    待修复
+                    {{/if}}
+                    {{if !ssdrItem.sfzhm}}
+                    ，无身份证
+                    {{/if}}
+                </td>
+                <td width="15%;" style="font-weight: bolder">代收人：</td>
+                <td width="35%;">
+                    {{if ssdrItem.daisr!=null}}
+                    {{ssdrItem.daisr}}
+                    {{/if}}
+                </td>
+            </tr>
+            <tr>
+                <td width="15%;" class="align-middle" style="font-weight: bolder">身份证号码：</td>
+                <td width="35%;" class="align-middle" colspan="3">
+                    <span>{{ssdrItem.sfzhm}}</span>
+                    {{if !(ssdrItem.sfzhm != null && ssdrItem.sfzhm.length == 18)}}
+                    <button type="button" onclick="inputData(this)"
+                            data-hint="{{ssdrItem.ssdrbh}}"
+                            data-index="{{ssdrItem.yysdbh}}"
+                            data-type="INPUT_ID_CARD"
+                            class="btn-submit-repair btn btn-primary"
+                            style="font-size: 12px">添加</button>
+                    {{/if}}
+                </td>
+
+            </tr>
+            <tr>
+                <td width="15%;" class="align-middle" style="font-weight: bolder"> 当事人电话：</td>
+                <td width="35%;" colspan="2">
+                    {{each ssdrItem.pubSsdrHmEntityList hm hmIndex}}
+                    {{if hm.hmly!='CYR'}}
+                    <p style="margin-top: 10px">
+                        【{{hm.hmly,'SYS_HIS_DATA_LY','录入' | _sysCodeToCn}}】{{hm.showTel}}
+                        {{if hm.label == 'disable'}}
+                        【失效】
+                        {{/if}}
+                        {{if isAdmin == 1}}
+                        {{if !hm.hmly}}
+                        <button style="margin: 10px;font-size: 12px" class="btn btn-danger deletePhone" type="button" onclick="deletePhone(this)" data-index={{hm.bh}}>删除</button>
+                        {{/if}}
+                        {{if hm.label == 'disable'}}
+                        <button style="margin: 10px;font-size: 12px" class="btn btn-primary" type="button" onclick="undoMarkHmDisable(this)" data-index={{hm.bh}}>撤销标记</button>
+                        {{else}}
+                        <button style="margin: 10px;font-size: 12px" class="btn btn-warning" type="button" onclick="markHmDisable(this)" data-index={{hm.bh}}>标记失效</button>
+                        {{/if}}
+                        {{/if}}
+                    </p>
+                    {{/if}}
+                    {{/each}}
+                    {{if isAdmin == 1}}
+
+                </td>
+                <td class="align-middle">
+                    <button type="button" onclick="inputData(this)"
+                            data-hint="{{ssdrItem.ssdrbh}}"
+                            data-index="{{ssdrItem.yysdbh}}"
+                            data-type="INPUT_PHONE"
+                            class="btn-submit-repair btn btn-primary" style="font-size: 12px">添加</button>
+                    {{/if}}
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle" style="font-weight: bolder">送达地址：</td>
+                <td colspan="2">
+                    {{each ssdrItem.pubYysdSsdrdzEntityList  addressItem addressIndex}}
+                    <p class="left-align">
+                        【{{addressItem.dzly,'SYS_HIS_DATA_LY','录入' | _sysCodeToCn}}】{{addressItem.dz}}
+                        {{if addressItem.label == 'disable'}}
+                        【失效】
+                        {{/if}}
+                        {{if isAdmin == 1}}
+                        {{if !addressItem.dzly}}
+                        <button style="margin: 10px;font-size: 12px" class="btn btn-danger deletePhone" type="button" onclick="deleteAddress(this)" data-index={{addressItem.bh}}>删除</button>
+                        {{/if}}
+                        {{if addressItem.label == 'disable'}}
+                        <button style="margin: 10px;font-size: 12px" class="btn btn-primary" type="button" onclick="undoMarkDzDisable(this)" data-index={{addressItem.bh}}>撤销标记</button>
+                        {{else}}
+                        <button style="margin: 10px;font-size: 12px" class="btn btn-warning" type="button" onclick="markDzDisable(this)" data-index={{addressItem.bh}}>标记失效</button>
+                        {{/if}}
+                        {{/if}}
+                    </p>
+                    {{/each}}
+                </td>
+                <td width="15%" class="align-middle">
+                    {{if isAdmin == 1}}
+                    <button type="button" onclick="inputData(this)"
+                            data-hint="{{ssdrItem.ssdrbh}}"
+                            data-index="{{ssdrItem.yysdbh}}"
+                            data-type="INPUT_ADDRESS"
+                            class="btn-submit-repair btn btn-primary" style="font-size: 12px">添加</button>
+                    {{/if}}
+                </td>
+            </tr>
+            <tr>
+
+            </tr>
+            {{each gdxqxx.qtsscyr cyrItem i}}
+            {{if cyrItem.ssdrbh ==  ssdrItem.ssdrbh}}
+            <tr><td style="color:rgb(0,169,238);font-weight: bolder" colspan="4">其他诉讼参与人:</td></tr>
+            <tr>
+                <td width="15%;" style="font-weight: bolder">参与人名称：</td>
+                <td width="35%;">
+                    {{cyrItem.xm}}
+                </td>
+                <td width="15%;" style="font-weight: bolder">参与人类型：</td>
+                <td width="35%;">
+                    {{cyrItem.lx}}
+                </td>
+            </tr>
+            <tr>
+                <td width="15%;" style="font-weight: bolder">参与人工作单位：</td>
+                <td width="35%;">
+                    {{cyrItem.gzdw}}
+                </td>
+                <td width="15%;" style="font-weight: bolder">参与人地址：</td>
+                <td width="35%;">
+                    {{cyrItem.dz}}
+                </td>
+            </tr>
+            <tr>
+                <td width="15%;" style="font-weight: bolder">参与人联系方式：</td>
+                <td width="35%;">
+                    {{cyrItem.dh}}
+                </td>
+                <td width="15%;" style="font-weight: bolder">参与人证件号码：</td>
+                <td width="35%;">
+                    {{cyrItem.sfzhm}}
+                </td>
+            </tr>
+            {{/if}}
+            {{/each}}
+            <tr>
+                <td style="color:rgb(0,169,238);font-size: 16px;font-weight: bold" colspan="4">文书列表:</td>
+            </tr>
+            {{each gdxqxx.ws ws i}}
+            {{if gdxqxx.ws[i].ssdrbh!=null&& gdxqxx.ws[i].ssdrbh ==ssdrItem.ssdrbh  && gdxqxx.ws[i].wsly!=4 }}
+            <tr>
+                <td colspan="2">
+                    {{gdxqxx.ws[i].wslb}}
+                </td>
+                <td colspan="2">
+                    {{gdxqxx.ws[i].wsmc}}
+                    <button class="btn btn-primary" type="button" onclick="download(this)" data-index={{i}} style="font-size: 12px">下载</button>
+                    {{if gdxqxx.ws[i].wsly==2&&(gdxqxx.ws[i].wslybh==196||gdxqxx.ws[i].wslybh==200)}}
+                    <button class="btn btn-primary" type="button" onclick="getJkmStatus(this)" data-index={{i}} style="font-size: 12px">获取缴款码状态</button>
+                    {{/if}}
+                </td>
+            </tr>
+
+            {{/if}}
+            {{/each}}
+            <tr>
+                <td colspan="4"><button class="btn btn-primary" type="button" onclick="plxzws('{{ssdrItem.yysdbh}}','{{ssdrItem.ssdrbh}}')" style="font-size: 12px">打包下载</button>
+                    <button class="btn btn-primary" type="button" onclick="xzAllws('{{ssdrItem.yysdbh}}','{{ssdrItem.ssdrbh}}')" style="font-size: 12px">整案文书下载</button>
+                </td>
+            </tr>
+            {{each gdxqxx.ws ws i}}
+            {{if gdxqxx.ws[i].ssdrbh!=null&& gdxqxx.ws[i].ssdrbh ==ssdrItem.ssdrbh  && gdxqxx.ws[i].wsly==4 }}
+            <tr>
+                <td width="30%;" colspan="2" style="font-weight: bolder">全部线下文书：</td>
+                <td colspan="2">
+                    <div>{{gdxqxx.ws[i].wslb}}</div>
+                </td>
+            </tr>
+            {{/if}}
+            {{/each}}
+            <!--            TODO: 送达文书上传-->
+            <tr>
+                <td style="color:rgb(0,169,238);vertical-align: inherit">线下送达文书上传：</td>
+                <td colspan="3">
+                    <div class="col-md-12" style="margin: 0px;padding: 0px">
+                        <!--                        <div class="col-md-3">文书类型：</div>-->
+                        <!--                        <div class="col-md-3"></div>-->
+                        <!--                        <div class="col-md-3">文件名：</div>-->
+                        <!--                        <div class="col-md-3"></div>-->
+                        <!--                        -->
+                    </div>
+                    <div class="col-md-12" style="margin: 5px;padding: 5px">
+                        <label>文书类型：</label>
+                        <select class="wsType"
+                                style="margin: 5px;width: 40%; background: #fafdfe;height:28px;line-height:28px;border:1px solid #9bc0dd;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;"
+                                data-hint="{{ssdrItem.ssdrbh}}"
+                                data-index="{{ssdrItem.yysdbh}}">
+                            <option value="" hidden>请选择文件类型</option>
+                            <option value="受理案件通知书">受理案件通知书</option>
+                            <option value="应诉通知书(参加诉讼通知书)">应诉通知书(参加诉讼通知书)</option>
+                            <option value="起诉状(反诉状)副本">起诉状(反诉状)副本</option>
+                            <option value="申请书副本">申请书副本</option>
+                            <option value="答辩状副本">答辩状副本</option>
+                            <option value="举证通知书">举证通知书</option>
+                            <option value="诉讼权利义务告知书">诉讼权利义务告知书</option>
+                            <option value="合议庭组成成员通知书">合议庭组成成员通知书</option>
+                            <option value="送达地址确认书">送达地址确认书</option>
+                            <option value="流程告知书">流程告知书</option>
+                            <option value="廉政监督卡">廉政监督卡</option>
+                            <option value="传票">传票</option>
+                            <option value="出庭通知书">出庭通知书</option>
+                            <option value="通知书">通知书</option>
+                            <option value="执行通知书">执行通知书</option>
+                            <option value="报告财产令">报告财产令</option>
+                            <option value="缴纳诉讼费用通知书">缴纳诉讼费用通知书</option>
+                            <option value="调解书">调解书</option>
+                            <option value="裁定书">裁定书</option>
+                            <option value="判决书">判决书</option>
+                            <option value="证据">证据</option>
+                            <option value="上诉状">上诉状</option>
+                            <option value="其他">其他</option>
+                        </select>
+                        <button data-hint="{{ssdrItem.ssdrbh}}"
+                                data-index="{{ssdrItem.yysdbh}}" type="button" class="btn btn-warning btn_clearFiles"
+                                style="margin: 5px;float: right;">清空
+                        </button>
+                        <button data-hint="{{ssdrItem.ssdrbh}}"
+                                data-index="{{ssdrItem.yysdbh}}" type="button" class="btn btn-primary btn_transferFile"
+                                style="margin: 5px;float: right;">上传
+                        </button>
+                        <button data-hint="{{ssdrItem.ssdrbh}}"
+                                data-index="{{ssdrItem.yysdbh}}" type="button" class="btn btn-primary btn_chooseFile"
+                                style="margin: 5px;float: right;">选择文件
+                        </button>
+                    </div>
+                    <!--                    <hr style="border: #00FFFF 1px"/>-->
+                    <!--                    <div class="col-md-12" style="border: #00FFFF 1px;margin: 5px;padding: 5px">-->
+                    <!--                        <div class="col-md-6" style="text-align: center">文书类型</div>-->
+                    <!--                        <div class="col-md-6" style="text-align: center">文书名称</div>-->
+                    <!--                    </div>-->
+                </td>
+            </tr>
+            <!--            <tr>-->
+            <!--            </tr>-->
+        </table>
+        {{/each}}
+        {{if gdxqxx.jb.yysdbh < 0}}
+        <blockquote align="center" class="quote" style="font-size: 18px;font-family: 华文中宋;font-weight: bolder">线上送达文书</blockquote>
+        <table align="center" style="width: 80%" class="table table-hover">
+            <tbody>
+            {{each gdxqxx.ws ws i}}
+            {{if gdxqxx.ws[i].wsly!=4}}
+            <tr>
+                <td>{{gdxqxx.ws[i].wslb}}</td>
+                <td>{{gdxqxx.ws[i].wsmc}}</td>
+                <td>
+                    <button class="btn btn-primary" type="button" onclick="download(this)" data-index={{i}}>下载</button>
+                    {{if gdxqxx.ws[i].wsly==2&&(gdxqxx.ws[i].wslybh==196||gdxqxx.ws[i].wslybh==200)}}
+                    <button class="btn btn-primary" type="button" onclick="getJkmStatus(this)" data-index={{i}}>获取缴款码状态</button>
+                    {{/if}}
+                </td>
+            </tr>
+            {{/if}}
+            {{/each}}
+            </tbody>
+        </table>
+        <blockquote align="center" class="quote" style="font-size: 18px;font-family: 华文中宋;font-weight: bolder">线下送达文书</blockquote>
+        <table align="center" style="width: 80%">
+            <tbody>
+            {{each gdxqxx.ws value i}}
+            {{if gdxqxx.ws[i].wsly==4}}
+            <tr>
+                <td>{{gdxqxx.ws[i].wslb}}</td>
+                <td>{{gdxqxx.ws[i].xxdz}}</td>
+            </tr>
+            {{/if}}
+            {{/each}}
+            </tbody>
+        </table>
+        {{/if}}
+    </div>
+
+</script>

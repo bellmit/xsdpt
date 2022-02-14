@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>法官-主页</title>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+<!--    <script src="/bootstrap/js/bootstrap.min.js"></script>-->
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/common.js?v=2.1"></script>
+    <script language="JavaScript">
+        if(window.screen.width<=1280){
+            document.write("<link rel=\"stylesheet\" href=\"/css/wdds1280.css?v=1.2\">")
+        }
+        if(window.screen.width>1640){
+            document.write("<link rel=\"stylesheet\" href=\"/css/wdds.css?v=1.2\">")
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="fixed-top">
+            <!-- <div class="d-flex justify-content-around" style="padding-top: 0.3%;">
+                <div style="padding-top: 0.8%;padding-left: 0.2%;">LOGO</div>
+                <div style="width: 51%;"></div>
+                <div style="color: white;padding-left: 35px;">欢迎您 XXX|登录登出</div>
+            </div> -->
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #027bf0;">
+                <div style="margin-left: 4%;width: 30%;">
+                    <img src="../img/fh.png" style="width: 10%;height: 10.5%;">
+                    <span class="align-middle topnav" style="padding-left: 1%;font-size: 16px" id="current_fymc">天津市高级人民法院</span>
+                </div>
+                <ul class="nav justify-content-center" style="margin-left:8%;width: 50%;">
+                    <li class="nav-item topnav">
+                        <div class="nav-link">
+                            <button id="my_songda"  type="button" class="btn btn-default indexLogout"
+                                    style="font-size:18px;color:white; border-radius:20px;background-color: transparent;float: right;padding: 0px">
+                                我的送达
+                            </button>
+                        </div>
+                    </li>
+                    <li class="nav-item topnav">
+                        <div class="nav-link">
+                            <button id="sjtj"  type="button" class="btn btn-default indexLogout"
+                                    style="font-size:18px;color:white; border-radius:20px;background-color: transparent;float: right;padding: 0px">
+                                数据统计
+                            </button>
+                        </div>
+                    </li>
+<!--                    <li class="nav-item topnav">-->
+<!--                        <div class="nav-link" style="font-size:18px">-->
+<!--                            <button id="reportData" type="button" class="btn btn-default indexLogout"-->
+<!--                                    style="font-size:18px;color:white; border-radius:20px;background-color: transparent;float: right;padding: 0px">-->
+<!--                                数据统计-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </li>-->
+                    <li class="nav-item topnav">
+                        <div class="nav-link" style="font-size:18px">
+                            <button id="lssd" type="button" class="btn btn-default indexLogout"
+                                    style="font-size:18px;color:white; border-radius:20px;background-color: transparent;float: right;padding: 0px">
+                                历史送达
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <div style="width: 45%;">
+                    <div class="float-right topnav" style="font-size:18px;">
+                        欢迎您
+                        <span id="judge_name"></span>
+                        <span>法官</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <button id="logout"  type="button" class="btn btn-default indexLogout"
+                                style="color:white; border-radius:20px;background-color: transparent;float: right;padding: 0px">退出系统
+                        </button>
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div>
+            <div align="center" class="title">
+                <span style="font-size: 36px;font-family: 华文中宋;">送达数</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="songda_sum" style="font-size: 36px;font-family: Times New Roman;color: #ff6c00;font-weight: bolder;">4532</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="font-size: 36px;">|</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="font-size: 36px;font-family: 华文中宋;">送达完成数</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="already_songda_sum" style="font-size: 36px;font-family: Times New Roman;color: #ff6c00;font-weight: bolder;">4532</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+        <div class="d-flex bd-highlight left1">
+            <div class="align-self-center left-col1">
+                <!-- <div class="float-none align-bottom">women</div> -->
+                <!-- <img src="../img/dhsd_mid.png" style="height: 75%;width: 75%;"> -->
+                <div style="margin:6%">
+                    <div id="dh_sdaj" class="number">125</div>
+                    <div class="text">送达案件</div>
+                    <div id="dh_sdrs" class="number">125</div>
+                    <div class="text">送达人数</div>
+                </div>
+            </div>
+            <div class="align-self-center left-col2" style="">
+                <!-- <div class="float-none align-bottom">women</div> -->
+                <!-- <img src="../img/dzsd_mid.png" style="height: 75%;width: 75%;"> -->
+                <div style="margin:6%">
+                    <div id="dz_sdaj" class="number">125</div>
+                    <div class="text">送达案件</div>
+                    <div id="dz_sdrs" class="number">125</div>
+                    <div class="text">送达人数</div>
+                </div>
+            </div>
+            <div class="align-self-center left-col3" style="">
+                <!-- <div class="float-none align-bottom">women</div> -->
+                <!-- <img src="../img/emssd_mid.png" style="height: 75%;width: 75%;"> -->
+                <div style="margin:6%">
+                    <div id="ems_sdaj" class="number">125</div>
+                    <div class="text">送达案件</div>
+                    <div id="ems_sdrs" class="number">125</div>
+                    <div class="text">送达人数</div>
+                </div>
+            </div>
+            <div class="align-self-center left-col4" style="">
+                <!-- <div class="float-none align-bottom">women</div> -->
+                <!-- <img src="../img/ggsd_mid.png" style="height: 75%;width: 75%;"> -->
+                <div style="margin:6%">
+                    <div id="gg_sdaj" class="number">125</div>
+                    <div class="text">送达案件</div>
+                    <div id="gg_sdrs" class="number">125</div>
+                    <div class="text">送达人数</div>
+                </div>
+            </div>
+            <div class="align-self-center left-col5" style="">
+                <!-- <div class="float-none align-bottom">women</div> -->
+                <!-- <img src="../img/zjsd_mid.png" style="height: 75%;width: 75%;"> -->
+                <div style="margin:6%">
+                    <div id="zhj_sdaj" class="number">125</div>
+                    <div class="text">送达案件</div>
+                    <div span id="zhj_sdrs" class="number">125</div>
+                    <div class="text">送达人数</div>
+                </div>
+            </div>
+            <div class="align-self-center left-col6" style="">
+                <!-- <div class="float-none align-bottom">women</div> -->
+                <!-- <img src="../img/lylq_mid.png" style="height: 75%;width: 75%;"> -->
+                <div style="margin:6%">
+                    <div id="lylq_sdaj" class="number">125</div>
+                    <div class="text">送达案件</div>
+                    <div id="lylq_sdrs" class="number">125</div>
+                    <div class="text">送达人数</div>
+                </div>
+            </div>
+            <div class="align-self-center left-col7" style="">
+                <!-- <div class="float-none align-bottom">women</div> -->
+                <!-- <img src="../img/wtsd_mid.png" style="height: 75%;width: 75%;"> -->
+                <div style="margin:6%">
+                    <div id="wt_sdaj" class="number">125</div>
+                    <div  class="text">送达案件</div>
+                    <div id="wt_sdrs" class="number">125</div>
+                    <div class="text">送达人数</div>
+                </div>
+            </div>
+            <div class="align-self-center left-col8" style="">
+                <!-- <div class="float-none align-bottom">women</div> -->
+                <!-- <img src="../img/zhjsd_mid.png" style="height: 75%;width: 75%;"> -->
+                <div style="margin:6%">
+                    <div id="zj_sdaj" class="number">125</div>
+                    <div class="text">送达案件</div>
+                    <div id="zj_sdrs" class="number">125</div>
+                    <div class="text">送达人数</div>
+                </div>
+            </div>
+            <div class="align-self-center left-col9" style="">
+                <!-- <div class="float-none align-bottom">women</div> -->
+                <!-- <img src="../img/dxsd_mid.png" style="height: 75%;width: 75%;"> -->
+                <div style="margin:6%">
+                    <div id="dxtz_sdaj" class="number">125</div>
+                    <div class="text">送达案件</div>
+                    <div id="dxtz_sdrs" class="number">125</div>
+                    <div class="text">送达人数</div>
+                </div>
+            </div>
+        </div>
+        <div class="fixed-bottom">
+<!--            <div class="d-flex justify-content-center" style="padding:2.5em 0.1em 1.2em 0.1em">-->
+<!--                <img id="my_songda" class="wdsd" src="../img/我的送达.png">-->
+<!--            </div>-->
+            <div class="row" style="padding:2.6em 0.1em 3em 0.1em">
+                <div class="col-xs-6 col-md-4">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <div class="d-flex justify-content-center">
+                                <img id="dh_songda" class="icon" src="../img/dhsd.png">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <div class="d-flex justify-content-center">
+                                <img class="icon" src="../img/dzsd.png">
+                            </div>
+
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <div class="d-flex justify-content-center">
+                                <img id="ems_songda" class="icon" src="../img/emssd.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <div class="d-flex justify-content-center">
+                                <img class="icon" src="../img/ggsd.png">
+                            </div>
+
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <div class="d-flex justify-content-center">
+                                <img id="zhijie_songda" class="icon" src="../img/zjsd.png">
+                            </div>
+
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <div class="d-flex justify-content-center">
+                                <img id="lylq_songda" class="icon" src="../img/lylq.png">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <div class="d-flex justify-content-center">
+                                <img class="icon" src="../img/wtsd.png">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <div class="d-flex justify-content-center">
+                                <img class="icon" src="../img/zhjsd.png">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <div class="d-flex justify-content-center">
+                                <img id="dxtz_songda" class="icon" src="../img/dxsd.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="/js/fg/fgIndex.js?v=1.143"></script>
+</body>
+
+</html>

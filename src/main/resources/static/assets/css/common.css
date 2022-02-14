@@ -1,0 +1,82 @@
+body {
+  padding: 70px 0 20px;
+}
+
+.side-nav {
+  width: 320px;
+  position: fixed;
+  left: 0;
+  top: 50px;
+  bottom: 0;
+  border-right: 1px solid #ddd;
+  overflow: hidden auto;
+}
+.side-nav .side-nav-link {
+  position: relative;
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 35px;
+  font-size: 14px;
+  display: block;
+  color: #555;
+}
+.side-nav .side-nav-link:hover {
+  text-decoration: none;
+  background-color: #eee;
+}
+.side-nav .side-nav-link.active {
+  color: #337ab7;
+  background-color: #f0faff;
+}
+.side-nav .side-nav-link.active:after {
+  content: "";
+  display: block;
+  width: 2px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: #337ab7;
+}
+.side-nav .side-nav-link .step {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 30px;
+  margin: auto;
+}
+.side-nav .side-nav-link .step-btn {
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid #b5b7ba;
+  color: #b5b7ba;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: transparent;
+  line-height: 26px;
+}
+.side-nav .side-nav-link.active .step-btn {
+  border-color: #337ab7;
+  color: #337ab7;
+}
+.side-nav .side-nav-link .title {
+  padding: 20px 0 20px 40px;
+  font-size: 14px;
+  word-break: break-all;
+}
+.main-view {
+  margin-left: 320px;
+}
+
+.card {
+  margin: 0 10px;
+  padding: 20px 60px 40px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  border-radius: 2px;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+}

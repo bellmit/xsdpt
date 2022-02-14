@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>直接送达列表</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+</head>
+<body>
+
+<div style="width: 100%;height: 80px;background-color: rgb(0,169,238)">
+    <div style="padding-top: 10px;padding-left: 30px;">
+        <div style="float: left">
+            <img  src="/css/img/mySd_fahui.png" height="50px" width="50px" style="margin-top: 5px">
+        </div>
+        <div style="float: left;padding-top: 10px;padding-bottom: 5px;margin-left: 10px;">
+            <div style="color: white;font-size: 30px;" id="current_fymc">天津市高级人民法院</div>
+        </div>
+
+        <div  id="logout" class="headLogout"><img src="/css/img/mySD_tuichu.jpg" height="30px" width="100px"> </div>
+        <div style="margin-right: 100px">
+            <div id="userName"  style="color: white;font-size: 15px;margin-top: 20px;float: right;">
+            </div>
+            <div  style="color: white;font-size: 15px;margin-top: 20px;float: right;">欢迎 &nbsp; ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div style="float: right">
+            <img  src="/css/img/mySd_fahui.png" id="circle" width="50px" height="50px" style="margin-right: 20px;margin-top: 5px">
+        </div>
+    </div>
+</div>
+<div style="background-color: rgb(245,245,245);min-height: 60px">
+    <div style="float: left">
+        <img src="/css/img/mySd_index.png">
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5>&nbsp;&nbsp;当前位置：首页 - &nbsp;&nbsp; </h5>
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5 style="color: rgb(0,169,238)">直接送达列表</h5>
+    </div>
+<!--    <div class="input-group" style="float: right">-->
+<!--        <div >-->
+<!--            <form class="bs-example bs-example-form" role="form">-->
+<!--                <div class="input-group"style="margin-top: 15px">-->
+<!--                    <input type="text" class="form-control"height="30px" placeholder="站内搜索">-->
+<!--                    <span class="input-group-addon" style="background-color: rgb(221,221,221)"><img src="/css/img/search_icon.png" height="20px" width="20px"></span>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 20px;background-color: white;min-height: 500px">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div style="margin-top: 10px;min-height: 35px">
+        <div style="float: left;margin-left: 20px">
+            直接送达列表
+        </div>
+        <div style="margin-left: 20px;float: left;">
+            <select style="width: 100px; height: 35px;" id="select_zj_state">
+                <option value="0">全部</option>
+                <option value="1">妥投</option>
+                <option value="2">拒收</option>
+                <option value="3">本人签收</option>
+            </select>
+        </div>
+        <div id="return_main" style="float: right;margin-right: 10px"><img src="/css/img/return_icon.png" width="60px" height="24px"></div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped table-condensed" id="zjsd_table">
+            <thead>
+            <tr>
+                <th style="text-align: center;width:5% ">送达编号</th>
+                <th style="text-align: center;width:10%">案号</th>
+                <th style="text-align: center;width:10%">被送达人</th>
+                <th style="text-align: center;width:10%">送达地址</th>
+                <th style="text-align: center;width:10%">上门时间</th>
+                <th style="text-align: center;width:10%">送达过程记录</th>
+                <th style="text-align: center;width:10%">备注</th>
+                <th style="text-align: center;width:10%">签收结果</th>
+                <th style="text-align: center;width:10%">送达回执</th>
+                <th style="text-align: center;width:10%">操作</th>
+                <th style="text-align: center;width:10%">文件上传</th>
+
+            </tr>
+            </thead>
+            <tbody id="zjsd_tbody">
+            </tbody>
+        </table>
+    </div>
+</div>
+<script id="zjsd_td_body" type="text/html">
+    {{if isAdmin}}
+    {{each list value i}}
+    <tr>
+        <td style="text-align: center">{{list[i].yysdbh}}</td>
+        <td>{{list[i].ah}}</td>
+        <td>{{list[i].ssdrmc}}</td>
+        <td>{{list[i].sddz}}</td>
+        <td>{{list[i].smsjStr}}</td>
+        <td>
+            {{if list[i].sdgcjl}}
+            <button data-hint="{{list[i].zjsdbh}}" class="btn btn-primary look_zjsdjl" type="button">查看</button>
+            {{else}}
+            暂无
+            {{/if}}
+        </td>
+        <td>{{list[i].remark}}</td>
+        <td>
+            {{if list[i].qszt==null}}
+                暂无
+            {{else if list[i].qszt==1}}
+                妥投
+            {{else if list[i].qszt==2}}
+                拒收
+            {{else if list[i].qszt==3}}
+                本人签收
+            {{/if}}
+        </td>
+        <td>
+            {{if list[i].sdhz}}
+            <button data-hint="{{list[i].zjsdbh}}" class="btn btn-primary look_zjsdhz" type="button">查看</button>
+            {{else}}
+            <button data-hint="{{list[i].zjsdbh}}" class="btn btn-primary upload_zjsdhz" lay-data="{url: '/zjsd/uploadFile',data: {zjsdbh: {{list[i].zjsdbh}} }}" type="button">上传</button>
+            {{/if}}
+        </td>
+        <td>
+            {{if list[i].zjsdjg==1}}
+            送达成功
+            {{else if list[i].zjsdjg==2}}
+            送达失败
+            {{else}}
+            <button data-hint="{{list[i].zjsdbh}}" onclick="sdjg(this)" class="btn btn-primary edit-sdjg"
+                    type="button">结果</button>
+            {{/if}}
+        </td>
+        {{if list[i].sfscwj == 'Y'}}
+        <td><button class="btn btn-primary" type="button" onclick="downloadWj(this)" data-index={{i}}>下载</button>
+            <button class="btn btn-primary secondUploadWj" type="button" onclick="cxscWj(this)" data-index={{i}}>重新上传</button>
+        </td>
+        {{else}}
+        <td><button class="btn btn-primary uploadWj" id="scwj" type="button" onclick="scWj(this)" data-index={{i}}>上传</button></td>
+        {{/if}}
+    </tr>
+    {{/each}}
+    {{/if}}
+</script>
+<style>
+    #circle{
+        border-radius: 50%;      -moz-border-radius: 50%;      -webkit-border-radius: 50%;
+    }
+    body{
+        background-color: rgb(241,241,241);
+    }
+    .add-lylq-form{
+        width: 400px;
+    }
+    .col-sm-2{
+        padding-left: 0px !important;
+    }
+    .cus-required:before{
+        content: "*";
+        color: red;
+    }
+    .lylq-yysj-input{
+        background-color: white !important;
+    }
+    .dxmb-param.form-control{
+        display: inline;
+        width: auto;
+        margin-top: 5px;
+    }
+</style>
+<script src="/js/gd/zjsdList.js?v=1.01"></script>
+</body>
+</html>
+

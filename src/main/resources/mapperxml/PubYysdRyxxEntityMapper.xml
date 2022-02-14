@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubYysdRyxxEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubYysdRyxxEntity">
+    <constructor>
+      <idArg column="yhbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yhdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yhkl" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yhmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yhjs" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="seatnumber" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="entryshow" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="cuccshow" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="cmccshow" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="seatid" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zhid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fybh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lxdh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wwempid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    yhbh, yhdm, yhkl, yhmc, yhjs, seatnumber, entryshow, cuccshow, cmccshow, seatid, 
+    zhid, fybh, lxdh, wwempid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_yysd_ryxx
+    where yhbh = #{yhbh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_yysd_ryxx
+    where yhbh = #{yhbh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubYysdRyxxEntity">
+    <selectKey keyProperty="yhbh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_yysd_ryxx_yhbh_seq'::regclass)
+    </selectKey>
+    insert into pub_yysd_ryxx (yhbh, yhdm, yhkl, 
+      yhmc, yhjs, seatnumber, 
+      entryshow, cuccshow, cmccshow, 
+      seatid, zhid, fybh, 
+      lxdh, wwempid)
+    values (#{yhbh,jdbcType=INTEGER}, #{yhdm,jdbcType=VARCHAR}, #{yhkl,jdbcType=VARCHAR}, 
+      #{yhmc,jdbcType=VARCHAR}, #{yhjs,jdbcType=VARCHAR}, #{seatnumber,jdbcType=VARCHAR}, 
+      #{entryshow,jdbcType=VARCHAR}, #{cuccshow,jdbcType=VARCHAR}, #{cmccshow,jdbcType=VARCHAR}, 
+      #{seatid,jdbcType=VARCHAR}, #{zhid,jdbcType=INTEGER}, #{fybh,jdbcType=VARCHAR}, 
+      #{lxdh,jdbcType=VARCHAR}, #{wwempid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubYysdRyxxEntity">
+    <selectKey keyProperty="yhbh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_yysd_ryxx_yhbh_seq'::regclass)
+    </selectKey>
+    insert into pub_yysd_ryxx
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      yhbh,
+      <if test="yhdm != null">
+        yhdm,
+      </if>
+      <if test="yhkl != null">
+        yhkl,
+      </if>
+      <if test="yhmc != null">
+        yhmc,
+      </if>
+      <if test="yhjs != null">
+        yhjs,
+      </if>
+      <if test="seatnumber != null">
+        seatnumber,
+      </if>
+      <if test="entryshow != null">
+        entryshow,
+      </if>
+      <if test="cuccshow != null">
+        cuccshow,
+      </if>
+      <if test="cmccshow != null">
+        cmccshow,
+      </if>
+      <if test="seatid != null">
+        seatid,
+      </if>
+      <if test="zhid != null">
+        zhid,
+      </if>
+      <if test="fybh != null">
+        fybh,
+      </if>
+      <if test="lxdh != null">
+        lxdh,
+      </if>
+      <if test="wwempid != null">
+        wwempid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{yhbh,jdbcType=INTEGER},
+      <if test="yhdm != null">
+        #{yhdm,jdbcType=VARCHAR},
+      </if>
+      <if test="yhkl != null">
+        #{yhkl,jdbcType=VARCHAR},
+      </if>
+      <if test="yhmc != null">
+        #{yhmc,jdbcType=VARCHAR},
+      </if>
+      <if test="yhjs != null">
+        #{yhjs,jdbcType=VARCHAR},
+      </if>
+      <if test="seatnumber != null">
+        #{seatnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="entryshow != null">
+        #{entryshow,jdbcType=VARCHAR},
+      </if>
+      <if test="cuccshow != null">
+        #{cuccshow,jdbcType=VARCHAR},
+      </if>
+      <if test="cmccshow != null">
+        #{cmccshow,jdbcType=VARCHAR},
+      </if>
+      <if test="seatid != null">
+        #{seatid,jdbcType=VARCHAR},
+      </if>
+      <if test="zhid != null">
+        #{zhid,jdbcType=INTEGER},
+      </if>
+      <if test="fybh != null">
+        #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="lxdh != null">
+        #{lxdh,jdbcType=VARCHAR},
+      </if>
+      <if test="wwempid != null">
+        #{wwempid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubYysdRyxxEntity">
+    update pub_yysd_ryxx
+    <set>
+      <if test="yhdm != null">
+        yhdm = #{yhdm,jdbcType=VARCHAR},
+      </if>
+      <if test="yhkl != null">
+        yhkl = #{yhkl,jdbcType=VARCHAR},
+      </if>
+      <if test="yhmc != null">
+        yhmc = #{yhmc,jdbcType=VARCHAR},
+      </if>
+      <if test="yhjs != null">
+        yhjs = #{yhjs,jdbcType=VARCHAR},
+      </if>
+      <if test="seatnumber != null">
+        seatnumber = #{seatnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="entryshow != null">
+        entryshow = #{entryshow,jdbcType=VARCHAR},
+      </if>
+      <if test="cuccshow != null">
+        cuccshow = #{cuccshow,jdbcType=VARCHAR},
+      </if>
+      <if test="cmccshow != null">
+        cmccshow = #{cmccshow,jdbcType=VARCHAR},
+      </if>
+      <if test="seatid != null">
+        seatid = #{seatid,jdbcType=VARCHAR},
+      </if>
+      <if test="zhid != null">
+        zhid = #{zhid,jdbcType=INTEGER},
+      </if>
+      <if test="fybh != null">
+        fybh = #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="lxdh != null">
+        lxdh = #{lxdh,jdbcType=VARCHAR},
+      </if>
+      <if test="wwempid != null">
+        wwempid = #{wwempid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where yhbh = #{yhbh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubYysdRyxxEntity">
+    update pub_yysd_ryxx
+    set yhdm = #{yhdm,jdbcType=VARCHAR},
+      yhkl = #{yhkl,jdbcType=VARCHAR},
+      yhmc = #{yhmc,jdbcType=VARCHAR},
+      yhjs = #{yhjs,jdbcType=VARCHAR},
+      seatnumber = #{seatnumber,jdbcType=VARCHAR},
+      entryshow = #{entryshow,jdbcType=VARCHAR},
+      cuccshow = #{cuccshow,jdbcType=VARCHAR},
+      cmccshow = #{cmccshow,jdbcType=VARCHAR},
+      seatid = #{seatid,jdbcType=VARCHAR},
+      zhid = #{zhid,jdbcType=INTEGER},
+      fybh = #{fybh,jdbcType=VARCHAR},
+      lxdh = #{lxdh,jdbcType=VARCHAR},
+      wwempid = #{wwempid,jdbcType=INTEGER}
+    where yhbh = #{yhbh,jdbcType=INTEGER}
+  </update>
+</mapper>

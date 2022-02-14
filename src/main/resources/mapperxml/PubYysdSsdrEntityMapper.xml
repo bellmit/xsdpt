@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubYysdSsdrEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubYysdSsdrEntity">
+    <constructor>
+      <idArg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ssdrssdw" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sfzhm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="repairbatchno" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="repairstatus" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="daisr" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sdjg" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sfqssddzqrs" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sftydzsd" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="wsnum" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <resultMap id="SsdrVOResultMap" type="com.nju.sdpt.viewobject.SsdrVO">
+    <result property="yysdbh" column="YYSDBH" jdbcType="INTEGER"/>
+    <result property="ssdrbh" column="SSDRBH" jdbcType="INTEGER"/>
+    <result property="ssdrmc" column="SSDRMC" jdbcType="VARCHAR"/>
+    <result property="sdzt" column="SDZT" jdbcType="VARCHAR"/>
+    <result property="sfqsqrs" column="SFQSSDDZQRS" jdbcType="VARCHAR"/>
+    <result property="sftydzsd" column="SFTYDZSD" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ssdrbh, yysdbh, ssdrmc, ssdrssdw, sfzhm, repairbatchno, repairstatus, daisr, sdjg,
+    sfqssddzqrs, sftydzsd, wsnum
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.nju.sdpt.entity.PubYysdSsdrEntityKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pub_yysd_ssdr
+    where ssdrbh = #{ssdrbh,jdbcType=INTEGER}
+    and yysdbh = #{yysdbh,jdbcType=INTEGER}
+  </select>
+
+  <select id="getSsdrHms" resultType="com.nju.sdpt.entity.SsdrHmEntity">
+select ssdr.yysdbh,ssdr.ssdrbh,ssdr.ssdrmc,
+       (CASE
+           WHEN ssdr.sfzhm IS NULL THEN ''
+           ELSE ssdr.sfzhm
+           END
+           ) as sfzhm,
+       (
+           CASE
+               WHEN hm.show_tel IS NULL THEN ''
+           ELSE hm.show_tel
+           END
+           ) as hm
+from pub_yysd_ssdr ssdr left join pub_ssdr_hm hm on ssdr.yysdbh=hm.yysdbh and ssdr.ssdrbh=hm.ssdrbh
+where ssdr.yysdbh=#{YYSDBH}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.nju.sdpt.entity.PubYysdSsdrEntityKey">
+    delete from pub_yysd_ssdr
+    where ssdrbh = #{ssdrbh,jdbcType=INTEGER}
+      and yysdbh = #{yysdbh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubYysdSsdrEntity">
+    insert into pub_yysd_ssdr (ssdrbh, yysdbh, ssdrmc,
+      ssdrssdw, sfzhm, repairbatchno,
+      repairstatus, daisr, sdjg,
+      sfqssddzqrs, sftydzsd, wsnum)
+    values (#{ssdrbh,jdbcType=INTEGER}, #{yysdbh,jdbcType=INTEGER}, #{ssdrmc,jdbcType=VARCHAR},
+      #{ssdrssdw,jdbcType=VARCHAR}, #{sfzhm,jdbcType=VARCHAR}, #{repairbatchno,jdbcType=VARCHAR},
+      #{repairstatus,jdbcType=VARCHAR}, #{daisr,jdbcType=VARCHAR}, #{sdjg,jdbcType=INTEGER},
+      #{sfqssddzqrs,jdbcType=INTEGER}, #{sftydzsd,jdbcType=INTEGER}, #{wsnum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubYysdSsdrEntity">
+    insert into pub_yysd_ssdr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ssdrbh != null">
+        ssdrbh,
+      </if>
+      <if test="yysdbh != null">
+        yysdbh,
+      </if>
+      <if test="ssdrmc != null">
+        ssdrmc,
+      </if>
+      <if test="ssdrssdw != null">
+        ssdrssdw,
+      </if>
+      <if test="sfzhm != null">
+        sfzhm,
+      </if>
+      <if test="repairbatchno != null">
+        repairbatchno,
+      </if>
+      <if test="repairstatus != null">
+        repairstatus,
+      </if>
+      <if test="daisr != null">
+        daisr,
+      </if>
+      <if test="sdjg != null">
+        sdjg,
+      </if>
+      <if test="sfqssddzqrs != null">
+        sfqssddzqrs,
+      </if>
+      <if test="sftydzsd != null">
+        sftydzsd,
+      </if>
+      <if test="wsnum != null">
+        wsnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ssdrbh != null">
+        #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="yysdbh != null">
+        #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrmc != null">
+        #{ssdrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="ssdrssdw != null">
+        #{ssdrssdw,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzhm != null">
+        #{sfzhm,jdbcType=VARCHAR},
+      </if>
+      <if test="repairbatchno != null">
+        #{repairbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="repairstatus != null">
+        #{repairstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="daisr != null">
+        #{daisr,jdbcType=VARCHAR},
+      </if>
+      <if test="sdjg != null">
+        #{sdjg,jdbcType=INTEGER},
+      </if>
+      <if test="sfqssddzqrs != null">
+        #{sfqssddzqrs,jdbcType=INTEGER},
+      </if>
+      <if test="sftydzsd != null">
+        #{sftydzsd,jdbcType=INTEGER},
+      </if>
+      <if test="wsnum != null">
+        #{wsnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubYysdSsdrEntity">
+    update pub_yysd_ssdr
+    <set>
+      <if test="ssdrmc != null">
+        ssdrmc = #{ssdrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="ssdrssdw != null">
+        ssdrssdw = #{ssdrssdw,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzhm != null">
+        sfzhm = #{sfzhm,jdbcType=VARCHAR},
+      </if>
+      <if test="repairbatchno != null">
+        repairbatchno = #{repairbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="repairstatus != null">
+        repairstatus = #{repairstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="daisr != null">
+        daisr = #{daisr,jdbcType=VARCHAR},
+      </if>
+      <if test="sdjg != null">
+        sdjg = #{sdjg,jdbcType=INTEGER},
+      </if>
+      <if test="sfqssddzqrs != null">
+        sfqssddzqrs = #{sfqssddzqrs,jdbcType=INTEGER},
+      </if>
+      <if test="sftydzsd != null">
+        sftydzsd = #{sftydzsd,jdbcType=INTEGER},
+      </if>
+      <if test="wsnum != null">
+        wsnum = #{wsnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ssdrbh = #{ssdrbh,jdbcType=INTEGER}
+    and yysdbh = #{yysdbh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubYysdSsdrEntity">
+    update pub_yysd_ssdr
+    set ssdrmc = #{ssdrmc,jdbcType=VARCHAR},
+      ssdrssdw = #{ssdrssdw,jdbcType=VARCHAR},
+      sfzhm = #{sfzhm,jdbcType=VARCHAR},
+      repairbatchno = #{repairbatchno,jdbcType=VARCHAR},
+      repairstatus = #{repairstatus,jdbcType=VARCHAR},
+      daisr = #{daisr,jdbcType=VARCHAR},
+      sdjg = #{sdjg,jdbcType=INTEGER},
+      sfqssddzqrs = #{sfqssddzqrs,jdbcType=INTEGER},
+      sftydzsd = #{sftydzsd,jdbcType=INTEGER},
+      wsnum = #{wsnum,jdbcType=INTEGER}
+
+    where ssdrbh = #{ssdrbh,jdbcType=INTEGER}
+      and yysdbh = #{yysdbh,jdbcType=INTEGER}
+  </update>
+</mapper>

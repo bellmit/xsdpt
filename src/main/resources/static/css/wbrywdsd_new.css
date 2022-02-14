@@ -1,0 +1,27 @@
+.log{
+    background-image:url('/img/wbrywdsd_background.png');
+    background-size:90% 90%;
+    background-repeat: no-repeat;
+    height: 160px;
+    width: 80px;
+}
+
+.focus{
+    background: linear-gradient(to bottom, #37aaed,#266cf4);
+    border-radius:5px;
+    color: white;
+}
+
+#top{
+    background-image:url('/img/wbrywdsd_top.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+#logo{
+    height: 80%;
+}
+
+td{
+    text-align: center;
+}

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>短信通知列表</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+</head>
+<body>
+
+<script>
+    //动态全局JS版本号  慎用
+    document.write('<script src="/js/main.js?v='+new Date().getTime()+'"><\/script>')
+</script>
+<div style="width: 100%;height: 80px;background-color: rgb(0,169,238)">
+    <div style="padding-top: 10px;padding-left: 30px;">
+        <div style="float: left">
+            <img  src="/css/img/mySd_fahui.png" height="50px" width="50px" style="margin-top: 5px">
+        </div>
+        <div style="float: left;padding-top: 10px;padding-bottom: 5px;margin-left: 10px;">
+            <div style="color: white;font-size: 30px;"id="current_fymc">天津市高级人民法院</div>
+        </div>
+
+        <div  id="logout" class="headLogout"><img src="/css/img/mySD_tuichu.jpg" height="30px" width="100px"> </div>
+        <div style="margin-right: 100px">
+            <div id="userName"  style="color: white;font-size: 15px;margin-top: 20px;float: right;">
+            </div>
+            <div  style="color: white;font-size: 15px;margin-top: 20px;float: right;">欢迎 &nbsp; ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div style="float: right">
+            <img  src="/css/img/mySd_fahui.png" id="circle" width="50px" height="50px" style="margin-right: 20px;margin-top: 5px">
+        </div>
+    </div>
+</div>
+<div style="background-color: rgb(245,245,245);min-height: 60px">
+    <div style="float: left">
+        <img src="/css/img/mySd_index.png">
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5>&nbsp;&nbsp;当前位置：首页 - &nbsp;&nbsp; </h5>
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5 style="color: rgb(0,169,238)">短信通知列表</h5>
+    </div>
+<!--    <div class="input-group" style="float: right">-->
+<!--        <div >-->
+<!--            <form class="bs-example bs-example-form" role="form">-->
+<!--                <div class="input-group"style="margin-top: 15px">-->
+<!--                    <input type="text" class="form-control"height="30px" placeholder="站内搜索">-->
+<!--                    <span class="input-group-addon" style="background-color: rgb(221,221,221)"><img src="/css/img/search_icon.png" height="20px" width="20px"></span>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 20px;background-color: white;min-height: 500px">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div style="margin-top: 10px;min-height: 35px">
+        <div style="float: left;margin-left: 20px">
+            短信通知列表
+            <button id="add_dxtz" class="btn btn-primary" type="button" data-toggle="modal" data-target="#addDxtzModel">新增</button>
+        </div>
+        <button class="btn btn-primary" type="button" onclick="upload_sdjg_pl()">批量上传结果</button>
+        <div id="return_main" style="float: right;margin-right: 10px"><img src="/css/img/return_icon.png" width="60px" height="24px"></div>
+
+    </div>
+    <div>
+        <div style="margin-left: 20px;float: left;">
+            <select style="width: 100px; height: 35px;" id="select_send_state">
+                <option value="">全部</option>
+                <option value="1">发送成功</option>
+                <option value="2">发送失败</option>
+                <option value="0">发送中</option>
+            </select>
+        </div>
+        <div style="margin-left: 20px;float: left;">
+            <select style="width: 100px; height: 35px;" id="select_fwzt_state">
+                <option value="">全部</option>
+                <option value="0">未访问</option>
+                <option value="1">已访问</option>
+                <option value="-1">暂无</option>
+            </select>
+        </div>
+        <div style="float: left;margin-left: 10px;margin-top: 5px;">
+            时间范围选择：
+            <div class="layui-inline">
+                <input type="text" class="layui-input" id="select_time1">
+            </div>
+            至
+            <div class="layui-inline">
+                <input type="text" class="layui-input" id="select_time2">
+            </div>
+        </div>
+        <div style="margin-left: 20px;float: left">
+            <button class="btn btn-primary btm-sm" id=select_range_time>
+                查询
+            </button>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped table-condensed" id="dxtzjbxx_table">
+            <thead>
+            <tr>
+                <th style="text-align: center;width:10% ">
+                    <label>
+                    <input name="pl-checkAll" type="checkbox">
+                    全选
+                    </label>
+                </th>
+                <th style="text-align: center;width:5% ">序号</th>
+                <th style="text-align: center;width:15%">案号</th>
+                <th style="text-align: center;width:10%">当事人</th>
+                <th style="text-align: center;width:10%">下发号码</th>
+                <th style="text-align: center;width:10%">接收号码</th>
+                <th style="text-align: center;width:10%">下发时间</th>
+                <th style="text-align: center;width:10%">短信模板名称</th>
+                <th style="text-align: center;width:10%">短信内容</th>
+                <th style="text-align: center;width:10%">发送状态</th>
+                <th style="text-align: center;width:10%">文书详情</th>
+                <th style="text-align: center;width:10%">访问状态</th>
+                <th style="text-align: center;width:10%">当事人送达结果</th>
+            </tr>
+            </thead>
+            <tbody id="dxtzjbxx_tbody">
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- 新增短信通知记录弹窗 步骤1 -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="addDxtzModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    选择工单
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">工单号：</label>
+                        <div class="col-sm-10">
+                            <select id="dxtz-yysdbh-input" class="form-control selectpicker" data-live-search="true">
+                                <option>请选择工单</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: none" id="sdp" class="form-group">
+                        <label class="col-sm-2 control-label cus-required">当事人：</label>
+                        <div class="col-sm-10">
+                            <select id="dxtz-dsr" class="form-control selectpicker" data-live-search="true">
+                                <option value="0">请选择当事人</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="dxtz-zhuti">
+                            <hr/>
+<!--                            <div class="form-group">-->
+<!--                                <label class="col-sm-2 control-label cus-required">文书类别：</label>-->
+<!--                                <div id="wslbcheckboxdxsd" class="col-sm-9" >-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label cus-required">下发号码：</label>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <th>
+                                        <label>
+                                            <input name="dxtz-tel-checkbox-checkAll" type="checkbox">
+                                            全选
+                                        </label>
+                                    </th>
+                                    <th>来源</th>
+                                    <th>电话</th>
+                                    <th>最新下发状态</th>
+                                    <th>最新访问状态</th>
+                                </thead>
+                                <tbody id="tel-tbody">
+                                </tbody>
+                            </table>
+                            <hr/>
+                        <hr/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label cus-required">立案案由：</label>
+                        </div>
+                        <table class="table table-bordered">
+                            <div class="col-sm-10" id="laay">
+                                <p class="form-control-static"><label class="laay"></label></p>
+                            </div>
+                        </table>
+                        <hr/>
+
+
+
+<!--                        短信模板选择-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label cus-required">短信模板：</label>
+
+                                <div class="col-sm-10">
+                                    <select id="dxtz-dxmb-input" class="form-control">
+                                        <option>请选择短信模板</option>
+                                        <option value="1">测试模板</option>
+                                    </select>
+                                </div>
+                            </div>
+<!--                        短信模板参数填充动态表单-->
+                            <div id="dxtz-param">
+                                <hr/>
+<!--                                短信通知模板填充部分-->
+                                <div id="dxtz-mbtc">
+                                </div>
+                            </div>
+
+                        <div style="background-color: rgb(245,245,245);min-height: 60px">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label cus-required">短信预览：</label>
+
+                        </div>
+                        <table class="table table-bordered">
+                            <div id="dxtz-mbtc1">
+                            </div>
+                        </table>
+                        </div>
+
+                    </div>
+                </form>
+                <div style="display: none" id="JZDXLS" class="layui-upload">
+                     <button class="layui-btn layui-btn-normal" id="jzlssj-dx" style="margin-right:20px" onclick="jzlssj()">导入上一次短信记录</button>
+                </div>
+                <div style="display: none" id="uploadFileShow" class="layui-upload">
+                     <button id="uploadFile" class="layui-btn layui-btn-normal" style="margin-top: 20px">上传pdf文件</button>
+                     <button class="layui-btn layui-btn-normal" id="sclj-btn" style="margin-top: 20px" onclick="sclj()">生成链接</button>
+                <p style="color: red">目前支持上传的文件类型：png, gif, jepg, jpg, pdf文件</p>
+                <div class="layui-upload-list">
+                    <table class="layui-table">
+                        <thead>
+                        <tr><th>文件名</th>
+                        <th>操作</th></tr>
+                        </thead>
+                        <tbody id="demoList"></tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <button type="button" class="btn btn-primary" id="sendMSg">
+                    发送短信
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 编辑送达结果 -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="editSdjgModel" tabindex="-1" role="dialog" aria-labelledby="editSdjgModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="editSdjgModalLabel">
+                    选择送达结果
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">送达结果：</label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="selectedSdjg" value="1">送达成功
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="selectedSdjg" value="2">送达失败
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="submit-edit-sdjg">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script id="dxtz_td_body" type="text/html">
+    {{if isAdmin}}
+    {{each list value i}}
+    <tr>
+        <td>
+            {{if list[i].sdjg==1 || list[i].sdjg==2}}
+            <input type="checkbox" value="{{list[i].yysdbh}},{{list[i].dxtzid}}" name="plsc"  disabled="true"/>
+            {{else}}
+            <input type="checkbox" value="{{list[i].yysdbh}},{{list[i].dxtzid}}" name="plsc"/>
+            {{/if}}
+        </td>
+        <td style="text-align: center">{{i+1}}</td>
+        <td>{{list[i].ah}}</td>
+        <td>{{list[i].dsrmc}}</td>
+        <td>{{list[i].shownumber}}</td>
+        <td>{{list[i].webtel}}</td>
+        <td>{{list[i].createtimeStr}}</td>
+        <td>{{list[i].mbmc}}</td>
+        <td>
+            <button data-hint="{{list[i].msgcontent}}"  class="btn btn-primary msgcontent-look" type="button">查看</button>
+        </td>
+        <td>
+
+            {{if list[i].sendstate==1}}
+                发送成功
+            {{else if list[i].sendstate==2}}
+                发送失败
+            {{else}}
+                发送中
+            {{/if}}
+        </td>
+        <td>
+            {{if list[i].ywid}}
+            <button data-hint="{{list[i].dxtzid}}" class="btn btn-primary look_zy" type="button">查看</button>
+            {{else}}
+            暂无
+            {{/if}}
+        </td>
+        <td>
+            {{if list[i].fwzt==0}}
+            未访问
+            {{else if list[i].fwzt==1}}
+            已访问
+            {{else}}
+            暂无
+            {{/if}}
+        </td>
+        <td>
+            {{if list[i].sdjg==1}}
+                送达成功
+            {{else if list[i].sdjg==2}}
+                送达失败
+            {{else}}
+             <button class="btn btn-primary" type="button" onclick="upload_sdjg(this)" data-yysdbh="{{list[i].yysdbh}} "data-dxtzid="{{list[i].dxtzid}}">上传结果</button>
+            {{/if}}
+        </td>
+    </tr>
+    {{/each}}
+    {{/if}}
+</script>
+<script src="/js/gd/dxtzList.js?v=11"></script>
+<style>
+    #circle{
+        border-radius: 50%;      -moz-border-radius: 50%;      -webkit-border-radius: 50%;
+    }
+    body{
+        background-color: rgb(241,241,241);
+    }
+    .add-lylq-form{
+        width: 400px;
+    }
+    .col-sm-2{
+        padding-left: 0px !important;
+    }
+    .cus-required:before{
+        content: "*";
+        color: red;
+    }
+    .dxmb-param.form-control{
+        display: inline;
+        width: auto;
+        margin-top: 5px;
+    }
+    .input-error{
+        border: 1px solid red;
+    }
+    .dxmb-param-fymc{
+        /*border: none;*/
+        padding: 0px;
+        text-align: center;
+    }
+    #circle {
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    body {
+        background-color: rgb(241, 241, 241);
+    }
+
+    #dxtzjbxx_table_filter {
+        float: right;
+        /*margin-right: 100px;*/
+        margin-top:-30px;
+        font-size: 15px;
+    }
+
+    #dxztjbxx_distribute_table_filter {
+        float: right;
+        margin-right: 100px;
+        margin-top:-50px;
+        font-size: 15px;
+    }
+
+    .layui-input {
+        height: 25px;
+    }
+
+    .layui-laydate .layui-this {
+        background-color: #2D93CA !important;
+        color: #fff!important;
+    }
+</style>
+</body>
+<script id="upload_sdjg_html" type="text/html">
+    <div style="margin: 10px 10px 10px 10px">
+        <div class="form-group row">
+            <label class="col-sm-3">送达结果</label>
+            <div class="col-sm-6">
+                <select class="form-control sdjg_select" id="sdjg_select_dxsd">
+                    <option value="1">成功</option>
+                    <option value="2">失败</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">委托方式</label>
+            <div class="col-sm-6">
+                <select  class="select_wtfs form-control" id="select_wtfs_dxsd" data-id="select_wtfs_dxsd"  data-change="select_wtclr_dxsd" onchange="changeWtfs(this)">
+                    <option value=""></option>
+                    <option value="DHSD">电话送达</option>
+                    <option value="DXSD">短信送达</option>
+                    <option value="EMS">邮寄送达</option>
+                    <option value="LYLQ">来院领取</option>
+                    <option value="ZZSD">直接送达</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">委托流转处理人：</label>
+            <div class="col-sm-6">
+                <select  class="form-control select_wtclr" id="select_wtclr_dxsd">
+                </select>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        <div>
+            <button class="layui-btn" onclick="upload_sdjg_dxtz(this)" data-yysdbh="{{yysdbh}}" data-id="{{dxtzid}}" data-type="DXSD">提交</button>
+        </div>
+    </div>
+</script>
+
+<script id="upload_sdjg_pl_html" type="text/html">
+    <div style="margin: 10px 10px 10px 10px">
+        <div class="form-group row">
+            <label class="col-sm-3">送达结果</label>
+            <div class="col-sm-6">
+                <select class="form-control sdjg_select" id="sdjg_select_dxsd_pl">
+                    <option value="1">成功</option>
+                    <option value="2">失败</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">委托方式</label>
+            <div class="col-sm-6">
+                <select  class="select_wtfs form-control" id="select_wtfs_dxsd_pl" data-id="select_wtfs_dxsd_pl"  data-change="select_wtclr_dxsd_pl" onchange="changeWtfspl(this)">
+                    <option value=""></option>
+                    <option value="DHSD">电话送达</option>
+                    <option value="DXSD">短信送达</option>
+                    <option value="EMS">邮寄送达</option>
+                    <option value="LYLQ">来院领取</option>
+                    <option value="ZZSD">直接送达</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">委托流转处理人：</label>
+            <div class="col-sm-6">
+                <select  class="form-control select_wtclr" id="select_wtclr_dxsd_pl">
+                </select>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        <div>
+            <button class="layui-btn" onclick="upload_sdjg_dxtz_pl(this)" data-yysdbh-pl="{{yysdbh}}" data-id-pl="{{dxtzid}}" data-type-pl="DXSD">提交</button>
+        </div>
+    </div>
+</script>
+
+</html>
+

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubRwwtEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubRwwtEntity">
+    <constructor>
+      <idArg column="rwwtid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="wtsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wtrmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="clrmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wtfs" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="clsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="cljg" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    rwwtid, yysdbh, wtsj, ssdrbh, ssdrmc, wtrmc, clrmc, wtfs, clsj, cljg
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_rwwt
+    where rwwtid = #{rwwtid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_rwwt
+    where rwwtid = #{rwwtid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubRwwtEntity">
+    <selectKey keyProperty="rwwtid" order="BEFORE" resultType="java.lang.Integer">
+       select nextval('pub_rwwt_rwwtid_seq'::regclass)
+    </selectKey>
+    insert into pub_rwwt (rwwtid, yysdbh, wtsj, 
+      ssdrbh, ssdrmc, wtrmc, 
+      clrmc, wtfs, clsj, 
+      cljg)
+    values (#{rwwtid,jdbcType=INTEGER}, #{yysdbh,jdbcType=INTEGER}, #{wtsj,jdbcType=TIMESTAMP}, 
+      #{ssdrbh,jdbcType=INTEGER}, #{ssdrmc,jdbcType=VARCHAR}, #{wtrmc,jdbcType=VARCHAR}, 
+      #{clrmc,jdbcType=VARCHAR}, #{wtfs,jdbcType=VARCHAR}, #{clsj,jdbcType=TIMESTAMP}, 
+      #{cljg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubRwwtEntity">
+    <selectKey keyProperty="rwwtid" order="BEFORE" resultType="java.lang.Integer">
+       select nextval('pub_rwwt_rwwtid_seq'::regclass)
+    </selectKey>
+    insert into pub_rwwt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      rwwtid,
+      <if test="yysdbh != null">
+        yysdbh,
+      </if>
+      <if test="wtsj != null">
+        wtsj,
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh,
+      </if>
+      <if test="ssdrmc != null">
+        ssdrmc,
+      </if>
+      <if test="wtrmc != null">
+        wtrmc,
+      </if>
+      <if test="clrmc != null">
+        clrmc,
+      </if>
+      <if test="wtfs != null">
+        wtfs,
+      </if>
+      <if test="clsj != null">
+        clsj,
+      </if>
+      <if test="cljg != null">
+        cljg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{rwwtid,jdbcType=INTEGER},
+      <if test="yysdbh != null">
+        #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="wtsj != null">
+        #{wtsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ssdrbh != null">
+        #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrmc != null">
+        #{ssdrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="wtrmc != null">
+        #{wtrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="clrmc != null">
+        #{clrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="wtfs != null">
+        #{wtfs,jdbcType=VARCHAR},
+      </if>
+      <if test="clsj != null">
+        #{clsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cljg != null">
+        #{cljg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubRwwtEntity">
+    update pub_rwwt
+    <set>
+      <if test="yysdbh != null">
+        yysdbh = #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="wtsj != null">
+        wtsj = #{wtsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrmc != null">
+        ssdrmc = #{ssdrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="wtrmc != null">
+        wtrmc = #{wtrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="clrmc != null">
+        clrmc = #{clrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="wtfs != null">
+        wtfs = #{wtfs,jdbcType=VARCHAR},
+      </if>
+      <if test="clsj != null">
+        clsj = #{clsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cljg != null">
+        cljg = #{cljg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rwwtid = #{rwwtid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubRwwtEntity">
+    update pub_rwwt
+    set yysdbh = #{yysdbh,jdbcType=INTEGER},
+      wtsj = #{wtsj,jdbcType=TIMESTAMP},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      ssdrmc = #{ssdrmc,jdbcType=VARCHAR},
+      wtrmc = #{wtrmc,jdbcType=VARCHAR},
+      clrmc = #{clrmc,jdbcType=VARCHAR},
+      wtfs = #{wtfs,jdbcType=VARCHAR},
+      clsj = #{clsj,jdbcType=TIMESTAMP},
+      cljg = #{cljg,jdbcType=VARCHAR}
+    where rwwtid = #{rwwtid,jdbcType=INTEGER}
+  </update>
+</mapper>

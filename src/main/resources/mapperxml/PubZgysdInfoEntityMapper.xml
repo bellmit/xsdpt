@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubZgysdInfoEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubZgysdInfoEntity">
+    <constructor>
+      <idArg column="zgysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="logbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="uuid" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lxdh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yjdz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="jjr" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wsmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yjsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="ydh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="gdzt" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ycyy" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="hzmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="hzurl" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    zgysdbh, logbh, ssdrbh, ssdrmc, uuid, lxdh, yjdz, jjr, wsmc, yjsj, ydh, gdzt, ycyy, 
+    hzmc, hzurl
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_zgysd_info
+    where zgysdbh = #{zgysdbh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_zgysd_info
+    where zgysdbh = #{zgysdbh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubZgysdInfoEntity">
+    <selectKey keyProperty="zgysdbh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_zgysd_info_zgysdbh_seq'::regclass)
+    </selectKey>
+    insert into pub_zgysd_info (zgysdbh, logbh, ssdrbh, 
+      ssdrmc, uuid, lxdh, 
+      yjdz, jjr, wsmc, yjsj, 
+      ydh, gdzt, ycyy, hzmc, 
+      hzurl)
+    values (#{zgysdbh,jdbcType=INTEGER}, #{logbh,jdbcType=INTEGER}, #{ssdrbh,jdbcType=INTEGER}, 
+      #{ssdrmc,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, #{lxdh,jdbcType=VARCHAR}, 
+      #{yjdz,jdbcType=VARCHAR}, #{jjr,jdbcType=VARCHAR}, #{wsmc,jdbcType=VARCHAR}, #{yjsj,jdbcType=TIMESTAMP}, 
+      #{ydh,jdbcType=VARCHAR}, #{gdzt,jdbcType=VARCHAR}, #{ycyy,jdbcType=VARCHAR}, #{hzmc,jdbcType=VARCHAR}, 
+      #{hzurl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubZgysdInfoEntity">
+    <selectKey keyProperty="zgysdbh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_zgysd_info_zgysdbh_seq'::regclass)
+    </selectKey>
+    insert into pub_zgysd_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      zgysdbh,
+      <if test="logbh != null">
+        logbh,
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh,
+      </if>
+      <if test="ssdrmc != null">
+        ssdrmc,
+      </if>
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="lxdh != null">
+        lxdh,
+      </if>
+      <if test="yjdz != null">
+        yjdz,
+      </if>
+      <if test="jjr != null">
+        jjr,
+      </if>
+      <if test="wsmc != null">
+        wsmc,
+      </if>
+      <if test="yjsj != null">
+        yjsj,
+      </if>
+      <if test="ydh != null">
+        ydh,
+      </if>
+      <if test="gdzt != null">
+        gdzt,
+      </if>
+      <if test="ycyy != null">
+        ycyy,
+      </if>
+      <if test="hzmc != null">
+        hzmc,
+      </if>
+      <if test="hzurl != null">
+        hzurl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{zgysdbh,jdbcType=INTEGER},
+      <if test="logbh != null">
+        #{logbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrmc != null">
+        #{ssdrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lxdh != null">
+        #{lxdh,jdbcType=VARCHAR},
+      </if>
+      <if test="yjdz != null">
+        #{yjdz,jdbcType=VARCHAR},
+      </if>
+      <if test="jjr != null">
+        #{jjr,jdbcType=VARCHAR},
+      </if>
+      <if test="wsmc != null">
+        #{wsmc,jdbcType=VARCHAR},
+      </if>
+      <if test="yjsj != null">
+        #{yjsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ydh != null">
+        #{ydh,jdbcType=VARCHAR},
+      </if>
+      <if test="gdzt != null">
+        #{gdzt,jdbcType=VARCHAR},
+      </if>
+      <if test="ycyy != null">
+        #{ycyy,jdbcType=VARCHAR},
+      </if>
+      <if test="hzmc != null">
+        #{hzmc,jdbcType=VARCHAR},
+      </if>
+      <if test="hzurl != null">
+        #{hzurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubZgysdInfoEntity">
+    update pub_zgysd_info
+    <set>
+      <if test="logbh != null">
+        logbh = #{logbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrmc != null">
+        ssdrmc = #{ssdrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lxdh != null">
+        lxdh = #{lxdh,jdbcType=VARCHAR},
+      </if>
+      <if test="yjdz != null">
+        yjdz = #{yjdz,jdbcType=VARCHAR},
+      </if>
+      <if test="jjr != null">
+        jjr = #{jjr,jdbcType=VARCHAR},
+      </if>
+      <if test="wsmc != null">
+        wsmc = #{wsmc,jdbcType=VARCHAR},
+      </if>
+      <if test="yjsj != null">
+        yjsj = #{yjsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ydh != null">
+        ydh = #{ydh,jdbcType=VARCHAR},
+      </if>
+      <if test="gdzt != null">
+        gdzt = #{gdzt,jdbcType=VARCHAR},
+      </if>
+      <if test="ycyy != null">
+        ycyy = #{ycyy,jdbcType=VARCHAR},
+      </if>
+      <if test="hzmc != null">
+        hzmc = #{hzmc,jdbcType=VARCHAR},
+      </if>
+      <if test="hzurl != null">
+        hzurl = #{hzurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where zgysdbh = #{zgysdbh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubZgysdInfoEntity">
+    update pub_zgysd_info
+    set logbh = #{logbh,jdbcType=INTEGER},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      ssdrmc = #{ssdrmc,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      lxdh = #{lxdh,jdbcType=VARCHAR},
+      yjdz = #{yjdz,jdbcType=VARCHAR},
+      jjr = #{jjr,jdbcType=VARCHAR},
+      wsmc = #{wsmc,jdbcType=VARCHAR},
+      yjsj = #{yjsj,jdbcType=TIMESTAMP},
+      ydh = #{ydh,jdbcType=VARCHAR},
+      gdzt = #{gdzt,jdbcType=VARCHAR},
+      ycyy = #{ycyy,jdbcType=VARCHAR},
+      hzmc = #{hzmc,jdbcType=VARCHAR},
+      hzurl = #{hzurl,jdbcType=VARCHAR}
+    where zgysdbh = #{zgysdbh,jdbcType=INTEGER}
+  </update>
+</mapper>

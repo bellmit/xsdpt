@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <script src="/js/layui/layui.js"></script>
+    <title>统计</title>
+</head>
+<body>
+<div style="padding: 5px;">
+    <span>当前统计维度：<span id="wd-span">庭室</span></span>
+    <button class="layui-btn btn-ts" onclick="changeWd('TS')">切换庭室维度</button>
+    <button class="layui-btn btn-fg"  onclick="changeWd('FG')">切换法官维度</button>
+    <table class="layui-hide" id="report-table" style="font-size: 12px;"></table>
+</div>
+
+<script>
+    changeWd("TS");
+
+    function changeWd(type){
+        if(type === 'TS'){
+            $("#wd-span").text("庭室")
+            $(".btn-ts").hide();
+            $(".btn-fg").show();
+        }else {
+            $("#wd-span").text("法官")
+            $(".btn-ts").show();
+            $(".btn-fg").hide();
+        }
+        layui.use('table', function () {
+            var table = layui.table;
+            var dataObj = {reportType: type}
+            $.ajax({
+                url: "/report/report_lj.zf",
+                type: 'post',
+                headers: {'Content-type': 'application/json'},
+                dataType: "json",
+                data: JSON.stringify(dataObj),
+                success: function (data) {
+                    table.render({
+                        elem: "#report-table",
+                        data: data,
+                        cellMinWidth: 80,
+                        page:true,
+                        cols: [
+                            [
+                                {field: "fymc", title: "法院名称"},
+                                {field: "businessName", title: "业务名称"},
+                                {field: "drtsajNum", title: "当日推送案件量",sort:true},
+                                {field: "tsajNum", title: "累计推送案件量",sort:true},
+                                {field: "drtssjrsNum", title: "当日推送涉及人数",sort:true},
+                                {field: "tssjrsNum", title: "累计推送涉及人数",sort:true},
+                                {field: "chajNum", title: "累计撤回案件量",sort:true},
+                                {field: "chsjrsNum", title: "累计撤回涉及人数",sort:true},
+                                {field: "fkcgNum", title: "累计反馈送达成功的工单量",sort:true},
+                                {field: "fksbNum", title: "累计反馈送达失败的工单量",sort:true},
+                            ]
+                        ]
+                    })
+                }, error: function () {
+                    alert("获取信息失败")
+                }
+            });
+
+        })
+    }
+
+
+</script>
+<style>
+    .layui-table td, .layui-table th{
+        font-size: 12px;
+    }
+</style>
+</body>
+</html>
+

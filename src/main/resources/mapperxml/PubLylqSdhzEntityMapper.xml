@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubLylqSdhzEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubLylqSdhzEntity">
+    <constructor>
+      <idArg column="sdhzid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="lylqid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sdhzfolder" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sdhzimage" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    sdhzid, lylqid, yysdbh, sdhzfolder, sdhzimage
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_lylq_sdhz
+    where sdhzid = #{sdhzid,jdbcType=INTEGER}
+  </select>
+    <select id="findByName" resultType="com.nju.sdpt.entity.PubYysdJbEntity">
+      select jb.*
+from pub_yysd_jb jb, pub_yysd_ssdr ssdr
+where jb.ah=#{ah} and fybh='63'
+  and jb.yysj>'2021-09-24 00:00:00'
+and jb.yysdbh=ssdr.yysdbh
+and ssdr.ssdrssdw='被告'
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_lylq_sdhz
+    where sdhzid = #{sdhzid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubLylqSdhzEntity">
+    <selectKey keyProperty="sdhzid" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_lylq_sdhz_sdhzid_seq'::regclass)
+    </selectKey>
+    insert into pub_lylq_sdhz (sdhzid, lylqid, yysdbh, 
+      sdhzfolder, sdhzimage)
+    values (#{sdhzid,jdbcType=INTEGER}, #{lylqid,jdbcType=INTEGER}, #{yysdbh,jdbcType=INTEGER}, 
+      #{sdhzfolder,jdbcType=VARCHAR}, #{sdhzimage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubLylqSdhzEntity">
+    <selectKey keyProperty="sdhzid" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_lylq_sdhz_sdhzid_seq'::regclass)
+    </selectKey>
+    insert into pub_lylq_sdhz
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      sdhzid,
+      <if test="lylqid != null">
+        lylqid,
+      </if>
+      <if test="yysdbh != null">
+        yysdbh,
+      </if>
+      <if test="sdhzfolder != null">
+        sdhzfolder,
+      </if>
+      <if test="sdhzimage != null">
+        sdhzimage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{sdhzid,jdbcType=INTEGER},
+      <if test="lylqid != null">
+        #{lylqid,jdbcType=INTEGER},
+      </if>
+      <if test="yysdbh != null">
+        #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="sdhzfolder != null">
+        #{sdhzfolder,jdbcType=VARCHAR},
+      </if>
+      <if test="sdhzimage != null">
+        #{sdhzimage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubLylqSdhzEntity">
+    update pub_lylq_sdhz
+    <set>
+      <if test="lylqid != null">
+        lylqid = #{lylqid,jdbcType=INTEGER},
+      </if>
+      <if test="yysdbh != null">
+        yysdbh = #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="sdhzfolder != null">
+        sdhzfolder = #{sdhzfolder,jdbcType=VARCHAR},
+      </if>
+      <if test="sdhzimage != null">
+        sdhzimage = #{sdhzimage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sdhzid = #{sdhzid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubLylqSdhzEntity">
+    update pub_lylq_sdhz
+    set lylqid = #{lylqid,jdbcType=INTEGER},
+      yysdbh = #{yysdbh,jdbcType=INTEGER},
+      sdhzfolder = #{sdhzfolder,jdbcType=VARCHAR},
+      sdhzimage = #{sdhzimage,jdbcType=VARCHAR}
+    where sdhzid = #{sdhzid,jdbcType=INTEGER}
+  </update>
+</mapper>

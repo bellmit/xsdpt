@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubYysdJbEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubYysdJbEntity">
+    <constructor>
+      <idArg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ajxh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ajxz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="cbr" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yysj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="yyrxm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="fybh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="bmmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="bgdh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sjhm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="gdryxm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sdsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="sdjg" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dhsd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dzsd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="emssd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ggsd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zjsd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lylq" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wtsd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zhjsd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dxsd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="laay" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="bz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="fkzt" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yysdbz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="caxh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ajmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ah" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="bmbh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ktsj" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="slcx" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="cdsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="wsqs" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    yysdbh, ajxh, ajxz, cbr, yysj, yyrxm, fybh, bmmc, bgdh, sjhm, gdryxm, sdsj, sdjg,
+    dhsd, dzsd, emssd, ggsd, zjsd, lylq, wtsd, zhjsd, dxsd, laay, bz, fkzt, yysdbz, caxh,
+    ajmc, ah, bmbh, ktsj, slcx, cdsj, wsqs
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pub_yysd_jb
+    where yysdbh = #{yysdbh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_yysd_jb
+    where yysdbh = #{yysdbh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubYysdJbEntity">
+    <selectKey keyProperty="yysdbh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_yysd_jb_yysdbh_seq'::regclass)
+    </selectKey>
+    insert into pub_yysd_jb (yysdbh, ajxh, ajxz,
+    cbr, yysj, yyrxm,
+    fybh, bmmc, bgdh, sjhm,
+    gdryxm, sdsj, sdjg,
+    dhsd, dzsd, emssd,
+    ggsd, zjsd, lylq, wtsd,
+    zhjsd, dxsd, laay,
+    bz, fkzt, yysdbz, caxh,
+    ajmc, ah, bmbh, ktsj,
+    slcx, cdsj, wsqs)
+    values (#{yysdbh,jdbcType=INTEGER}, #{ajxh,jdbcType=INTEGER}, #{ajxz,jdbcType=VARCHAR},
+    #{cbr,jdbcType=VARCHAR}, #{yysj,jdbcType=TIMESTAMP}, #{yyrxm,jdbcType=VARCHAR},
+    #{fybh,jdbcType=VARCHAR}, #{bmmc,jdbcType=VARCHAR}, #{bgdh,jdbcType=VARCHAR}, #{sjhm,jdbcType=VARCHAR},
+    #{gdryxm,jdbcType=VARCHAR}, #{sdsj,jdbcType=TIMESTAMP}, #{sdjg,jdbcType=VARCHAR},
+    #{dhsd,jdbcType=VARCHAR}, #{dzsd,jdbcType=VARCHAR}, #{emssd,jdbcType=VARCHAR},
+    #{ggsd,jdbcType=VARCHAR}, #{zjsd,jdbcType=VARCHAR}, #{lylq,jdbcType=VARCHAR}, #{wtsd,jdbcType=VARCHAR},
+    #{zhjsd,jdbcType=VARCHAR}, #{dxsd,jdbcType=VARCHAR}, #{laay,jdbcType=VARCHAR},
+    #{bz,jdbcType=VARCHAR}, #{fkzt,jdbcType=INTEGER}, #{yysdbz,jdbcType=VARCHAR}, #{caxh,jdbcType=INTEGER},
+    #{ajmc,jdbcType=VARCHAR}, #{ah,jdbcType=VARCHAR}, #{bmbh,jdbcType=VARCHAR}, #{ktsj,jdbcType=VARCHAR},
+    #{slcx,jdbcType=VARCHAR}, #{cdsj,jdbcType=TIMESTAMP}, #{wsqs,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubYysdJbEntity">
+    <selectKey keyProperty="yysdbh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_yysd_jb_yysdbh_seq'::regclass)
+    </selectKey>
+    insert into pub_yysd_jb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      yysdbh,
+      <if test="ajxh != null">
+        ajxh,
+      </if>
+      <if test="ajxz != null">
+        ajxz,
+      </if>
+      <if test="cbr != null">
+        cbr,
+      </if>
+      <if test="yysj != null">
+        yysj,
+      </if>
+      <if test="yyrxm != null">
+        yyrxm,
+      </if>
+      <if test="fybh != null">
+        fybh,
+      </if>
+      <if test="bmmc != null">
+        bmmc,
+      </if>
+      <if test="bgdh != null">
+        bgdh,
+      </if>
+      <if test="sjhm != null">
+        sjhm,
+      </if>
+      <if test="gdryxm != null">
+        gdryxm,
+      </if>
+      <if test="sdsj != null">
+        sdsj,
+      </if>
+      <if test="sdjg != null">
+        sdjg,
+      </if>
+      <if test="dhsd != null">
+        dhsd,
+      </if>
+      <if test="dzsd != null">
+        dzsd,
+      </if>
+      <if test="emssd != null">
+        emssd,
+      </if>
+      <if test="ggsd != null">
+        ggsd,
+      </if>
+      <if test="zjsd != null">
+        zjsd,
+      </if>
+      <if test="lylq != null">
+        lylq,
+      </if>
+      <if test="wtsd != null">
+        wtsd,
+      </if>
+      <if test="zhjsd != null">
+        zhjsd,
+      </if>
+      <if test="dxsd != null">
+        dxsd,
+      </if>
+      <if test="laay != null">
+        laay,
+      </if>
+      <if test="bz != null">
+        bz,
+      </if>
+      <if test="fkzt != null">
+        fkzt,
+      </if>
+      <if test="yysdbz != null">
+        yysdbz,
+      </if>
+      <if test="caxh != null">
+        caxh,
+      </if>
+      <if test="ajmc != null">
+        ajmc,
+      </if>
+      <if test="ah != null">
+        ah,
+      </if>
+      <if test="bmbh != null">
+        bmbh,
+      </if>
+      <if test="ktsj != null">
+        ktsj,
+      </if>
+      <if test="slcx != null">
+        slcx,
+      </if>
+      <if test="cdsj != null">
+        cdsj,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{yysdbh,jdbcType=INTEGER},
+      <if test="ajxh != null">
+        #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="ajxz != null">
+        #{ajxz,jdbcType=VARCHAR},
+      </if>
+      <if test="cbr != null">
+        #{cbr,jdbcType=VARCHAR},
+      </if>
+      <if test="yysj != null">
+        #{yysj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yyrxm != null">
+        #{yyrxm,jdbcType=VARCHAR},
+      </if>
+      <if test="fybh != null">
+        #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="bmmc != null">
+        #{bmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdh != null">
+        #{bgdh,jdbcType=VARCHAR},
+      </if>
+      <if test="sjhm != null">
+        #{sjhm,jdbcType=VARCHAR},
+      </if>
+      <if test="gdryxm != null">
+        #{gdryxm,jdbcType=VARCHAR},
+      </if>
+      <if test="sdsj != null">
+        #{sdsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sdjg != null">
+        #{sdjg,jdbcType=VARCHAR},
+      </if>
+      <if test="dhsd != null">
+        #{dhsd,jdbcType=VARCHAR},
+      </if>
+      <if test="dzsd != null">
+        #{dzsd,jdbcType=VARCHAR},
+      </if>
+      <if test="emssd != null">
+        #{emssd,jdbcType=VARCHAR},
+      </if>
+      <if test="ggsd != null">
+        #{ggsd,jdbcType=VARCHAR},
+      </if>
+      <if test="zjsd != null">
+        #{zjsd,jdbcType=VARCHAR},
+      </if>
+      <if test="lylq != null">
+        #{lylq,jdbcType=VARCHAR},
+      </if>
+      <if test="wtsd != null">
+        #{wtsd,jdbcType=VARCHAR},
+      </if>
+      <if test="zhjsd != null">
+        #{zhjsd,jdbcType=VARCHAR},
+      </if>
+      <if test="dxsd != null">
+        #{dxsd,jdbcType=VARCHAR},
+      </if>
+      <if test="laay != null">
+        #{laay,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="fkzt != null">
+        #{fkzt,jdbcType=INTEGER},
+      </if>
+      <if test="yysdbz != null">
+        #{yysdbz,jdbcType=VARCHAR},
+      </if>
+      <if test="caxh != null">
+        #{caxh,jdbcType=INTEGER},
+      </if>
+      <if test="ajmc != null">
+        #{ajmc,jdbcType=VARCHAR},
+      </if>
+      <if test="ah != null">
+        #{ah,jdbcType=VARCHAR},
+      </if>
+      <if test="bmbh != null">
+        #{bmbh,jdbcType=VARCHAR},
+      </if>
+      <if test="ktsj != null">
+        #{ktsj,jdbcType=VARCHAR},
+      </if>
+      <if test="slcx != null">
+        #{slcx,jdbcType=VARCHAR},
+      </if>
+      <if test="cdsj != null">
+        #{cdsj,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubYysdJbEntity">
+    update pub_yysd_jb
+    <set>
+      <if test="ajxh != null">
+        ajxh = #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="ajxz != null">
+        ajxz = #{ajxz,jdbcType=VARCHAR},
+      </if>
+      <if test="cbr != null">
+        cbr = #{cbr,jdbcType=VARCHAR},
+      </if>
+      <if test="yysj != null">
+        yysj = #{yysj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yyrxm != null">
+        yyrxm = #{yyrxm,jdbcType=VARCHAR},
+      </if>
+      <if test="fybh != null">
+        fybh = #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="bmmc != null">
+        bmmc = #{bmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="bgdh != null">
+        bgdh = #{bgdh,jdbcType=VARCHAR},
+      </if>
+      <if test="sjhm != null">
+        sjhm = #{sjhm,jdbcType=VARCHAR},
+      </if>
+      <if test="gdryxm != null">
+        gdryxm = #{gdryxm,jdbcType=VARCHAR},
+      </if>
+      <if test="sdsj != null">
+        sdsj = #{sdsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sdjg != null">
+        sdjg = #{sdjg,jdbcType=VARCHAR},
+      </if>
+      <if test="dhsd != null">
+        dhsd = #{dhsd,jdbcType=VARCHAR},
+      </if>
+      <if test="dzsd != null">
+        dzsd = #{dzsd,jdbcType=VARCHAR},
+      </if>
+      <if test="emssd != null">
+        emssd = #{emssd,jdbcType=VARCHAR},
+      </if>
+      <if test="ggsd != null">
+        ggsd = #{ggsd,jdbcType=VARCHAR},
+      </if>
+      <if test="zjsd != null">
+        zjsd = #{zjsd,jdbcType=VARCHAR},
+      </if>
+      <if test="lylq != null">
+        lylq = #{lylq,jdbcType=VARCHAR},
+      </if>
+      <if test="wtsd != null">
+        wtsd = #{wtsd,jdbcType=VARCHAR},
+      </if>
+      <if test="zhjsd != null">
+        zhjsd = #{zhjsd,jdbcType=VARCHAR},
+      </if>
+      <if test="dxsd != null">
+        dxsd = #{dxsd,jdbcType=VARCHAR},
+      </if>
+      <if test="laay != null">
+        laay = #{laay,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null">
+        bz = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="fkzt != null">
+        fkzt = #{fkzt,jdbcType=INTEGER},
+      </if>
+      <if test="yysdbz != null">
+        yysdbz = #{yysdbz,jdbcType=VARCHAR},
+      </if>
+      <if test="caxh != null">
+        caxh = #{caxh,jdbcType=INTEGER},
+      </if>
+      <if test="ajmc != null">
+        ajmc = #{ajmc,jdbcType=VARCHAR},
+      </if>
+      <if test="ah != null">
+        ah = #{ah,jdbcType=VARCHAR},
+      </if>
+      <if test="bmbh != null">
+        bmbh = #{bmbh,jdbcType=VARCHAR},
+      </if>
+      <if test="ktsj != null">
+        ktsj = #{ktsj,jdbcType=VARCHAR},
+      </if>
+      <if test="slcx != null">
+        slcx = #{slcx,jdbcType=VARCHAR},
+      </if>
+      <if test="cdsj != null">
+        cdsj = #{cdsj,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where yysdbh = #{yysdbh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubYysdJbEntity">
+    update pub_yysd_jb
+    set ajxh = #{ajxh,jdbcType=INTEGER},
+      ajxz = #{ajxz,jdbcType=VARCHAR},
+      cbr = #{cbr,jdbcType=VARCHAR},
+      yysj = #{yysj,jdbcType=TIMESTAMP},
+      yyrxm = #{yyrxm,jdbcType=VARCHAR},
+      fybh = #{fybh,jdbcType=VARCHAR},
+      bmmc = #{bmmc,jdbcType=VARCHAR},
+      bgdh = #{bgdh,jdbcType=VARCHAR},
+      sjhm = #{sjhm,jdbcType=VARCHAR},
+      gdryxm = #{gdryxm,jdbcType=VARCHAR},
+      sdsj = #{sdsj,jdbcType=TIMESTAMP},
+      sdjg = #{sdjg,jdbcType=VARCHAR},
+      dhsd = #{dhsd,jdbcType=VARCHAR},
+      dzsd = #{dzsd,jdbcType=VARCHAR},
+      emssd = #{emssd,jdbcType=VARCHAR},
+      ggsd = #{ggsd,jdbcType=VARCHAR},
+      zjsd = #{zjsd,jdbcType=VARCHAR},
+      lylq = #{lylq,jdbcType=VARCHAR},
+      wtsd = #{wtsd,jdbcType=VARCHAR},
+      zhjsd = #{zhjsd,jdbcType=VARCHAR},
+      dxsd = #{dxsd,jdbcType=VARCHAR},
+      laay = #{laay,jdbcType=VARCHAR},
+      bz = #{bz,jdbcType=VARCHAR},
+      fkzt = #{fkzt,jdbcType=INTEGER},
+      yysdbz = #{yysdbz,jdbcType=VARCHAR},
+      caxh = #{caxh,jdbcType=INTEGER},
+      ajmc = #{ajmc,jdbcType=VARCHAR},
+      ah = #{ah,jdbcType=VARCHAR},
+      bmbh = #{bmbh,jdbcType=VARCHAR},
+      ktsj = #{ktsj,jdbcType=VARCHAR},
+      slcx = #{slcx,jdbcType=VARCHAR},
+      cdsj = #{cdsj,jdbcType=TIMESTAMP}
+    where yysdbh = #{yysdbh,jdbcType=INTEGER}
+  </update>
+  <update id="updateGdryxm" parameterType="com.nju.sdpt.entity.PubYysdJbEntity">
+        update pub_yysd_jb
+    set gdryxm = #{gdryxm,jdbcType=VARCHAR}
+    where yysdbh = #{yysdbh,jdbcType=INTEGER}
+  </update>
+  <update id="updateEmssd">
+    update pub_yysd_jb
+    set emssd = 'ING'
+    where yysdbh = #{yysdbh,jdbcType=INTEGER}
+  </update>
+</mapper>

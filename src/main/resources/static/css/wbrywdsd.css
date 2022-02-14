@@ -1,0 +1,45 @@
+html,body{
+    height: 100%;width: 100%;margin:0;padding:0;
+}
+body{
+    background-image:url('/img/wbrywdsd_background.jpg');
+
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+#top{
+    background-image:url('/img/wbrywdsd_top.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.top_right{
+    margin: 0;
+    padding: 0%;
+}
+
+.label{
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.focus{
+    background: linear-gradient(to bottom, #37aaed,#266cf4);
+    border-radius:5px;
+    color: white;
+}
+
+#jbxx_tbody td {
+    height: 40px;
+}
+
+.log{
+    background-image:url('/img/wbrywdsd_background.png');
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    height: 160px;
+    width: 80px;
+}

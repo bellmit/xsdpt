@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.HisSsdrDataInfoEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.HisSsdrDataInfoEntity">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fybh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ajxh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ssdrsfzhm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ywlx" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="dsrssdw" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, fybh, ajxh, ssdrbh, ssdrmc, ssdrsfzhm, ywlx, type, content, createtime, dsrssdw
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from his_ssdr_data_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from his_ssdr_data_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.HisSsdrDataInfoEntity">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('his_ssdr_data_info_id_seq'::regclass)
+    </selectKey>
+    insert into his_ssdr_data_info (id, fybh, ajxh,
+    ssdrbh, ssdrmc, ssdrsfzhm,
+    ywlx, type, content,
+    createtime, dsrssdw)
+    values (#{id,jdbcType=INTEGER}, #{fybh,jdbcType=VARCHAR}, #{ajxh,jdbcType=INTEGER},
+    #{ssdrbh,jdbcType=INTEGER}, #{ssdrmc,jdbcType=VARCHAR}, #{ssdrsfzhm,jdbcType=VARCHAR},
+    #{ywlx,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR},
+    #{createtime,jdbcType=TIMESTAMP}, #{dsrssdw,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.HisSsdrDataInfoEntity">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('his_ssdr_data_info_id_seq'::regclass)
+    </selectKey>
+    insert into his_ssdr_data_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="fybh != null">
+        fybh,
+      </if>
+      <if test="ajxh != null">
+        ajxh,
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh,
+      </if>
+      <if test="ssdrmc != null">
+        ssdrmc,
+      </if>
+      <if test="ssdrsfzhm != null">
+        ssdrsfzhm,
+      </if>
+      <if test="ywlx != null">
+        ywlx,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="dsrssdw != null">
+        dsrssdw,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=INTEGER},
+      <if test="fybh != null">
+        #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="ajxh != null">
+        #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrmc != null">
+        #{ssdrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="ssdrsfzhm != null">
+        #{ssdrsfzhm,jdbcType=VARCHAR},
+      </if>
+      <if test="ywlx != null">
+        #{ywlx,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsrssdw != null">
+        #{dsrssdw,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.HisSsdrDataInfoEntity">
+    update his_ssdr_data_info
+    <set>
+      <if test="fybh != null">
+        fybh = #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="ajxh != null">
+        ajxh = #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrmc != null">
+        ssdrmc = #{ssdrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="ssdrsfzhm != null">
+        ssdrsfzhm = #{ssdrsfzhm,jdbcType=VARCHAR},
+      </if>
+      <if test="ywlx != null">
+        ywlx = #{ywlx,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsrssdw != null">
+        dsrssdw = #{dsrssdw,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.HisSsdrDataInfoEntity">
+    update his_ssdr_data_info
+    set fybh = #{fybh,jdbcType=VARCHAR},
+      ajxh = #{ajxh,jdbcType=INTEGER},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      ssdrmc = #{ssdrmc,jdbcType=VARCHAR},
+      ssdrsfzhm = #{ssdrsfzhm,jdbcType=VARCHAR},
+      ywlx = #{ywlx,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      dsrssdw = #{dsrssdw,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

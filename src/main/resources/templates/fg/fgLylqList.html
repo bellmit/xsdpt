@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>法官-来院领取列表</title>
+    <link rel="stylesheet" href="/css/wbrywdsd_new.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="js//layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+<!--    <script src="/js/common/bootstrap.min.js"></script>-->
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+</head>
+<body>
+
+<!--<div style="width: 100%;height: 80px;background-color: rgb(0,169,238)">-->
+<!--    <div style="padding-top: 10px;padding-left: 30px;">-->
+<!--        <div style="float: left">-->
+<!--            <img  src="/css/img/mySd_fahui.png" height="50px" width="50px" style="margin-top: 5px">-->
+<!--        </div>-->
+<!--        <div style="float: left;padding-top: 10px;padding-bottom: 5px;margin-left: 10px;">-->
+<!--            <div style="color: white;font-size: 30px;" id="current_fymc">天津市高级人民法院</div>-->
+<!--        </div>-->
+
+<!--        <div  id="logout" class="headLogout"><img  src="/css/img/mySD_tuichu.jpg" height="30px" width="100px"> </div>-->
+<!--        <div style="margin-right: 100px">-->
+<!--            <div id="userName"  style="color: white;font-size: 15px;margin-top: 20px;float: right;">-->
+<!--            </div>-->
+<!--            <div  style="color: white;font-size: 15px;margin-top: 20px;float: right;">欢迎 &nbsp; ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>-->
+<!--        </div>-->
+<!--        <div style="float: right">-->
+<!--            <img  src="/css/img/mySd_fahui.png" id="circle" width="50px" height="50px" style="margin-right: 20px;margin-top: 5px">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div style="background-color: rgb(245,245,245);min-height: 60px">-->
+<!--    <div style="float: left">-->
+<!--        <img src="/css/img/mySd_index.png">-->
+<!--    </div>-->
+<!--    <div style="float: left;margin-top: 15px">-->
+<!--        <h5>&nbsp;&nbsp;当前位置：首页 - &nbsp;&nbsp; </h5>-->
+<!--    </div>-->
+<!--    <div style="float: left;margin-top: 15px">-->
+<!--        <h5 style="color: rgb(0,169,238)">来院领取列表</h5>-->
+<!--    </div>-->
+<!--</div>-->
+<div id="top" class="fixed-top d-flex flex-column" style="height: 15%;">
+    <div class="d-flex bd-highlight" style="height: 75%;">
+        <div style="width:25%">
+            <div id="logo" class="float-left align-middle" style="margin-left: 17%;margin-top: 4%;font-size: 13px;">
+            </div>
+        </div>
+        <div class="d-flex flex-column" style="width: 75%;">
+            <div style="height: 40%;">
+                <div class="float-right" style="font-size:13px; color: white;padding-top: 1%;padding-right: 4%;">
+                    <span style="font-size: 18px">欢迎您 <span id="userName"></span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                    <button id="logout"  type="button" class="btn btn-default"
+                            style="color:white;float: right;padding: 0px">退出系统
+                    </button>
+                </div>
+                <div>
+                    <div class="d-flex flex-row float-right" style="padding-right: 20%;font-size: 14px;">
+                        <!--                        <a href="#dhsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">电话送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#dxtz" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label focus">短信通知</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#lylq" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">来院领取</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#emssd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">EMS送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#zjsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">直接送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#wtdc" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">委托送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#ggsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">公告送达</div>-->
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="float-right" style="font-size: 14px;padding-left: 8%;">
+        当前位置：首页 - 来院领取列表
+    </div>
+</div>
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 10%;background-color: white;min-height: 500px">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div style="margin-top: 10px;min-height: 35px">
+        <div style="float: left;margin-left: 20px">
+        </div>
+        <div id="return_main" style="float: right;margin-right: 10px">
+            <button class="btn btn-primary btm-sm" >
+                返回
+            </button>
+        </div>
+    </div>
+<!--    <div>-->
+<!--        <div style="margin-left: 20px;float: left;">-->
+<!--            <select style="width: 100px; height: 35px;" id="select_lq_state">-->
+<!--                <option value="-1">全部</option>-->
+<!--                <option value="0">待领取</option>-->
+<!--                <option value="1">已领取</option>-->
+<!--                <option value="2">未领取</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped table-condensed" id="lylqjbxx_table">
+            <thead>
+            <tr>
+                <th style="text-align: center;width:5% ">序号</th>
+                <th style="text-align: center;width:15%">预约领取时间</th>
+                <th style="text-align: center;width:30%">预约领取地点</th>
+                <th style="text-align: center;width:10%">领取状态</th>
+                <th style="text-align: center;width:10%">送达回执</th>
+                <th style="text-align: center;width:10%">送达结果</th>
+            </tr>
+            </thead>
+            <tbody id="lylqjbxx_tbody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 编辑送达结果 -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="editSdjgModel" tabindex="-1" role="dialog" aria-labelledby="editSdjgModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="editSdjgModalLabel">
+                    选择送达结果
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">送达结果：</label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="selectedSdjg" value="1">送达成功
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="selectedSdjg" value="2">送达失败
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="submit-edit-sdjg">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script id="lylq_td_body" type="text/html">
+    {{if isAdmin}}
+    {{each list value i}}
+    <tr>
+        <td style="text-align: center">{{i+1}}</td>
+        <td>{{list[i].yylqsjStr}}</td>
+        <td>{{list[i].lylqaddress}}</td>
+        <td>
+            {{if list[i].lqstate==0}}
+            待领取
+            {{else if list[i].lqstate==1}}
+            已领取
+            {{else if list[i].lqstate==2}}
+            未领取
+            {{/if}}
+        </td>
+        <td>
+            {{if list[i].sdhz}}
+            <a href="lylq/imgView_lylq_sdhz.zf?lylqId={{list[i].lylqid}}"><button data-hint="{{list[i].lylqid}}" class="btn btn-primary look_sdhz" type="button">查看</button></a>
+            {{else}}
+            <button data-hint="{{list[i].lylqid}}" class="btn btn-primary upload_sdhz" type="button">上传</button>
+            {{/if}}
+        </td>
+        <td>
+            {{if list[i].sdjg==1}}
+            送达成功
+            {{else if list[i].sdjg==2}}
+            送达失败
+            {{else}}
+            <button data-hint="{{list[i].lylqid}}" onclick="sdjg(this)" class="btn btn-primary edit-sdjg"
+                    type="button">结果</button>
+            {{/if}}
+        </td>
+    </tr>
+    {{/each}}
+    {{/if}}
+</script>
+<script src="/js/fg/fgLylqList.js?v=1.2"></script>
+<style>
+    #circle{
+        border-radius: 50%;      -moz-border-radius: 50%;      -webkit-border-radius: 50%;
+    }
+    body{
+        background-color: rgb(241,241,241);
+    }
+    .add-lylq-form{
+        width: 400px;
+    }
+    .col-sm-2{
+        padding-left: 0px !important;
+    }
+    .cus-required:before{
+        content: "*";
+        color: red;
+    }
+    .lylq-yysj-input{
+        background-color: white !important;
+    }
+</style>
+</body>
+</html>
+

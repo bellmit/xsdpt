@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubXcDhDao">
+
+    <resultMap type="com.nju.sdpt.entity.PubXcDh" id="PubXcDhMap">
+        <result property="ajxh" column="ajxh" jdbcType="INTEGER"/>
+        <result property="ah" column="ah" jdbcType="VARCHAR"/>
+        <result property="bgxm" column="bgxm" jdbcType="VARCHAR"/>
+        <result property="sfzh" column="sfzh" jdbcType="VARCHAR"/>
+        <result property="sfwcxh" column="sfwcxh" jdbcType="VARCHAR"/>
+        <result property="yd" column="yd" jdbcType="VARCHAR"/>
+        <result property="lt" column="lt" jdbcType="VARCHAR"/>
+        <result property="dx" column="dx" jdbcType="VARCHAR"/>
+        <result property="fydm" column="fydm" jdbcType="VARCHAR"/>
+        <result property="sfxch" column="sfxch" jdbcType="VARCHAR"/>
+        <result property="yysdbh" column="yysdbh" jdbcType="INTEGER"/>
+        <result property="ssdrbh" column="ssdrbh" jdbcType="INTEGER"/>
+        <result property="id" column="id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PubXcDhMap">
+        select
+          ajxh, ah, bgxm, sfzh, sfwcxh, yd, lt, dx, fydm, sfxch, yysdbh, ssdrbh, id
+        from pub_xc_dh
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PubXcDhMap">
+        select
+          ajxh, ah, bgxm, sfzh, sfwcxh, yd, lt, dx, fydm, sfxch, yysdbh, ssdrbh, id
+        from pub_xc_dh
+        <where>
+            <if test="ajxh != null">
+                and ajxh = #{ajxh}
+            </if>
+            <if test="ah != null and ah != ''">
+                and ah = #{ah}
+            </if>
+            <if test="bgxm != null and bgxm != ''">
+                and bgxm = #{bgxm}
+            </if>
+            <if test="sfzh != null and sfzh != ''">
+                and sfzh = #{sfzh}
+            </if>
+            <if test="sfwcxh != null and sfwcxh != ''">
+                and sfwcxh = #{sfwcxh}
+            </if>
+            <if test="yd != null and yd != ''">
+                and yd = #{yd}
+            </if>
+            <if test="lt != null and lt != ''">
+                and lt = #{lt}
+            </if>
+            <if test="dx != null and dx != ''">
+                and dx = #{dx}
+            </if>
+            <if test="fydm != null and fydm != ''">
+                and fydm = #{fydm}
+            </if>
+            <if test="sfxch != null and sfxch != ''">
+                and sfxch = #{sfxch}
+            </if>
+            <if test="yysdbh != null">
+                and yysdbh = #{yysdbh}
+            </if>
+            <if test="ssdrbh != null">
+                and ssdrbh = #{ssdrbh}
+            </if>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from pub_xc_dh
+        <where>
+            <if test="ajxh != null">
+                and ajxh = #{ajxh}
+            </if>
+            <if test="ah != null and ah != ''">
+                and ah = #{ah}
+            </if>
+            <if test="bgxm != null and bgxm != ''">
+                and bgxm = #{bgxm}
+            </if>
+            <if test="sfzh != null and sfzh != ''">
+                and sfzh = #{sfzh}
+            </if>
+            <if test="sfwcxh != null and sfwcxh != ''">
+                and sfwcxh = #{sfwcxh}
+            </if>
+            <if test="yd != null and yd != ''">
+                and yd = #{yd}
+            </if>
+            <if test="lt != null and lt != ''">
+                and lt = #{lt}
+            </if>
+            <if test="dx != null and dx != ''">
+                and dx = #{dx}
+            </if>
+            <if test="fydm != null and fydm != ''">
+                and fydm = #{fydm}
+            </if>
+            <if test="sfxch != null and sfxch != ''">
+                and sfxch = #{sfxch}
+            </if>
+            <if test="yysdbh != null">
+                and yysdbh = #{yysdbh}
+            </if>
+            <if test="ssdrbh != null">
+                and ssdrbh = #{ssdrbh}
+            </if>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into pub_xc_dh(ajxh, ah, bgxm, sfzh, sfwcxh, yd, lt, dx, fydm, sfxch, yysdbh, ssdrbh)
+        values (#{ajxh}, #{ah}, #{bgxm}, #{sfzh}, #{sfwcxh}, #{yd}, #{lt}, #{dx}, #{fydm}, #{sfxch}, #{yysdbh}, #{ssdrbh})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into pub_xc_dh(ajxh, ah, bgxm, sfzh, sfwcxh, yd, lt, dx, fydm, sfxch, yysdbh, ssdrbh)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.ajxh}, #{entity.ah}, #{entity.bgxm}, #{entity.sfzh}, #{entity.sfwcxh}, #{entity.yd}, #{entity.lt}, #{entity.dx}, #{entity.fydm}, #{entity.sfxch}, #{entity.yysdbh}, #{entity.ssdrbh})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into pub_xc_dh(ajxh, ah, bgxm, sfzh, sfwcxh, yd, lt, dx, fydm, sfxch, yysdbh, ssdrbh)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.ajxh}, #{entity.ah}, #{entity.bgxm}, #{entity.sfzh}, #{entity.sfwcxh}, #{entity.yd}, #{entity.lt}, #{entity.dx}, #{entity.fydm}, #{entity.sfxch}, #{entity.yysdbh}, #{entity.ssdrbh})
+        </foreach>
+        on duplicate key update
+        ajxh = values(ajxh),
+        ah = values(ah),
+        bgxm = values(bgxm),
+        sfzh = values(sfzh),
+        sfwcxh = values(sfwcxh),
+        yd = values(yd),
+        lt = values(lt),
+        dx = values(dx),
+        fydm = values(fydm),
+        sfxch = values(sfxch),
+        yysdbh = values(yysdbh),
+        ssdrbh = values(ssdrbh)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update pub_xc_dh
+        <set>
+            <if test="ajxh != null">
+                ajxh = #{ajxh},
+            </if>
+            <if test="ah != null and ah != ''">
+                ah = #{ah},
+            </if>
+            <if test="bgxm != null and bgxm != ''">
+                bgxm = #{bgxm},
+            </if>
+            <if test="sfzh != null and sfzh != ''">
+                sfzh = #{sfzh},
+            </if>
+            <if test="sfwcxh != null and sfwcxh != ''">
+                sfwcxh = #{sfwcxh},
+            </if>
+            <if test="yd != null and yd != ''">
+                yd = #{yd},
+            </if>
+            <if test="lt != null and lt != ''">
+                lt = #{lt},
+            </if>
+            <if test="dx != null and dx != ''">
+                dx = #{dx},
+            </if>
+            <if test="fydm != null and fydm != ''">
+                fydm = #{fydm},
+            </if>
+            <if test="sfxch != null and sfxch != ''">
+                sfxch = #{sfxch},
+            </if>
+            <if test="yysdbh != null">
+                yysdbh = #{yysdbh},
+            </if>
+            <if test="ssdrbh != null">
+                ssdrbh = #{ssdrbh},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from pub_xc_dh where id = #{id}
+    </delete>
+
+</mapper>
+

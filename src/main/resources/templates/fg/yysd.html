@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>预约送达</title>
+    <link rel="stylesheet" href="/css/wdds.css?v=1.1">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="/css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/css/yysd.css?v=1.1">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery-3.4.1.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+<!--    <script src="/js/common/bootstrap.min.js"></script>-->
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/common/bootstrap-table.min.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/common.js?v=3.1"></script>
+
+
+</head>
+<body style="background: white">
+<!--<div style="width: 100%;height: 80px;background-color: rgb(0,169,238)">-->
+<!--    <div style="padding-top: 10px;padding-left: 30px;">-->
+<!--        <div style="float: left">-->
+<!--            <img  src="/css/img/mySd_fahui.png" height="50px" width="50px" style="margin-top: 5px">-->
+<!--        </div>-->
+<!--        <div style="float: left;padding-top: 10px;padding-bottom: 5px;margin-left: 10px;">-->
+<!--            <div style="color: white;font-size: 30px;" id="current_fymc">天津市高级人民法院</div>-->
+<!--        </div>-->
+
+<!--        <div style="color: white;font-size: 15px;margin-top: 20px;float: right;margin-right: 30px">
+<button class="myButton" id="fgMyIndex" onclick="fgMyIndex()">我的主页</button>
+</div>-->
+<!--        <div style="margin-right: 100px">-->
+<!--            <div id="userName"  style="color: white;font-size: 15px;margin-top: 20px;float: right;">-->
+<!--            </div>-->
+<!--            <div  style="color: white;font-size: 15px;margin-top: 20px;float: right;">欢迎 &nbsp; ! &nbsp;&nbsp;&nbsp;&nbsp;</div>-->
+<!--        </div>-->
+<!--        <div style="float: right">-->
+<!--            <img  src="/css/img/mySd_fahui.png" id="circle" width="50px" height="50px" style="margin-right: 20px;margin-top: 5px">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<div class="fixed-top">
+    <!-- <div class="d-flex justify-content-around" style="padding-top: 0.3%;">
+        <div style="padding-top: 0.8%;padding-left: 0.2%;">LOGO</div>
+        <div style="width: 51%;"></div>
+        <div style="color: white;padding-left: 35px;">欢迎您 XXX|登录登出</div>
+    </div> -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #027bf0;">
+        <div style="margin-left: 4%;width: 30%;">
+            <img src="../img/fh.png" style="width: 10%;height: 10.5%;">
+            <span class="align-middle topnav" style="padding-left: 1%;" id="current_fymc">天津市高级人民法院</span>
+        </div>
+        <div style="width: 45%;">
+            <div class="float-right topnav" style="font-size:18px;">
+                欢迎您&nbsp;&nbsp;<span id="fgmc"></span>法官&nbsp;&nbsp;|&nbsp;&nbsp;
+                <button id="fgMyIndex" onclick="fgMyIndex()" type="button" class="btn btn-default "
+                        style="color:white; border-radius:20px;background-color: transparent;float: right;padding: 0px">我的主页
+                </button>
+            </div>
+        </div>
+    </nav>
+</div>
+<div style="margin: 8% 20px 0 20px;width:100%" align="center">
+
+    <fieldset class="commonFieldset ajxxFieldset" style="width: 95%">
+        <legend class="commonLegend" style="color:rgb(2,123,240) "> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预约信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </legend>
+        <div class="step">
+            <table id="ajxxTable" style="width: 100%">
+                <tbody style="width: 100%">
+                <tr style="width: 100%">
+                    <td width="20%"><div class="ajxxLabel ajxxLabelText">法 &nbsp;&nbsp;&nbsp;&nbsp;院：</div></td>
+                    <td id="fymc" width="30%"></td>
+                    <td width="20%"><div class="ajxxLabel" ></div>
+                        <div class="ajxxLabel ajxxLabelText">案件类型：</div>
+                    </td>
+                    <td class="ajxx" id="ajlx" width="30%"></td>
+                </tr>
+                <tr>
+                    <td><div class="ajxxLabel ajxxLabelText">预 &nbsp;约&nbsp;人：</div></td>
+                    <td id ="sdrmc"></td>
+                    <td><div  class="ajxxLabel"></div><div class="ajxxLabel ajxxLabelText">案 &nbsp;&nbsp;&nbsp;&nbsp;号：</div></td>
+                    <td class="ajxx" id="ah"></td>
+                </tr>
+                <tr>
+                    <td><div class="ajxxLabel ajxxLabelText">部门名称：</div></td>
+                    <td id = "bmmc"></td>
+                    <td><div  class="ajxxLabel "></div><div class="ajxxLabel ajxxLabelText">案件名称：</div></td>
+                    <td class="ajxx" id="ajmc"></td>
+                </tr>
+                <tr>
+                    <td><div class="ajxxLabel ajxxLabelText">办公电话：</div></td>
+                    <td id = "bgdh"></td>
+                    <td><div  class="ajxxLabel "></div><div class="ajxxLabel ajxxLabelText">案 &nbsp;&nbsp;&nbsp;&nbsp;由：</div></td>
+                    <td class="ajxx" id="laay"></td>
+                </tr>
+                <tr>
+                    <td><div class="ajxxLabel ajxxLabelText">手机号码：</div></td>
+                    <td id = "sjhm"></td>
+                    <td><div  class="ajxxLabel "></div><div class="ajxxLabel ajxxLabelText">开庭时间：</div></td>
+                    <td class="ajxx" id="ktsj"></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td width="20%"><div  class="ajxxLabel "></div>
+                        <div class="ajxxLabel ajxxLabelText">备注(选填)：</div>
+                    </td>
+                    <td class="ajxx" width="30%"><input id="yysdbz" style="width: 80%"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+    <div style="min-height: 50px"></div>
+    <div align="center">
+        <fieldset class="commonFieldset dsrxxFieldset" style="width: 95%">
+            <legend class="commonLegend" style="color:rgb(2,123,240) "> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当事人信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </legend>
+            <table class="table dsrTable" id="dsrTable" width="90%">
+            </table>
+            <div style="min-height: 10px"></div>
+            <button  align="center" type="button" class="layui-btn" id="addSdWs"  onclick="addSdWs()" style="background-color:  rgb(2,123,240);">
+                添加送达文书
+            </button>
+        </fieldset>
+        <div style="min-height: 50px"></div>
+        <fieldset class="commonFieldset sdnrFieldset" style="width: 95%">
+            <legend class="commonLegend" style="color:rgb(2,123,240) "> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送达内容&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </legend>
+            <table class="table table-striped" id="sdNrTable">
+                <thead>
+                <td>文件类型</td>
+                <td>文件来源</td>
+                <td>当事人名称</td>
+                <td>操作</td>
+                </thead>
+                <tbody id="sdNrTbody">
+
+                </tbody>
+            </table>
+        </fieldset>
+        <div style="min-height: 50px"></div>
+    </div>
+    <div style="min-height: 50px"></div>
+
+<!--    <fieldset class="commonFieldset sdrxxFieldset">-->
+<!--        <legend class="commonLegend" style="color:rgb(2,123,240) "> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预约人信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </legend>-->
+<!--        <div class="step">-->
+<!--            <table id="sdrxxTable">-->
+<!--                <tr>-->
+<!--                    <td><div class="ajxxLabel ajxxLabelText">法 &nbsp;&nbsp;&nbsp;&nbsp;院：</div></td>-->
+<!--                    <td id="fymc"></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td><div class="ajxxLabel ajxxLabelText">预 &nbsp;约&nbsp;人：</div></td>-->
+<!--                    <td id ="sdrmc"></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td><div class="ajxxLabel ajxxLabelText">部门名称：</div></td>-->
+<!--                    <td id = "bmmc"></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td><div class="ajxxLabel ajxxLabelText">办公电话：</div></td>-->
+<!--                    <td id = "bgdh"></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td><div class="ajxxLabel ajxxLabelText">手机号码：</div></td>-->
+<!--                    <td id = "sjhm"></td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </div>-->
+<!--    </fieldset>-->
+
+    <div style="height: 2em"></div>
+    <button id="wcyy" onclick="wcyy()" style="height: 3em;font-size: small;background-color: rgb(2,123,240);color: white;border: none;outline: none;width: 8%;" align="center">完成预约</button>
+    <button id="submit" style="visibility: hidden"></button>
+    <div style="height: 2em"></div>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="mlmcModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px;z-index: 1000000;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    查询结果
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">案号：</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static"><label class="case-no"></label></p>
+                        </div>
+                    </div>
+
+                    <hr/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">目录列表：</label>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>
+                            <label>
+                                <input name="dxtz-tel-checkbox-checkAll" id= "dxtz-tel-checkbox-checkAll"type="checkbox">
+                                全选
+                            </label>
+                        </th>
+                        <th>文件所属目录</th>
+                        <th>文件名称</th>
+                        </thead>
+                        <tbody id="tel-tbody">
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button onclick="dzjztjws()" id="tjwj" class="btn btn-default" style="float: right">添加
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <!--                <button type="button" class="btn btn-primary" id="sendMSg">-->
+                <!--                    发送短信-->
+                <!--                </button>-->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<div style="height: 2em;background-color: rgb(2,123,240)"></div>
+<script src="/js/fg/yysdGa.js?v=3.6"></script>
+<script src="/js/fg/yysd.js?v=3.7"></script>
+</body>
+
+<script id="test" type="text/html">
+    {{each list value i}}
+    <tr data-hint="1">
+        <td class=".js_light_blue_font">{{i+1}}</td>
+        <td class=".js_light_blue_font">{{list[i]}}</td>
+    </tr>
+    {{/each}}
+</script>
+<script id ="wsInfos" type="text/html">
+    <fieldset class="commonFieldset sdnrFieldset" >
+        <legend class="commonLegend" style="color:rgb(2,123,240) "> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送达内容&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </legend>
+        <div style="color:rgb(2,123,240)">系统内文件</div>
+        <button onclick="tbsj()" class="layui-btn" id="tbsj" style="float: right">同步数据</button>
+        <table class="table table-striped" id="sdwsTable">
+
+            <thead>
+            <td></td>
+            <td>文件类型</td>
+            </thead>
+            <tbody id="sdwsTbody">
+            {{each list value i}}
+            <tr>
+                <td style="text-align: center"><label><input name="wsCheckbox" type="checkbox" value="{{list[i]}}" onclick="checkboxOnclick(this)"></label></td>
+                <td>{{list[i]}}</td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+        <div style="color:rgb(2,123,240)">非系统内文件</div>
+        <div style="margin-left: 30%">
+            <div>
+
+                <div class="ajxxLabel ajxxLabelText" style="height: 2em;margin-top: .3em">文书类型：</div>
+                <select style="width: 12em;float: left;height: 2em;margin-top: .3em" class="wslx">
+                    <option value="" hidden>请选择文件类型</option>
+                    <option value="受理案件通知书">受理案件通知书</option>
+                    <option value="应诉通知书(参加诉讼通知书)">应诉通知书(参加诉讼通知书)</option>
+                    <option value="起诉状(反诉状)副本">起诉状(反诉状)副本</option>
+                    <option value="申请书副本">申请书副本</option>
+                    <option value="答辩状副本">答辩状副本</option>
+                    <option value="举证通知书">举证通知书</option>
+                    <option value="诉讼权利义务告知书">诉讼权利义务告知书</option>
+                    <option value="合议庭组成成员通知书">合议庭组成成员通知书</option>
+                    <option value="送达地址确认书">送达地址确认书</option>
+                    <option value="流程告知书">流程告知书</option>
+                    <option value="廉政监督卡">廉政监督卡</option>
+                    <option value="传票">传票</option>
+                    <option value="出庭通知书">出庭通知书</option>
+                    <option value="通知书">通知书</option>
+                    <option value="执行通知书">执行通知书</option>
+                    <option value="报告财产令">报告财产令</option>
+                    <option value="缴纳诉讼费用通知书">缴纳诉讼费用通知书</option>
+                    <option value="调解书">调解书</option>
+                    <option value="裁定书">裁定书</option>
+                    <option value="判决书">判决书</option>
+                    <option value="证据">证据</option>
+                    <option value="上诉状">上诉状</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+            <br/><br/>
+            <div style="margin-top: 2em">
+                <div class="ajxxLabel ajxxLabelText"style="height: 2em;margin-top: .3em">传输模式：</div>
+                <button  type="button" class="layui-btn" id="xssc" style="float: left">
+                    线上上传
+                </button>
+                <button onclick="addXxsd()" id="addXxsd" style="float: left">线下取件</button>
+                <button onclick="showSubmit(this)" id="dzjzcx" style="float: left">查询电子卷宗</button>
+            </div>
+        </div>
+        <div style="margin-top: 2em;" id="xxqj">
+            <table class="table table-bordered table-striped" >
+                <thead>
+                <tr style="color:rgb(0,169,238);background-color: #b3d7fa">
+                    <th style="text-align: center;width: 50%">文件类型</th>
+                    <th style="text-align: center;width: 50%">文件来源</th>
+                </tr>
+                </thead>
+                <tbody id="xxqjws">
+
+                </tbody>
+            </table>
+        </div>
+        <button id="addWs" onclick="addWs()" style="height: 3em;font-size: small;background-color: rgb(2,123,240);color: white;border: none;outline: none;width: 8%;margin-left: 46%">添加</button>
+        </div>
+    </fieldset>
+
+</script>
+<script id="dsrxx" type="text/html">
+    <div class="infoArea">
+        <blockquote class="quote">当事人基本信息</blockquote>
+        <table class="table table-hover table-bordered">
+            <tbody>
+            <tr>
+                <td width="30%;">诉讼地位：</td>
+                <td width="70%;">{{dsr.dsrssdw}}</td>
+            </tr>
+            <tr>
+                <td width="30%;">名称：</td>
+                <td width="70%;">{{dsr.dsrjc}}</td>
+            </tr>
+            <tr>
+                <td width="30%;">证件号码：</td>
+                <td width="70%;">{{dsr.sfzhm}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <blockquote class="quote">送达地址 <button class="btn btn-primary" style="float: right;margin-top: -0.75em" onclick="addSddz()">新增</button></blockquote>
+            <table class="table table-hover table-bordered">
+                <tbody id="sddzTbody">
+                {{each sddzs value i}}
+                <tr>
+                    <td width="15%;">地址{{i+1}}：</td>
+                    <td width="60%;">{{sddzs[i]}}</td>
+                    <td width="25%;"><button type="button" class="btn btn-default myButton btn-sm" data-index={{i}} onclick="editSddz(this)"><i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i> </button><button type="button" class="btn btn-default myButton btn-sm" data-index={{i}} onclick="deleteSddz(this)"><i class="layui-icon layui-icon-delete" style="color: red;"></i> </button></td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <blockquote class="quote">手机号码 <button class="btn btn-primary" style="float: right;margin-top: -0.75em" onclick="addDh()">新增</button></blockquote>
+            <table class="table table-hover table-bordered">
+                <tbody id="dhTbody">
+                {{each dhs value i}}
+                <tr>
+                    <td width="15%;">号码{{i+1}}：</td>
+                    <td width="60%;">{{dhs[i]}}</td>
+                    <td width="25%;"><button type="button" class="btn btn-default myButton btn-sm" data-index={{i}} onclick="editDh(this)"><i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i> </button><button type="button" class="btn btn-default myButton btn-sm" data-index={{i}} onclick="deleteDh(this)"><i class="layui-icon layui-icon-delete" style="color: red;"></i> </button></td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</script>
+<script id="sdnr" type="text/html">
+    {{each list value i}}
+    <tr>
+        <td>{{list[i].wslb}}</td>
+        {{if list[i].wsly<=2}}
+        <td>系统内文件</td>
+        {{/if}}
+        {{if list[i].wsly==3}}
+        <td>自行上传</td>
+        {{/if}}
+        {{if list[i].wsly==4}}
+        <td>线下取件</td>
+        {{/if}}
+        {{if list[i].wsly==5}}
+        <td>电子卷宗</td>
+        {{/if}}
+        <td>{{list[i].dsrmc}}</td>
+        <td>
+            {{if (list[i].wsly<=2&&list[i].stampId!=null)}}
+            <button type="button" class="myButton" onclick="lookWs(this)" data-index="{{i}}"> 查看</button>
+            {{/if}}
+            <button type="button" class="myButton" onclick="deleteWs(this)"  data-index="{{i}}"> 删除</button>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+<script id="externalFileTbody" type="text/html">
+    {{each list value i}}
+    <tr>
+        <td>{{list[i].wslb}}</td>
+        {{if list[i].wsly == 3}}
+        <td>自行上传</td>
+        {{/if}}
+        {{if list[i].wsly == 4}}
+        <td>线下取件</td>
+        {{/if}}
+        {{if list[i].wsly == 5}}
+        <td>电子卷宗</td>
+        {{/if}}
+    </tr>
+    {{/each}}
+</script>
+
+
+</html>
+
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubYysdCsxxxMapper">
+    <insert id="insertOrUpdate">
+        <foreach collection="PubYysdCsxxxEntities" item="item" index="index" separator=";">
+            insert into pub_yysd_csxxx
+            (yysdbh,yysj,dhcsxddl,yjcsxddl,csxddl,yhdm,jssj,sdjg,sfdhsd,webcallcreatetime,sfyjsd,emssubmittime,sfdhcsx,sfyjcsx,sfcsx)
+            values
+            (#{item.yysdbh},
+            #{item.yysj},
+            to_timestamp(#{item.dhcsxddl},'yyyy-MM-DD hh24:mi:ss'),
+            to_timestamp(#{item.yjcsxddl},'yyyy-MM-DD hh24:mi:ss'),
+            to_timestamp(#{item.csxddl},'yyyy-MM-DD hh24:mi:ss'),
+            #{item.yhdm},
+            to_timestamp(#{item.jssj},'yyyy-MM-DD hh24:mi:ss'),
+            #{item.sdjg},
+            #{item.sfdhsd},
+            to_timestamp(#{item.webcallcreatetime},'yyyy-MM-DD hh24:mi:ss'),
+            #{item.sfyjsd},
+            to_timestamp(#{item.emssubmittime},'yyyy-MM-DD hh24:mi:ss'),
+            #{item.sfdhcsx},
+            #{item.sfyjcsx},
+            #{item.sfcsx})
+            on conflict (yysdbh)
+            do update set
+            yysdbh=excluded.yysdbh,
+            yysj=excluded.yysj,
+            dhcsxddl=excluded.dhcsxddl,
+            yjcsxddl=excluded.yjcsxddl,
+            csxddl=excluded.csxddl,
+            yhdm=excluded.yhdm,
+            jssj=excluded.jssj,
+            sdjg=excluded.sdjg,
+            sfdhsd=excluded.sfdhsd,
+            webcallcreatetime=excluded.webcallcreatetime,
+            sfyjsd=excluded.sfyjsd,
+            emssubmittime=excluded.emssubmittime,
+            sfdhcsx=excluded.sfdhcsx,
+            sfyjcsx=excluded.sfyjcsx,
+            sfcsx=excluded.sfcsx
+        </foreach>
+    </insert>
+
+</mapper>

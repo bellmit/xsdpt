@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电话送达列表</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+</head>
+<body>
+
+<script>
+    //动态全局JS版本号  慎用
+    document.write('<script src="/js/main.js?v='+new Date().getTime()+'"><\/script>')
+</script>
+<div style="width: 100%;height: 80px;background-color: rgb(0,169,238)">
+    <div style="padding-top: 10px;padding-left: 30px;">
+        <div style="float: left">
+            <img  src="/css/img/mySd_fahui.png" height="50px" width="50px" style="margin-top: 5px">
+        </div>
+        <div style="float: left;padding-top: 10px;padding-bottom: 5px;margin-left: 10px;">
+            <div style="color: white;font-size: 30px;" id="current_fymc">天津市高级人民法院</div>
+        </div>
+
+        <div  id="logout" class="headLogout"><img src="/css/img/mySD_tuichu.jpg" height="30px" width="100px"> </div>
+        <div style="margin-right: 100px">
+            <div id="userName"  style="color: white;font-size: 15px;margin-top: 20px;float: right;">
+            </div>
+            <div  style="color: white;font-size: 15px;margin-top: 20px;float: right;">欢迎 &nbsp; ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div style="float: right">
+            <img  src="/css/img/mySd_fahui.png" id="circle" width="50px" height="50px" style="margin-right: 20px;margin-top: 5px">
+        </div>
+    </div>
+</div>
+<div style="background-color: rgb(245,245,245);min-height: 60px">
+    <div style="float: left">
+        <img src="/css/img/mySd_index.png">
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5>&nbsp;&nbsp;当前位置：首页 - &nbsp;&nbsp; </h5>
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5 style="color: rgb(0,169,238)">电话送达列表</h5>
+    </div>
+</div>
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 20px;background-color: white;min-height: 500px">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div style="margin-top: 10px;min-height: 35px">
+        <div style="float: left;margin-left: 20px">
+            电话送达列表
+            <button id="add_dxtz" class="btn btn-primary" type="button" data-toggle="modal" data-target="#addWebCallModel">新增</button>
+        </div>
+        <div id="return_main" style="float: right;margin-right: 10px"><img src="/css/img/return_icon.png" width="60px" height="24px"></div>
+        <div style="float: left;margin-left: 10px;margin-top: 5px;">
+            时间范围选择：
+            <div class="layui-inline">
+                <input type="text" class="layui-input" id="select_time1">
+            </div>
+            至
+            <div class="layui-inline">
+                <input type="text" class="layui-input" id="select_time2">
+            </div>
+        </div>
+        <div style="margin-left: 20px;float: left">
+            <button class="btn btn-primary btm-sm" id=select_range_time>
+                查询
+            </button>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped table-condensed" id="webcalljbxx_table">
+            <thead>
+            <tr>
+                <th style="text-align: center;width:5% ">送达编号</th>
+                <th style="text-align: center;width:15%">案号</th>
+                <th style="text-align: center;width:10%">当事人</th>
+                <th style="text-align: center;width:10%">被叫号码</th>
+                <th style="text-align: center;width:10%">确认信息</th>
+                <th style="text-align: center;width:10%">是否同意电子送达</th>
+                <th style="text-align: center;width:10%">选择送达方式信息</th>
+                <th style="text-align: center;width:10%">外呼时间</th>
+                <th style="text-align: center;width:10%">电话状态</th>
+                <th style="text-align: center;width:10%">送达专员电话</th>
+                <th style="text-align: center;width:15%">备注</th>
+                <th style="text-align: center;width:10%">录音</th>
+                <th style="text-align: center;width:10%">送达结果</th>
+            </tr>
+            </thead>
+            <tbody id="webcalljbxx_tbody">
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- 新增电话记录弹窗 步骤1 -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="addWebCallModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    选择工单
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">工单号：</label>
+                        <div class="col-sm-10">
+                            <select id="dxtz-yysdbh-input" class="form-control selectpicker" data-live-search="true">
+                                <option>请选择工单</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: none" id="sdp" class="form-group">
+                        <label class="col-sm-2 control-label cus-required">当事人：</label>
+                        <div class="col-sm-10">
+                            <select id="dxtz-dsr" class="form-control selectpicker" data-live-search="true">
+                                <option value="0">请选择当事人</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="dxtz-zhuti">
+                            <hr/>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label cus-required">号码：</label>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <th>数据来源</th>
+                                <th>电话</th>
+                                <th>最新电话状态</th>
+                                <th>操作</th>
+                                </thead>
+                                <tbody id="tel-tbody">
+                                </tbody>
+                            </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- 送达 外呼详细填写弹窗 -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="editWebCallModel" tabindex="-1" role="dialog" aria-labelledby="editWebCallModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="editWebCallModalLabel">
+                    填写拨打信息
+                </h4>
+
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="callFrom">
+                    <div class="form-group">
+                        <button class="btn btn-primary" style="float: right;margin-right: 20px" type="button" onclick="loadGdxx()">查看工单详情</button>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">送达专员电话：</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static" id="seatNumber"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">呼叫号码：</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static" id="webTel"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">电话状态：</label>
+                        <div class="col-sm-9">
+                            <select id="dhzt-select" class="form-control">
+                                <option value="">请选择电话状态</option>
+                                <option value="1">有效-本人</option>
+                                <option value="2">可联-非本人</option>
+                                <option value="3">可联-关机</option>
+                                <option value="4">可联-停机</option>
+                                <option value="5">可联-未接通</option>
+                                <option value="6">可联-再跟进</option>
+                                <option value="7">可联-正忙</option>
+                                <option value="8">空号</option>
+                                <option value="9">呼叫受限</option>
+                                <option value="10">可联-挂机</option>
+                                <option value="11">代理人接听</option>
+                                <option value="12">代理律师接听</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">号码确认：</label>
+                        <div class="col-sm-9">
+                            <div id="phone">
+                                <input id="iscon" class="form-control confirmNumber" rows="3" placeholder="请确认号码"/>
+                            </div>
+                            <button type="button" class="btn btn-link" id="addPhoneA" rows="3" onclick="addPhone(this.id)">添加号码</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">地址确认：</label>
+                        <div class="col-sm-9">
+                            <div id="address">
+                                <input id="addressb" class="form-control confirmAddress" rows="3" placeholder="请确认地址"/>
+                            </div>
+                            <button type="button" class="btn btn-link" id="addAddressA" rows="3" onclick="addAddress(this.id)">添加地址</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">是否同意电子送达：</label>
+                        <div class="col-sm-9">
+                            <input type="radio" name="electronSend" class="radio-inline" value="0"/>是
+                            <input type="radio" name="electronSend" class="radio-inline" value="1"/>否
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">文书类别：</label>
+                        <div id="wslbcheckboxdhsd" class="col-sm-9" >
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">送达方式：</label>
+                        <div class="col-sm-9">
+                            <select id="sendType" class="form-control" onchange="showInfo(this[selectedIndex].value)">
+                                <option value="0">请选择送达方式</option>
+                                <option value="1">来院领取</option>
+                                <option value="2">邮寄送达</option>
+                                <option value="3">短信电子送达</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--默认隐藏-->
+                    <!--来院领取-->
+                    <div style="display: none" id="showA">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label cus-required">预约时间：</label>
+                            <div class="col-sm-9">
+                                <input type="text" readonly placeholder="请选择来院领取时间" class="form-control lylq-yysj-input" id="lylq-yysj-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label cus-required">预约地点：</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="orderAddress" class="form-control" rows="3">
+                            </div>
+                        </div>
+                    </div>
+                    <!--邮寄送达-->
+                    <div style="display: none" id="showB">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label cus-required">地址确认：</label>
+                            <div class="col-sm-9">
+                                <div id="addressList">
+                                    <div id="addressRadio"></div>
+                                    <div id="addressInput"></div>
+                                    <!--                                    <input type="radio"  name="conAddress" class="radio-inline" value="天津市"/>天津市-->
+                                </div>
+                                <button type="button" class="btn btn-link" rows="3" id="addAddressB" onclick="addAddress(this.id)">输入地址</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--短信电子送达-->
+                    <div style="display: none" id="showC">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label cus-required">号码确认：</label>
+                            <div class="col-sm-9">
+                                <div id="phoneList">
+
+                                </div>
+                                <div id="phoneListInput">
+
+                                </div>
+                                <button type="button" class="btn btn-link" rows="3" id="addPhoneB" onclick="addPhone(this.id)">输入号码</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">送达结果：</label>
+                        <div class="col-sm-9">
+                            <select id="selectedSdjg" class="form-control">
+                                <option value="0">请选择送达结果</option>
+                                <option value="1">送达成功</option>
+                                <option value="2">送达失败</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">委托流转方式：</label>
+                        <div class="col-sm-9">
+                            <select  class="select_wtfs form-control" id="select_wtfs_dhsd" data-id="select_wtfs_dhsd"  data-change="select_wtclr_dhsd" onchange="changeWtfs(this)">
+                                <option value=""></option>
+                                <option value="DHSD">电话送达</option>
+                                <option value="DXSD">短信送达</option>
+                                <option value="EMS">邮寄送达</option>
+                                <option value="LYLQ">来院领取</option>
+                                <option value="ZZSD">直接送达</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">委托流转处理人：</label>
+                        <div class="col-sm-9">
+                            <select class="form-control selectedWtclr" id="select_wtclr_dhsd">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">备注：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" rows="3" id="remarks"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--                <button type="button" class="btn btn-default" data-dismiss="modal">取消-->
+                <!--                </button>-->
+                <button type="button" class="btn btn-primary" id="submitEditWebCall">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!-- 编辑送达结果 -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="editSdjgModel" tabindex="-1" role="dialog" aria-labelledby="editSdjgModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="editSdjgModalLabel">
+                    选择送达结果
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">送达结果：</label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="selectedSdjg" value="1">送达成功
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="selectedSdjg" value="2">送达失败
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="submit-edit-sdjg">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script id="webcall_td_body" type="text/html">
+    {{if isAdmin}}
+    {{each list item i}}
+    <tr>
+        <td style="text-align: center">{{item.yysdbh}}</td>
+        <td>{{list[i].ah}}</td>
+        <td>{{list[i].ssdrmc}}</td>
+        <td>{{list[i].webtel}}</td>
+        <td>
+            {{if item.confirmnumber != null || item.confirmaddress != null}}
+                <button type='button' class='btn btn-primary' onclick='viewWebCallInfo("{{i}}","确认信息")'>查看</button>
+            {{/if}}
+        </td>
+        <td>
+            {{if item.electronsend == 0}}
+                是
+            {{/if}}
+            {{if item.electronsend == 1}}
+                否
+            {{/if}}
+        </td>
+        <td>
+            {{if item.sdtype != null && item.sdtype > 0}}
+                <button type='button' class='btn btn-primary' onclick='viewWebCallInfo("{{i}}","选择送达方式信息")'>查看</button>
+            {{/if}}
+        </td>
+        <td>{{list[i].whTime}}</td>
+        <td>{{list[i].callstate,'SYS_DHZT' | _sysCodeToCn}}</td>
+        <td>{{list[i].seatnumber}}</td>
+        <td>{{list[i].remarks}}</td>
+        <td>
+            {{if item.callduration > 0}}
+            <button onclick='downloadCallRadio("{{item.webcallid}}")' class="myButton"><img src="/css/img/download_icon.png" width="45px" height="25px"  style="margin-left: 10px"></button>
+            {{/if}}
+        </td>
+        <td>
+            {{if item.sdjg == 1}}
+            送达成功
+            {{else if item.sdjg == 2}}
+            送达失败
+            {{/if}}
+        </td>
+    </tr>
+    {{/each}}
+    {{/if}}
+</script>
+<script src="/js/gd/webcallList.js?v=0.18"></script>
+<style>
+    #circle{
+        border-radius: 50%;      -moz-border-radius: 50%;      -webkit-border-radius: 50%;
+    }
+    body{
+        background-color: rgb(241,241,241);
+    }
+    .add-lylq-form{
+        width: 400px;
+    }
+    .col-sm-2{
+        padding-left: 0px !important;
+    }
+
+
+    .myButton {
+        border: none;
+        background-color: transparent;
+        outline: none;
+        outline-color: rgba(255, 255, 255, 0);
+
+    }
+    .cus-required:before{
+        content: "*";
+        color: red;
+    }
+    .dxmb-param.form-control{
+        display: inline;
+        width: auto;
+        margin-top: 5px;
+    }
+    .input-error{
+        border: 1px solid red;
+    }
+    .dxmb-param-fymc{
+        /*border: none;*/
+        padding: 0px;
+        text-align: center;
+    }
+
+
+    #webcalljbxx_table_filter {
+        float: right;
+        margin-right: 100px;
+        margin-top:-25px;
+        font-size: 15px;
+    }
+
+    .layui-input {
+        height: 25px;
+    }
+
+    .layui-laydate .layui-this {
+        background-color: #2D93CA !important;
+        color: #fff!important;
+    }
+</style>
+</body>
+</html>
+

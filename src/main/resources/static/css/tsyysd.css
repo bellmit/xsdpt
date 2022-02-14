@@ -1,0 +1,38 @@
+.commonFieldset{
+    border-width: 10px;
+    border-style: solid
+}
+.ajxxFieldset{
+    width: 80%;
+    /*margin-left: 10%;*/
+    border-color: #027bf0;
+    padding: 2em 5em 2em 5em;
+}
+
+.commonLegend{
+    text-align: center;
+    font-size: 200%;
+}
+legend{
+    padding: .5em;
+    border: 0;
+    width: auto;
+    margin-bottom: 0px;
+}
+fieldset{
+    padding: .35em .625em .75em;
+    margin: 0 2px;
+    border: 1px solid silver;
+}
+#ajxxTable tr{
+    margin-top: 20em;
+}
+.ajxxLabelText{
+    color:rgb(2,123,240);
+}
+.ajxxLabel{
+    float: left;
+}
+tr{
+    height: 2.5em;
+}

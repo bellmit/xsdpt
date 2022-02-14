@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <script src="/js/layui/layui.js"></script>
+    <title>统计</title>
+</head>
+<body>
+<div style="padding: 5px;">
+    <table class="layui-hide" id="report-table" style="font-size: 12px;"></table>
+</div>
+
+<script>
+    changeWd();
+
+    function changeWd(){
+        layui.use('table', function () {
+            var table = layui.table;
+            var dataObj = {reportType: ""}
+            $.ajax({
+                url: "/report/report_repair.zf",
+                type: 'post',
+                headers: {'Content-type': 'application/json'},
+                dataType: "json",
+                data: JSON.stringify(dataObj),
+                success: function (data) {
+                    table.render({
+                        elem: "#report-table",
+                        data: data,
+                        cellMinWidth: 80,
+                        page:true,
+                        cols: [
+                            [
+                                {field: "fymc", title: "法院名称"},
+                                {field: "repairNum", title: "提交修复次数",sort:true},
+                                {field: "repairSucNum", title: "修复成功次数",sort:true},
+                                {field: "repairJtNum", title: "修复接听数量",sort:true},
+                                {field: "repairBrNum", title: "有效本人标记数量",sort:true},
+                            ]
+                        ]
+                    })
+                }, error: function () {
+                    alert("获取信息失败")
+                }
+            });
+
+        })
+    }
+
+
+</script>
+<style>
+    .layui-table td, .layui-table th{
+        font-size: 12px;
+    }
+</style>
+</body>
+</html>
+

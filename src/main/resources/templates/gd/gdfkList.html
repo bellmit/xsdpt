@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工单-任务分配</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+</head>
+<body>
+
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 20px;background-color: white;min-height: 500px">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div style="margin-top: 10px;min-height: 40px;margin-bottom: 20px;">
+        <div style="float: left;margin-left: 20px;margin-top: 5px;font-size: 15px;">
+            工单列表
+        </div>
+        <div style="margin-left: 20px;float: left;margin-top: 5px;">
+            <select style="width: 100px; height: 25px;" id="select_distribute">
+                <option value="1">未反馈</option>
+                <option value="2">已反馈</option>
+            </select>
+
+        </div>
+        <div style="float: left;margin-left: 10px;margin-top: 5px;">
+            时间范围选择：
+            <div class="layui-inline">
+                <input type="text" class="layui-input" id="select_time1">
+            </div>
+            至
+            <div class="layui-inline">
+                <input type="text" class="layui-input" id="select_time2">
+            </div>
+        </div>
+        <div style="margin-left: 20px;float: left">
+            <button class="btn btn-primary btm-sm" id=select_range_time>
+                查询
+            </button>
+        </div>
+        <div>
+            <button id="feedback" class="btn btn-primary btm-sm"
+                    style="margin-left: 20px;float: left">
+                确认
+            </button>
+        </div>
+
+
+    </div>
+    <div class="col-md-12">
+            <table class="table table-bordered table-striped table-condensed" id="ajjbxx_table">
+                <thead>
+                <tr>
+                    <th style="text-align: center;width:5%">操作</th>
+                    <th style="text-align: center;width:5%">工单号</th>
+                    <th style="text-align: center;width:10%">案号</th>
+                    <th style="text-align: center;width:10%">预约日期</th>
+                    <th style="text-align: center;width:5%">预约人</th>
+                    <th style="text-align: center;width:5%">反馈人员</th>
+                    <th style="text-align: center;width:10%">反馈时间</th>
+                    <th style="text-align: center;width:5%">反馈结果</th>
+                    <th style="text-align: center;width:10%">反馈备注</th>
+                    <th style="text-align: center;width:5%">操作</th>
+                </tr>
+                </thead>
+                <tbody id="ajjbxx_tbody">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script id="test" type="text/html">
+    {{if isAdmin}}
+    {{each list value i}}
+    <tr>
+        <td style="text-align: center"><label><input name="ids" type="checkbox" value="{{list[i].yysdbh}}"></label></td>
+        <td style="text-align: center">{{list[i].yysdbh}}</td>
+        <td>{{list[i].ah}}</td>
+        <td>{{list[i].yysj}}</td>
+        <td>{{list[i].yyr}}</td>
+        <td>{{list[i].sdymc}}</td>
+        <td>{{list[i].sdsj}}</td>
+        <td>
+            {{if list[i].sdjg == 'FY' || list[i].sdjg == 'Y'}}
+                成功
+            {{/if}}
+            {{if list[i].sdjg == 'FN' || list[i].sdjg == 'N'}}
+                失败
+            {{/if}}
+        </td>
+        <td>
+            {{if list[i].bz != null}}
+            <button onclick='showBz("{{list[i].bz }}")'  class="btn btn-primary">查看</button>
+            {{/if}}
+        </td>
+        <td><button class="btn btn-primary" type="button" onclick="info(this)" data-index={{list[i].yysdbh}}>查看</button></td>
+    </tr>
+    {{/each}}
+    {{/if}}
+</script>
+<script src="/js/gd/gdfkList.js?v=2.0"></script>
+<style>
+
+    body {
+        background-color: rgb(241, 241, 241);
+    }
+
+    .layui-input {
+        height: 25px;
+    }
+    .layui-laydate .layui-this {
+        background-color: #2D93CA !important;
+        color: #fff!important;
+    }
+</style>
+</body>
+</html>
+

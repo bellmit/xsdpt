@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的送达</title>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="/antd/l7plot.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/gd/data.js"></script>
+</head>
+
+<body style="background:linear-gradient(135deg,#0b83d3,#5350ff);">
+    <div class="container-fluid">
+        <div class="fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #2340e2;">
+                <div style="margin-left:4%;width: 30%;">
+                    <img src="../img/fh.png" style="width: 8%;height: 8.3%;">
+                    <span class="align-middle" style="padding-left: 1%;font-weight: bold;color: #e2cd13;">天津市高级人民法院</span>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div style="margin-top: 5%;margin-bottom: 2%;" align="center">
+        <h1 style="font-weight: bolder;color: #e2cd13;font-family: 华文中宋;font-size: 48px;">集约化送达平台数据中心</h1>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-sm " align="center">
+            <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 80%;">
+                <div align="center">
+                    <h5 class="card-title">预约工单数量</h5>
+                    <p style="margin-bottom: 0;">
+                        <span style="font-size: 42px;font-weight: bolder;" id="ljgdsl">1234567</span>
+                    </p>
+                    <p style="margin-bottom: 0;">
+                        <span style="font-size: 18px;font-weight: bolder;color: #cc0000;">
+                            <svg class="bi bi-caret-up-fill" width="1.2em" height="1.2em" viewBox="0 0 16 16"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                            </svg>
+                            <span id="jrgdsl">123</span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm" align="center">
+            <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 80%;">
+                <div align="center">
+                    <h5 class="card-title">完成工单数量</h5>
+                    <p style="margin-bottom: 0;">
+                        <span style="font-size: 42px;font-weight: bolder;" id="ljgdwcsl">1234567</span>
+                    </p>
+                    <p style="margin-bottom: 0;">
+                        <span style="font-size: 18px;font-weight: bolder;color: #cc0000;">
+                            <svg class="bi bi-caret-up-fill" width="1.2em" height="1.2em" viewBox="0 0 16 16"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                            </svg>
+                            <span id="jrgdwcsl">123</span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm" align="center">
+            <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 80%;">
+                <div align="center">
+                    <h5 class="card-title">累计收案数量</h5>
+                    <p style="margin-bottom: 0;">
+                        <span style="font-size: 42px;font-weight: bolder;" id="ljsasltitle">1234567</span>
+                    </p>
+                    <p style="margin-bottom: 0;">
+                        <span style="font-size: 18px;font-weight: bolder;color: #cc0000;">
+                            <svg class="bi bi-caret-up-fill" width="1.2em" height="1.2em" viewBox="0 0 16 16"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                            </svg>
+                            <span id="jrsasl">123</span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" align="center" style="margin-bottom: 1%;">
+        <div class="col-sm-4">
+            <div class="rounded" id="container" style="height: 500px;"></div>
+        </div>
+        <div class="col-sm-8">
+            <div style="width: 90%;">
+                <span>
+                    <div class="btn-group btn-group-sm float-left" role="group" aria-label="Basic example" style="margin-bottom: 0.5%;">
+                        <button type="button" class="btn btn-warning mode" value="1">工单模式</button>
+                        <button type="button" class="btn btn-secondary mode" value="2">案件模式</button>
+                    </div>
+                    <div class="btn-group btn-group-sm float-right" role="group" aria-label="Basic example" style="margin-bottom: 0.5%;">
+<!--                        <button type="button" class="btn btn-success">当日</button>-->
+                        <button type="button" class="btn btn-secondary lx" value="2" onclick="changelx(this)">过去7天</button>
+                        <button type="button" class="btn btn-secondary lx" value="3" onclick="changelx(this)">过去30天</button>
+                        <button type="button" class="btn btn-success lx" value="4" onclick="changelx(this)">全部</button>
+                    </div>
+                </span>
+            </div>
+            <div class="card" style="width: 90%;">
+                <div class="card-body">
+                    <h4 class="card-title">基础数据</h4>
+                    <div class="row" style="font-weight: bold;">
+                        <div class="col-2">
+                            预约工单数量
+                        </div>
+                        <div class="col-2" id="yygdsl">
+                            123456
+                        </div>
+                        <div class="col-2">
+                            送达成功数量
+                        </div>
+                        <div class="col-2" id="sdcgsl">
+                            123456
+                        </div>
+                        <div class="col-2">
+                            送达成功率
+                        </div>
+                        <div class="col-2" id="gdsdcgl">
+                            123456
+                        </div>
+                    </div>
+                    <div class="row" style="font-weight: bold;">
+                        <div class="col-2">
+                            累计收案数量
+                        </div>
+                        <div class="col-2" id="ljsasl">
+                            123456
+                        </div>
+                        <div class="col-2">
+                            案件送达数量
+                        </div>
+                        <div class="col-2" id="ajsdsl">
+                            123456
+                        </div>
+                        <div class="col-2">
+                            送达成功率
+                        </div>
+                        <div class="col-2" id="ajsdcgl">
+                            123456
+                        </div>
+                    </div>
+                    <div class="row" style="font-weight: bold;">
+                        <div class="col-2">
+                            受送达人数量
+                        </div>
+                        <div class="col-2" id="ssdrsl">
+                            123456
+                        </div>
+                        <div class="col-2">
+                            完成送达人数
+                        </div>
+                        <div class="col-2" id="wcsdrs">
+                            123456
+                        </div>
+                        <div class="col-2">
+                            送达成功率
+                        </div>
+                        <div class="col-2" id="ssdrcgl">
+                            123456
+                        </div>
+                    </div>
+                    <div class="row" style="font-weight: bold;">
+                        <div class="col-2">
+                            送达中工单数量
+                        </div>
+                        <div class="col-2" id="sdzgdsl">
+                            123456
+                        </div>
+                        <div class="col-2">
+                            送达中案件数量
+                        </div>
+                        <div class="col-2" id="sdzajsl">
+                            123456
+                        </div>
+                        <div class="col-2">
+                            送达中人数
+                        </div>
+                        <div class="col-2" id="sdzrs">
+                            123456
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="width: 90%;margin-top: 1%;">
+                <div class="card-body">
+                    <h4 class="card-title">送达周期</h4>
+                    <div class="row" style="font-weight: bold;">
+                        <div class="col-3">
+                            案件平均送达周期
+                        </div>
+                        <div class="col-3" id="ajpjsdzq">
+                            123456
+                        </div>
+                        <div class="col-3">
+                            电话电子平均送达周期
+                        </div>
+                        <div class="col-3" id="dhpjsdzq">
+                            123456
+                        </div>
+                    </div>
+                    <div class="row" style="font-weight: bold;">
+                        <div class="col-3">
+                            邮寄平均送达周期
+                        </div>
+                        <div class="col-3" id="yjpjsdzq">
+                            123456
+                        </div>
+                        <div class="col-3">
+                            来院平均送达周期
+                        </div>
+                        <div class="col-3" id="lypjsdzq">
+                            123456
+                        </div>
+                    </div>
+                    <div class="row" style="font-weight: bold;">
+                        <div class="col-3">
+                            直接平均送达周期
+                        </div>
+                        <div class="col-3" id="zjpjsdzq">
+                            123456
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="width: 90%;margin-top: 1%;">
+                <div class="card-body">
+                    <h4 class="card-title">送达实际情况</h4>
+                    <div class="row" style="font-weight: bold;">
+                        <div class="col-3">
+                            短信下发总数
+                        </div>
+                        <div class="col-3" id="dxxfzs">
+                            123456
+                        </div>
+                        <div class="col-3">
+                            短信链接访问率
+                        </div>
+                        <div class="col-3" id="dxljfwl">
+                            123456
+                        </div>
+                    </div>
+                    <div class="row" style="font-weight: bold;">
+                        <div class="col-3">
+                            电话外呼拨打次数
+                        </div>
+                        <div class="col-3" id="dhwhbacs">
+                            123456
+                        </div>
+                        <div class="col-3">
+                            电话外呼接听数
+                        </div>
+                        <div class="col-3" id="dhwhjts">
+                            123456
+                        </div>
+                    </div>
+                    <div class="row" style="font-weight: bold;">
+                        <div class="col-3">
+                            邮寄送达件数
+                        </div>
+                        <div class="col-3" id="yjsdjs">
+                            123456
+                        </div>
+                        <div class="col-3">
+                            文书总量
+                        </div>
+                        <div class="col-3" id="wszl">
+                            123456
+                        </div>
+                    </div>
+                    <div class="row" style="font-weight: bold;">
+                        <div class="col-3">
+                            修复总数
+                        </div>
+                        <div class="col-3" id="xfsl">
+                            123456
+                        </div>
+                        <div class="col-3">
+                            修复成功数
+                        </div>
+                        <div class="col-3" id="xfcgs">
+                            123456
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>

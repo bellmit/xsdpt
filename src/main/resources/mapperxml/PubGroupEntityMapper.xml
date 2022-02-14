@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubGroupEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubGroupEntity">
+    <constructor>
+      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ryid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="rymc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="group_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="fybh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubGroupEntity">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_group_id_seq'::regclass)
+    </selectKey>
+    insert into pub_group (id, ryid, rymc, 
+      group_name,fybh)
+    values (#{id,jdbcType=INTEGER}, #{ryid,jdbcType=INTEGER}, #{rymc,jdbcType=VARCHAR}, 
+      #{groupName,jdbcType=VARCHAR}, #{fybh,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubGroupEntity">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_group_id_seq'::regclass)
+    </selectKey>
+    insert into pub_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="ryid != null">
+        ryid,
+      </if>
+      <if test="rymc != null">
+        rymc,
+      </if>
+      <if test="groupName != null">
+        group_name,
+      </if>
+      <if test="fybh != null">
+        fybh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=INTEGER},
+      <if test="ryid != null">
+        #{ryid,jdbcType=INTEGER},
+      </if>
+      <if test="rymc != null">
+        #{rymc,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="fybh != null">
+        #{fybh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

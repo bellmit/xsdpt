@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubYysdSsdrQtsscyrEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubYysdSsdrQtsscyrEntity">
+    <constructor>
+      <idArg column="bh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="xm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lx" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="gzdw" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sfzhm" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    bh, yysdbh, ssdrbh, xm, lx, gzdw, dh, dz, sfzhm
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_yysd_ssdr_qtsscyr
+    where bh = #{bh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_yysd_ssdr_qtsscyr
+    where bh = #{bh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubYysdSsdrQtsscyrEntity">
+    <selectKey keyProperty="bh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_yysd_ssdr_qtsscyr_bh_seq'::regclass)
+    </selectKey>
+    insert into pub_yysd_ssdr_qtsscyr (bh, yysdbh, ssdrbh, 
+      xm, lx, gzdw, dh, 
+      dz, sfzhm)
+    values (#{bh,jdbcType=INTEGER}, #{yysdbh,jdbcType=INTEGER}, #{ssdrbh,jdbcType=INTEGER}, 
+      #{xm,jdbcType=VARCHAR}, #{lx,jdbcType=VARCHAR}, #{gzdw,jdbcType=VARCHAR}, #{dh,jdbcType=VARCHAR}, 
+      #{dz,jdbcType=VARCHAR}, #{sfzhm,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubYysdSsdrQtsscyrEntity">
+    <selectKey keyProperty="bh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_yysd_ssdr_qtsscyr_bh_seq'::regclass)
+    </selectKey>
+    insert into pub_yysd_ssdr_qtsscyr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      bh,
+      <if test="yysdbh != null">
+        yysdbh,
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh,
+      </if>
+      <if test="xm != null">
+        xm,
+      </if>
+      <if test="lx != null">
+        lx,
+      </if>
+      <if test="gzdw != null">
+        gzdw,
+      </if>
+      <if test="dh != null">
+        dh,
+      </if>
+      <if test="dz != null">
+        dz,
+      </if>
+      <if test="sfzhm != null">
+        sfzhm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{bh,jdbcType=INTEGER},
+      <if test="yysdbh != null">
+        #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="xm != null">
+        #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="lx != null">
+        #{lx,jdbcType=VARCHAR},
+      </if>
+      <if test="gzdw != null">
+        #{gzdw,jdbcType=VARCHAR},
+      </if>
+      <if test="dh != null">
+        #{dh,jdbcType=VARCHAR},
+      </if>
+      <if test="dz != null">
+        #{dz,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzhm != null">
+        #{sfzhm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubYysdSsdrQtsscyrEntity">
+    update pub_yysd_ssdr_qtsscyr
+    <set>
+      <if test="yysdbh != null">
+        yysdbh = #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="xm != null">
+        xm = #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="lx != null">
+        lx = #{lx,jdbcType=VARCHAR},
+      </if>
+      <if test="gzdw != null">
+        gzdw = #{gzdw,jdbcType=VARCHAR},
+      </if>
+      <if test="dh != null">
+        dh = #{dh,jdbcType=VARCHAR},
+      </if>
+      <if test="dz != null">
+        dz = #{dz,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzhm != null">
+        sfzhm = #{sfzhm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bh = #{bh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubYysdSsdrQtsscyrEntity">
+    update pub_yysd_ssdr_qtsscyr
+    set yysdbh = #{yysdbh,jdbcType=INTEGER},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      xm = #{xm,jdbcType=VARCHAR},
+      lx = #{lx,jdbcType=VARCHAR},
+      gzdw = #{gzdw,jdbcType=VARCHAR},
+      dh = #{dh,jdbcType=VARCHAR},
+      dz = #{dz,jdbcType=VARCHAR},
+      sfzhm = #{sfzhm,jdbcType=VARCHAR}
+    where bh = #{bh,jdbcType=INTEGER}
+  </update>
+</mapper>

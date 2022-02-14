@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的送达</title>
+    <link rel="stylesheet" href="/css/wbrywdsd_new.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <!--    <script src="/bootstrap/js/bootstrap.min.js"></script>-->
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/common.js?v=2.1"></script>
+</head>
+
+<body style="background-color: #D6E0E2;">
+<script src="/js/layui/layui.js"></script>
+<script>
+    //动态全局JS版本号  慎用
+    document.write('<script src="/js/main.js?v=' + new Date().getTime() + '"><\/script>')
+</script>
+<div id="top" class="fixed-top d-flex flex-column" style="height: 15%;">
+    <div class="d-flex bd-highlight" style="height: 75%;">
+        <div style="width:25%">
+            <div id="logo" class="float-left align-middle" style="margin-left: 17%;margin-top: 4%;font-size: 13px;">
+            </div>
+        </div>
+        <div class="d-flex flex-column" style="width: 75%;">
+            <div style="height: 40%;">
+                <div class="float-right" style="font-size:13px; color: white;padding-top: 1%;">
+                    <span style="font-size: 18px">欢迎您 <span id="userName"></span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                    <button id="logout" type="button" class="btn btn-default"
+                            style="color:white;float: right;padding: 0px">退出系统
+                    </button>
+                </div>
+            </div>
+            <div>
+                <div class="d-flex flex-row float-right" style="padding-right: 20%;font-size: 14px;">
+                    <a href="#dhsd" style="color: black;text-decoration:none">
+                        <div class="p-2 label miaodian" onclick="maodian(this)">电话送达</div>
+                    </a>
+                    <a href="#dxtz" style="color: black;text-decoration:none">
+                        <div class="p-2 label miaodian focus" onclick="maodian(this)">短信通知</div>
+                    </a>
+                    <a href="#lylq" style="color: black;text-decoration:none">
+                        <div class="p-2 label miaodian" onclick="maodian(this)">来院领取</div>
+                    </a>
+                    <a href="#emssd" style="color: black;text-decoration:none">
+                        <div class="p-2 label miaodian" onclick="maodian(this)">EMS送达</div>
+                    </a>
+                    <a href="#zjsd" style="color: black;text-decoration:none">
+                        <div class="p-2 label miaodian" onclick="maodian(this)">直接送达</div>
+                    </a>
+                    <a href="#wtdc" style="color: black;text-decoration:none">
+                        <div class="p-2 label miaodian" onclick="maodian(this)">委托送达</div>
+                    </a>
+                    <a href="#ggsd" style="color: black;text-decoration:none">
+                        <div class="p-2 label miaodian" onclick="maodian(this)">公告送达</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="float-right" style="font-size: 14px;padding-left: 8%;">
+        当前位置：首页 - 我的送达 - 案号：<span id="title_ah" style="width: 95%;"></span>
+    </div>
+</div>
+
+<div class="container" style="background-color: #fff;padding-top: 8%;">
+    <div style="width: 100%; text-align: right; margin:0 auto">
+        <button class="btn btn-primary" style="float: right;margin-right: 20px" type="button" id="ajxq">查看工单详情</button>
+        <button class="btn btn-primary" style="float: right;margin-right: 20px" type="button" id="xzfkb" onclick="downloadfkb()">下载反馈表</button>
+        <button class="btn btn-primary" style="float: right;margin-right: 20px" type="button" id="ksrwlz">快速流转</button>
+        <!--            <a href="" style="text-decoration:none"><span style="margin-left: 20px;color: #339cee"> 返回 </span></a>-->
+    </div>
+
+    <div style="width: 100%; margin:0 auto">
+        <div id="jbxx">
+            <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">
+                基本信息
+
+            </div>
+            <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>
+            <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>
+            <div style="margin-left: 3%;margin-top: 20px;">
+                <table id="jbxx_table" class="table-bordered" style="width: 96%">
+                    <thead>
+                    <tr style="color: #f3f3f3; height: 50px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">
+                        <th style="text-align: center;width: 20%">当事人</th>
+                        <th style="text-align: center;width: 10%">诉讼地位</th>
+                        <th style="text-align: center;width: 10%">送达状态</th>
+                        <th style="text-align: center;width: 10%">送达地址确认书</th>
+                        <th style="text-align: center;width: 10%">电子送达</th>
+                        <th style="text-align: center;width: 25%">送达方式</th>
+                        <th style="text-align: center;width: 20%">修复状态</th>
+                    </tr>
+                    </thead>
+                    <tbody id="dsrxx">
+
+                    </tbody>
+                    <!--                        <tbody id="jbxx_tbody" style="text-align: center;font-size: 16px">-->
+                    <!--                            <td>某某某 <img src="../img/jbxx_info.png" height="16" width="16"></td>-->
+                    <!--                            <td>原告</td>-->
+                    <!--                            <td>送达成功 <img src="../img/jbxx_write.png" height="16" width="16"></td>-->
+                    <!--                            <td>签署 <img src="../img/jbxx_write.png" height="16" width="16"></td>-->
+                    <!--                            <td>同意 <img src="../img/jbxx_write.png" height="16" width="16"> </td>-->
+                    <!--                            <td></td>-->
+                    <!--                            <td>已修复 <img src="../img/jbxx_phone.png" height="24" width="24"></td>-->
+                    <!--                        </tbody>-->
+                </table>
+            </div>
+
+        </div>
+
+
+        <div id="dhsd" style="width: 100%">
+
+            <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">
+                电话送达
+            </div>
+            <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>
+            <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>
+            <div style="margin-left: 3%;margin-top: 20px;" id="dhsdInfos">
+                <!--                    <table id="dhsd_table" class="table-bordered" style="width: 96%">-->
+                <!--                        <thead>-->
+                <!--                            <tr-->
+                <!--                                style="color: #f3f3f3; height: 50px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">-->
+                <!--                                <th style="text-align: center;width: 10%">当事人</th>-->
+                <!--                                <th style="text-align: center;width: 10%">被叫号码</th>-->
+                <!--                                <th style="text-align: center;width: 5%">确认信息</th>-->
+                <!--                                <th style="text-align: center;width: 10%">电子送达</th>-->
+                <!--                                <th style="text-align: center;width: 5%">送达方式信息</th>-->
+                <!--                                <th style="text-align: center;width: 10%">外呼时间</th>-->
+                <!--                                <th style="text-align: center;width: 10%">电话状态</th>-->
+                <!--                                <th style="text-align: center;width: 5%">通话时长</th>-->
+                <!--                                <th style="text-align: center;width: 10%">送达专员电话</th>-->
+                <!--                                <th style="text-align: center;width: 10%">备注</th>-->
+                <!--                                <th style="text-align: center;width: 10%">录音</th>-->
+                <!--                                <th style="text-align: center;width: 5%">操作</th>-->
+                <!--                            </tr>-->
+                <!--                        </thead>-->
+                <!--                        <tbody id="dhsd_tbody" style="text-align: center;font-size: 16px">-->
+                <!--                            <td>某某某</td>-->
+                <!--                            <td>原告</td>-->
+                <!--                            <td>送达成功</td>-->
+                <!--                            <td>签署</td>-->
+                <!--                            <td>同意</td>-->
+                <!--                            <td></td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                        </tbody>-->
+                <!--                    </table>-->
+            </div>
+        </div>
+        <div id="dxtz" style="width: 100%">
+
+            <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">
+                短信通知
+
+            </div>
+            <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>
+            <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>
+            <div style="margin-left: 3%;margin-top: 20px;" id="dxtzInfos">
+                <!--                    <table id="dxtz_table" class="table-bordered" style="width: 96%">-->
+                <!--                        <thead>-->
+                <!--                            <tr-->
+                <!--                                style="color: #f3f3f3; height: 50px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">-->
+                <!--                                <th style="text-align: center;width: 10%">当事人</th>-->
+                <!--                                <th style="text-align: center;width: 10%">接收号码</th>-->
+                <!--                                <th style="text-align: center;width: 10%">下发时间</th>-->
+                <!--                                <th style="text-align: center;width: 10%">短信模板名称</th>-->
+                <!--                                <th style="text-align: center;width: 10%">文书名称</th>-->
+                <!--                                <th style="text-align: center;width: 10%">短信内容</th>-->
+                <!--                                <th style="text-align: center;width: 10%">发送状态</th>-->
+                <!--                                <th style="text-align: center;width: 10%">访问状态</th>-->
+                <!--                                <th style="text-align: center;width: 10%">文书内容</th>-->
+                <!--                                <th style="text-align: center;width: 10%">操作</th>-->
+                <!--                            </tr>-->
+                <!--                        </thead>-->
+                <!--                        <tbody id="dxtz_tbody" style="text-align: center;font-size: 16px">-->
+                <!--                            <td>某某某</td>-->
+                <!--                            <td>原告</td>-->
+                <!--                            <td>送达成功</td>-->
+                <!--                            <td>签署</td>-->
+                <!--                            <td>同意</td>-->
+                <!--                            <td></td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                        </tbody>-->
+                <!--                    </table>-->
+            </div>
+        </div>
+        <div id="emssd" style="width: 100%">
+
+            <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">
+                <p>EMS送达</p>
+            </div>
+            <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>
+            <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>
+            <div style="margin-left: 3%;margin-top: 20px;" id="emssdInfos">
+
+            </div>
+        </div>
+        <div id="lylq" style="width: 100%">
+
+            <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">
+                来院领取
+
+            </div>
+            <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>
+            <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>
+            <div style="margin-left: 3%;margin-top: 20px;" id="lylqInfos">
+                <!--                    <table id="lylq_table" class="table-bordered" style="width: 96%">-->
+                <!--                        <thead>-->
+                <!--                            <tr-->
+                <!--                                style="color: #f3f3f3; height: 50px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">-->
+                <!--                                <th style="text-align: center;width: 20%">当事人</th>-->
+                <!--                                <th style="text-align: center;width: 10%">预约领取时间</th>-->
+                <!--                                <th style="text-align: center;width: 10%">预约领取地点</th>-->
+                <!--                                <th style="text-align: center;width: 10%">领取状态</th>-->
+                <!--                                <th style="text-align: center;width: 10%">送达回执</th>-->
+                <!--                                <th style="text-align: center;width: 25%">文书名称</th>-->
+                <!--                                <th style="text-align: center;width: 20%">操作</th>-->
+                <!--                            </tr>-->
+                <!--                        </thead>-->
+                <!--                        <tbody id="lylq_tbody" style="text-align: center;font-size: 16px">-->
+                <!--                            <td>某某某</td>-->
+                <!--                            <td>原告</td>-->
+                <!--                            <td>送达成功</td>-->
+                <!--                            <td>签署</td>-->
+                <!--                            <td>同意</td>-->
+                <!--                            <td></td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                        </tbody>-->
+                <!--                    </table>-->
+            </div>
+        </div>
+
+        <div id="zjsd" style="width: 100%">
+
+            <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">
+                直接送达
+
+            </div>
+            <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>
+            <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>
+            <div style="margin-left: 3%;margin-top: 20px;" id="zhijsdInfos">
+                <!--                    <table id="zjsd_table" class="table-bordered" style="width: 96%">-->
+                <!--                        <thead>-->
+                <!--                            <tr-->
+                <!--                                style="color: #f3f3f3; height: 50px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">-->
+                <!--                                <th style="text-align: center;width: 10%">当事人</th>-->
+                <!--                                <th style="text-align: center;width: 10%">送达地址</th>-->
+                <!--                                <th style="text-align: center;width: 10%">上门时间</th>-->
+                <!--                                <th style="text-align: center;width: 20%">送达过程记录</th>-->
+                <!--                                <th style="text-align: center;width: 10%">备注</th>-->
+                <!--                                <th style="text-align: center;width: 10%">签收结果</th>-->
+                <!--                                <th style="text-align: center;width: 10%">送达回执</th>-->
+                <!--                                <th style="text-align: center;width: 10%">相关文件</th>-->
+                <!--                                <th style="text-align: center;width: 10%">文书名称</th>-->
+                <!--                            </tr>-->
+                <!--                        </thead>-->
+                <!--                        <tbody id="zjsd_tbody" style="text-align: center;font-size: 16px">-->
+                <!--                            <td>某某某</td>-->
+                <!--                            <td>原告</td>-->
+                <!--                            <td>送达成功</td>-->
+                <!--                            <td>签署</td>-->
+                <!--                            <td>同意</td>-->
+                <!--                            <td></td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                            <td>已修复</td>-->
+                <!--                        </tbody>-->
+                <!--                    </table>-->
+            </div>
+        </div>
+        <!--        <div id="wtsd" style="width: 100%">-->
+        <!--            <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">-->
+        <!--                委托送达-->
+
+        <!--            </div>-->
+        <!--            <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>-->
+        <!--            <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>-->
+        <!--            <div style="margin-left: 3%;margin-top: 20px;">-->
+        <!--                &lt;!&ndash;                            <table id="ggsd_table" class="table-bordered" style="width: 96%">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                <thead>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                <tr style="color: #f3f3f3; height: 50px;font-size: 16px;background: linear-gradient(to bottom, #37aaed,#266cf4);">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <th style="text-align: center;width: 20%">提交公告日期</th>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <th style="text-align: center;width: 40%">公告内容</th>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <th style="text-align: center;width: 20%">公告审核状态</th>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <th style="text-align: center;width: 20%">导出时间</th>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                </tr>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                </thead>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                <tbody id="ggsd_tbody" style="text-align: center;font-size: 16px">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                <td>某某某</td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                <td>原告</td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                <td>送达成功</td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                <td>签署</td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                </tbody>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                            </table>&ndash;&gt;-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <div id="ggsd" style="width: 100%">
+
+            <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">
+                公告送达
+
+            </div>
+            <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>
+            <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>
+            <div style="margin-left: 3%;margin-top: 20px;">
+                <table id="ggsd_table" class="table-bordered" style="width: 96%">
+                    <thead>
+                    <tr
+                            style="color: #f3f3f3; height: 30px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">
+                        <th style="text-align: center;width: 20%">提交公告日期</th>
+                        <th style="text-align: center;width: 40%">公告内容</th>
+                        <th style="text-align: center;width: 20%">公告审核状态</th>
+                        <th style="text-align: center;width: 20%">导出时间</th>
+                    </tr>
+                    </thead>
+                    <tbody id="ggsd_tbody" style="text-align: center;font-size: 16px">
+                    <!--                    <td>某某某</td>-->
+                    <!--                    <td>原告</td>-->
+                    <!--                    <td>送达成功</td>-->
+                    <!--                    <td>签署</td>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--            <div id="dzsd" style="width: 100%">-->
+
+        <!--                <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">-->
+        <!--                    电子送达-->
+
+        <!--                </div>-->
+        <!--                <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>-->
+        <!--                <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>-->
+        <!--                <div style="margin-left: 3%;margin-top: 20px;">-->
+        <!--                    <table id="dzsd_table" class="table-bordered" style="width: 96%">-->
+        <!--                        <thead>-->
+        <!--                            <tr-->
+        <!--                                style="color: #f3f3f3; height: 50px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">-->
+        <!--                                <th style="text-align: center;width: 20%">送达日期</th>-->
+        <!--                                <th style="text-align: center;width: 20%">送达内容</th>-->
+        <!--                                <th style="text-align: center;width: 20%">签收人</th>-->
+        <!--                                <th style="text-align: center;width: 20%">签收日期</th>-->
+        <!--                                <th style="text-align: center;width: 20%">送达回执</th>-->
+        <!--                            </tr>-->
+        <!--                        </thead>-->
+        <!--                        <tbody id="dzsd_tbody" style="text-align: center;font-size: 16px">-->
+        <!--                            <td>某某某</td>-->
+        <!--                            <td>原告</td>-->
+        <!--                            <td>送达成功</td>-->
+        <!--                            <td>签署</td>-->
+        <!--                            <td>同意</td>-->
+        <!--                        </tbody>-->
+        <!--                    </table>-->
+        <!--                </div>-->
+        <!--            </div>-->
+
+
+        <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">
+            发送日志
+        </div>
+        <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>
+        <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>
+        <div>
+            <div class="row" style=" padding-top: 5%;padding-bottom: 5%;">
+                <div class="col">
+                    <div class="row row-cols-lg-5" id="buttom_log_ul">
+                        <!--                        <div class="col">-->
+                        <!--                            <div class="float-right" style="height:100%;">-->
+                        <!--                                <button style="margin-top:100%;height:50%;background: linear-gradient(to bottom, #37aaed,#266cf4);border: none;">-->
+                        <!--                                    <-->
+                        <!--                                </button>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                        <div >-->
+
+                        <!--                        </div>-->
+                        <!--                        <div class="col">-->
+                        <!--                            <div class="float-left" style="height:100%;">-->
+                        <!--                                <button style="margin-top:100%;height:50%;background: linear-gradient(to bottom, #37aaed,#266cf4);border: none;">-->
+                        <!--                                    >-->
+                        <!--                                </button>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="addWebCallModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 160%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    电话送达
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">案号：</label>
+                        <!--                        <div class="col-sm-10">-->
+                        <span class="form-control-static"><label class="case-no"></label></span>
+                        <!--                        </div>-->
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">当事人：</label>
+                        <!--                        <div class="col-sm-10">-->
+                        <span class="form-control-static"><label class="sdp-name"></label></span>
+                        <!--                        </div>-->
+                    </div>
+                    <hr/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">号码：</label>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>数据来源</th>
+                        <th>电话</th>
+                        <th>最新电话状态</th>
+                        <th>操作</th>
+                        </thead>
+                        <tbody id="tel-tbody">
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <!--                <button type="button" class="btn btn-primary" id="sendMSg">-->
+                <!--                    发送短信-->
+                <!--                </button>-->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- 送达 外呼详细填写弹窗 -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="editWebCallModel" tabindex="-1" role="dialog" aria-labelledby="editWebCallModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 160%">
+            <div class="modal-header">
+                <!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
+                <!--                    &times;-->
+                <!--                </button>-->
+
+                <h4 class="modal-title" id="editWebCallModalLabel">
+                    填写拨打信息
+                </h4>
+
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="callFrom">
+                    <div class="form-group">
+                        <button class="btn btn-primary" style="float: right;margin-right: 20px" type="button"
+                                onclick="loadGdxx()">查看工单详情
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">送达专员电话：</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static" id="seatNumber"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">呼叫号码：</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static" id="webTel"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">电话状态：</label>
+                        <div class="col-sm-9">
+                            <select id="dhzt-select" class="form-control">
+                                <option value="">请选择电话状态</option>
+                                <option value="1">有效-本人</option>
+                                <option value="2">可联-非本人</option>
+                                <option value="3">可联-关机</option>
+                                <option value="4">可联-停机</option>
+                                <option value="5">可联-未接通</option>
+                                <option value="6">可联-再跟进</option>
+                                <option value="7">可联-正忙</option>
+                                <option value="8">空号</option>
+                                <option value="9">呼叫受限</option>
+                                <option value="10">可联-挂机</option>
+                                <option value="11">代理人接听</option>
+                                <option value="12">代理律师接听</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">号码确认：</label>
+                        <div class="col-sm-9">
+                            <div id="phone">
+                                <input id="iscon" class="form-control confirmNumber" rows="3" placeholder="请确认号码"/>
+                            </div>
+                            <button type="button" class="btn btn-link" id="addPhoneA" rows="3"
+                                    onclick="addPhone(this.id)">添加号码
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">地址确认：</label>
+                        <div class="col-sm-9">
+                            <div id="address">
+                                <input id="addressb" class="form-control confirmAddress" rows="3" placeholder="请确认地址"/>
+                            </div>
+                            <button type="button" class="btn btn-link" id="addAddressA" rows="3"
+                                    onclick="addAddress(this.id)">添加地址
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">是否同意电子送达：</label>
+                        <div class="col-sm-9">
+                            <input type="radio" name="electronSend" id="sftydzsd1" class="radio-inline" value="0"/>是
+                            <input type="radio" name="electronSend" id="sftydzsd2" class="radio-inline" value="1"/>否
+                        </div>
+                    </div>
+
+                    <!-- 新增一个文书类别 -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">文书类别：</label>
+                        <div id="wslbcheckboxdh" class="col-sm-9">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">送达方式：</label>
+                        <div class="col-sm-9">
+                            <select id="sendType" class="form-control" onchange="showInfo(this[selectedIndex].value)">
+                                <option value="0">请选择送达方式</option>
+                                <option value="1">来院领取</option>
+                                <option value="2">邮寄送达</option>
+                                <option value="3">短信电子送达</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--默认隐藏-->
+                    <!--来院领取-->
+                    <div style="display: none" id="showA">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label cus-required">预约时间：</label>
+                            <div class="col-sm-9">
+                                <input type="text" readonly placeholder="请选择来院领取时间" class="form-control lylq-yysj-input"
+                                       id="lylq-yysj-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label cus-required">预约地点：</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="orderAddress" class="form-control" rows="3">
+                            </div>
+                        </div>
+                    </div>
+                    <!--邮寄送达-->
+                    <div style="display: none" id="showB">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label cus-required">地址确认：</label>
+                            <div class="col-sm-9">
+                                <div id="addressList">
+                                    <div id="addressRadio"></div>
+                                    <div id="addressInput"></div>
+                                    <!--                                    <input type="radio"  name="conAddress" class="radio-inline" value="天津市"/>天津市-->
+                                </div>
+                                <button type="button" class="btn btn-link" rows="3" id="addAddressB"
+                                        onclick="addAddress(this.id)">输入地址
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--短信电子送达-->
+                    <div style="display: none" id="showC">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label cus-required">号码确认：</label>
+                            <div class="col-sm-9">
+                                <div id="phoneList">
+
+                                </div>
+                                <div id="phoneListInput">
+
+                                </div>
+                                <button type="button" class="btn btn-link" rows="3" id="addPhoneB"
+                                        onclick="addPhone(this.id)">输入号码
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">送达结果：</label>
+                        <div class="col-sm-9">
+                            <select id="selectedSdjg" class="form-control">
+                                <option value="0">请选择送达结果</option>
+                                <option value="1">送达成功</option>
+                                <option value="2">送达失败</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">委托流转方式：</label>
+                        <div class="col-sm-9">
+                            <select class="select_wtfs form-control" id="select_wtfs_dhsd" data-id="select_wtfs_dhsd"
+                                    data-change="select_wtclr_dhsd" onchange="changeWtfs(this)">
+                                <option value=""></option>
+                                <option value="DHSD">电话送达</option>
+                                <option value="DXSD">短信送达</option>
+                                <option value="EMS">邮寄送达</option>
+                                <option value="LYLQ">来院领取</option>
+                                <option value="ZZSD">直接送达</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">委托流转处理人：</label>
+                        <div class="col-sm-9">
+                            <select class="form-control selectedWtclr" id="select_wtclr_dhsd">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">备注：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" rows="3" id="remarks"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--                <button type="button" class="btn btn-default" data-dismiss="modal">取消-->
+                <!--                </button>-->
+                <button type="button" class="btn btn-primary" id="submitEditWebCall">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 新增短信通知记录弹窗 步骤1 -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="addDxtzModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 160%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">
+                    新增短信送达任务
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">案号：</label>
+                        <!--                        <div class="col-sm-10" id="gdh">-->
+                        <span class="form-control-static"><label class="case-no"></label></span>
+                        <!--                        </div>-->
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">当事人：</label>
+                        <!--                        <div class="col-sm-10" id="dsrmc">-->
+                        <span class="form-control-static"><label class="dsrmc"></label></span>
+                        <!--                        </div>-->
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">立案案由：</label>
+                        <!--                        <div class="col-sm-10" id="laay">-->
+                        <span class="form-control-static"><label class="laay"></label></span>
+                        <!--                        </div>-->
+                    </div>
+
+                    <!-- 新增一个文书类别 -->
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label class="col-sm-2 control-label cus-required">文书类别：</label>-->
+                    <!--                        <div id="wslbcheckboxdx" class="col-sm-9" >-->
+
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+                    <div id="dxtz-zhuti">
+                        <hr/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label cus-required">下发号码：</label>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                            <th>
+                                <label>
+                                    <input name="dxtz-tel-checkbox-checkAll" type="checkbox">
+                                    全选
+                                </label>
+                            </th>
+                            <th>来源</th>
+                            <th>电话</th>
+                            <th>最新下发状态</th>
+                            <th>最新访问状态</th>
+                            </thead>
+                            <tbody id="tel-tbody1">
+                            </tbody>
+                        </table>
+
+                        <hr/>
+                        <!--                        短信模板选择-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label cus-required">短信模板：</label>
+                            <div class="col-sm-10">
+                                <select id="dxtz-dxmb-input" class="form-control">
+                                    <option>请选择短信模板</option>
+                                    <option value="1">测试模板</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--                        短信模板参数填充动态表单-->
+                        <div id="dxtz-param">
+                            <hr/>
+                            <!--                                短信通知模板填充部分-->
+                            <div id="dxtz-mbtc">
+                            </div>
+                        </div>
+                        <div style="background-color: rgb(245,245,245);min-height: 60px">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label cus-required">短信预览：</label>
+                            </div>
+                            <table class="table table-bordered">
+                                <div id="dxtz-mbtc1">
+                                </div>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+                <div style="display: none" id="JZDXLS" class="layui-upload">
+                    <button class="layui-btn layui-btn-normal" id="jzlssj-dx" style="margin-right:20px"
+                            onclick="jzlssj()">导入上一次短信记录
+                    </button>
+                </div>
+                <div style="display: none" id="uploadFileShow" class="layui-upload">
+                    <button id="uploadFile" class="layui-btn layui-btn-normal" style="margin-top: 20px">上传pdf文件</button>
+                    <button class="layui-btn layui-btn-normal" id="sclj-btn" style="margin-top: 20px" onclick="sclj()">
+                        生成链接
+                    </button>
+                    <p style="color: red">目前支持上传的文件类型：pdf文件</p>
+                    <div class="layui-upload-list">
+                        <table class="layui-table">
+                            <thead>
+                            <tr>
+                                <th>文件名</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="demoList"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <button type="button" class="btn btn-primary" id="sendMSg">
+                    发送短信
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<div class="modal fade" id="hisYysdRecordModel" tabindex="-1" role="dialog" aria-labelledby="hisYysdRecordLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content" style="width: 200%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="hisYysdRecordLabel">
+                    历史送达记录
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div style="min-height: 20px;margin-top: 20px;margin-bottom: 10px" id="dhsd_his">
+                    <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">
+                        电话送达
+                    </div>
+                    <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>
+                    <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>
+                </div>
+                <div class="t2">
+                    <table class="table-bordered">
+                        <thead>
+                        <tr style="color: #f3f3f3; height: 30px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">
+                            <th style="text-align: center;width: 10%;">当事人名称</th>
+                            <th style="text-align: center;width: 10%;">被叫号码</th>
+                            <th style="text-align: center;width: 8%;">确认信息</th>
+                            <th style="text-align: center;width: 10%;">是否同意电子送达</th>
+                            <th style="text-align: center;width: 10%;">送达方式</th>
+                            <th style="text-align: center;width: 10%;">外呼时间</th>
+                            <th style="text-align: center;width: 10%;color: red">电话状态</th>
+                            <th style="text-align: center;width: 22%;">备注</th>
+                        </tr>
+                        </thead>
+                        <tbody id="dhsdxx_his">
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div style="min-height: 20px;margin-top: 20px;margin-bottom: 10px" id="dxtz_his">
+                    <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">
+                        短信送达
+                    </div>
+                    <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>
+                    <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>
+                </div>
+                <div class="t4">
+                    <table class="table-bordered" id="dxtz_table_his" width="100%">
+                        <thead>
+                        <tr style="color: #f3f3f3; height: 30px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">
+                            <th style="text-align: center;width: 20%;">当事人名称</th>
+                            <th style="text-align: center;width: 20%">接收号码</th>
+                            <th style="text-align: center;width: 20%">下发时间</th>
+                            <th style="text-align: center;width: 20%">发送状态</th>
+                            <th style="text-align: center;width: 20%">访问状态</th>
+                        </tr>
+                        </thead>
+                        <tbody id="dxtzxx_his">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div style="min-height: 20px;margin-top: 20px;margin-bottom: 10px" id="emssd_his">
+                    <div style="margin-left: 30px;margin-top: 20px;color: #339cee;font-size: 16px;">
+                        EMS送达
+                    </div>
+                    <div style="border: 1px solid #339cee;width: 130px;margin-top: 10px;margin-left: 0.4%;"></div>
+                    <div style="border: 1px solid #339cee;width: 98%;margin-left: 0.4%;"></div>
+                </div>
+                <div class="t3">
+                    <table class="table-bordered" id="emssd_table_his" width="100%">
+                        <thead>
+                        <tr style="color: #f3f3f3; height: 30px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">
+                            <th style="text-align: center;width: 20%">收件人姓名</th>
+                            <th style="text-align: center;width: 30%">邮寄地址</th>
+                            <th style="text-align: center;width: 15%">邮寄时间</th>
+                            <th style="text-align: center;width: 20%">邮寄单号</th>
+                            <th style="text-align: center;width: 15%">送达回执</th>
+                        </tr>
+                        </thead>
+                        <tbody id="emsbody_his">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<!--        <div class="modal-footer">-->
+<!--            <button type="button" class="btn btn-default" data-dismiss="modal">取消-->
+<!--            </button>-->
+<!--        </div>-->
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+</div>
+<!--人员基本信息-->
+<script id="test" type="text/html">
+    {{each data ssdrItem i}}
+    <tr data-hint="1">
+        <td class=".js_light_blue_font">
+            {{data[i].ssdrmc}}
+            <button type="button" class="btn btn-link btn-xs" style="display: none;" id={{data[i].hisBtnId}}
+                    data-index={{i}} onclick="openHisDialog(this)">
+                <img src="/img/jbxx_info.png" height="16" width="16" style="margin: 0">
+            </button>
+        </td>
+        <td class=".js_light_blue_font">{{data[i].ssdw}}</td>
+        <td class=".js_light_blue_font">{{data[i].sdzt}}
+            <button id="sdzt_update" class="myButton hasAuthority" data-ssdrbh={{data[i].ssdrbh}}
+                    data-yysdbh={{data[i].yysdbh}} onclick="sdzt_update(this)">
+                <img src="/img/jbxx_write.png" height="16" width="16" style="margin-left: 10px">
+            </button>
+        </td>
+        <!-- <td class=".js_light_blue_font">{{data[i].ssdrdh}}</td>
+         <td class=".js_light_blue_font">{{data[i].ssdrdz}}</td>
+         <td class=".js_light_blue_font">{{data[i].sfzhm}}</td> -->
+        <td class=".js_light_blue_font">{{data[i].sfqsqrs}}
+            <button id="qsqrs_update" class="myButton hasAuthority" data-index={{i}} onclick="qsqrs_update(this)">
+                <img src="/img/jbxx_write.png" height="16" width="16" style="margin-left: 10px">
+            </button>
+        </td>
+        <td class=".js_light_blue_font">{{data[i].sftydzsd}}
+            <button id="tydzsd_update" class="myButton hasAuthority" data-index={{i}} onclick="tydzsd_update(this)">
+                <img src="/img/jbxx_write.png" height="16" width="16" style="margin-left: 10px">
+            </button>
+        </td>
+        <td data-index={{i}}>
+            <div class="nine_button" data-index={{i}}>
+                <button data-type="gddhsd.aj" class="myButton dh_songda hasAuthority" data-index={{i}}><img
+                        src="/img/电话.png" width="24px"
+                        height="24px" title="电话送达"
+                        style="margin-left: -7px;border: none"></button>
+                <button data-type="gddxtz.aj" class="myButton dxtz_songda hasAuthority" data-index={{i}}><img
+                        src="/img/短信.png" width="24px"
+                        height="24px" title="短信送达"
+                        style="margin-left: 3px"></button>
+                <button data-type="gdlylq.aj" class="myButton lylq_songda hasAuthority" data-index={{i}}><img
+                        src="/img/法院.png" width="24px"
+                        height="24px" title="来院领取"
+                        style="margin-left: 3px"></button>
+                <button data-type="gdemssd.aj" class="myButton ems_songda hasAuthority" data-index={{i}}><img
+                        src="/img/ems.png" width="24px"
+                        height="24px" title="ems送达"
+                        style="margin-left: 3px"></button>
+                <!--               <button data-type="gddzsd.aj" class="myButton dz_songda hasAuthority" data-index={{i}}><img src="/css/img/list_dzsd.png" width="36px"-->
+                <!--                                                                            height="36px"-->
+                <!--                                                                            style="margin-left: 3px"></button>-->
+                <!--                <button data-type="dzsd/zgysdLogin" class="myButton zhj_songda hasAuthority" data-index={{i}}><img-->
+                <button data-type="kysd.aj" class="myButton zhj_songda hasAuthority" data-index={{i}}><img
+                        src="/img/跨域通道.png" width="24px"
+                        height="24px" title="跨域送达"
+                        style="margin-left: 3px">
+                </button>
+                <button data-type="zjsd.aj" class="myButton zhj_songda hasAuthority" data-index={{i}}><img
+                        src="/img/gz.png" width="24px"
+                        height="24px" title="直接送达"
+                        style="margin-left: 3px">
+                </button>
+<!--                <button data-type="wfysd.aj" class="myButton zhj_songda hasAuthority" data-index={{i}}><img-->
+<!--                        src="/img/wfy.png" width="20px"-->
+<!--                        height="20px" title="微法院送达"-->
+<!--                        style="margin-left: 3px">-->
+<!--                </button>-->
+                <!--              <button data-type="gdzhjsd.aj" class="myButton zhj_songda" data-index={{i}}><img src="/css/img/list_zhjsd.png" width="36px"-->
+                <!--                                                                              height="36px"-->
+                <!--                                                                              style="margin-left: 3px"></button>-->
+                <!--                <button data-type="gdwtsd.aj" class="myButton wt_songda" data-index={{i}}><img src="/css/img/list_wtsd.png" width="36px"-->
+                <!--                                                                            height="36px"-->
+                <!--                                                                            style="margin-left: 3px"></button>-->
+                <!--                <button data-type="gdggsd.aj" class="myButton gg_songda" data-index={{i}}><img src="/css/img/list_ggsd.png" width="36px"-->
+                <!--                                                                            height="36px"-->
+                <!--                                                                            style="margin-left: 3px"></button>-->
+
+
+            </div>
+
+        </td>
+        <td>
+            {{if ssdrItem.repairstatus == 'RPBS002'}}
+            修复中
+            {{else if ssdrItem.repairstatus == 'RPBS003'}}
+            修复成功
+            {{else if ssdrItem.repairstatus == 'RPBS004'}}
+            修复失败
+            {{else}}
+            待修复
+            {{/if}}
+            {{if ssdrItem.repairstatus != 'RPBS002'&&ssdrItem.repairstatus != 'RPBS003'&&ssdrItem.repairstatus !=
+            'RPBS004' && ((ssdrItem.sfzhm != null && ssdrItem.sfzhm.length == 18) ||
+            ssdrItem.ssdrmc.length > 7)}}
+            <button type="button" onclick="submitRepair(this)" data-hint="{{ssdrItem.ssdrbh}}"
+                    data-index="{{ssdrItem.yysdbh}}" class="myButton hasAuthority">
+                <img src="/img/jbxx_phone.png" height="24" width="24" style="margin: 0">
+            </button>
+            {{/if}}
+        </td>
+    </tr>
+    {{/each}}
+</script>
+
+<th:block th:include="pop/pop_gdxqxx.html"></th:block>
+<th:block th:include="pop/pop_dsr_ws.html"></th:block>
+<th:block th:include="pop/pop_addEms.html"></th:block>
+<th:block th:include="pop/pop_zjsd.html"></th:block>
+<th:block th:include="pop/pop_wfysd.html"></th:block>
+
+<div id="rwlz_pop" style="display: none; width: 80%;margin-left: 20%" >
+    <div style="min-height: 2em"></div>
+    <div class="form-group">
+        <label class="col-sm-6 control-label">本院送达员：</label>
+        <div class="col-sm-8">
+            <select class="form-control selectedWtclr" id="sdryselect">
+                <option value="">请选择送达员</option>
+            </select>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary"  style="margin-left: 25%" id="submit_rwlz" onclick="submitRwlz()">
+        确定
+    </button>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="addLylqModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 140%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    新增来院领取任务
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">案号：</label>
+                        <span class="col-sm-10">
+<!--                            <p class="form-control-static">-->
+                                <label class="case-no"></label>
+<!--                            </p>-->
+                        </span>
+                    </div>
+                    <div style="display: none" class="form-group">
+                        <label class="col-sm-2 control-label cus-required">当事人：</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static"><label class="sdp-name"></label></p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label cus-required">预约时间：</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly placeholder="请选择来院领取时间" class="form-control lylq-yysj-input"
+                                   id="lylq-yysj-input1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">预约地点：</label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="请输入预约地点" class="form-control" id="lylq-address-input">
+                        </div>
+                    </div>
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label class="col-sm-2 control-label cus-required">文书类别：</label>-->
+                    <!--                        <div id="wslbcheckboxlylq" class="col-sm-9" >-->
+
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="submit-lylq">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script id="emsTbodyHtml" type="text/html">
+    {{each list value i}}
+
+    {{/each}}
+</script>
+<script id="emsTbodyHtml_his" type="text/html">
+    {{each list value i}}
+    <tr>
+        <td>{{value.sjrxm}}</td>
+        ;
+        <td>{{value.yjdz}}</td>
+        ;
+        <td>{{value.yjsj}}</td>
+        ;
+        <td>{{value.kddh }}</td>
+        {{if value.sdhz!=null}}
+        <td>
+            <button class="btn btn-primary look_sdhz" data-hint={{value.kdid}}>查看</button>
+        </td>
+        {{else}}
+        <td>暂无</td>
+        {{/if}}
+    </tr>
+    {{/each}}
+</script>
+<script id="wlxx_html" type="text/html">
+    <table class="table table-bordered table-striped table-condensed" id="wlxx_table">
+        <thead>
+        <tr>
+            <th style="text-align: center;width:30%">位置</th>
+            <th style="text-align: center;width:30%">时间</th>
+            <th style="text-align: center;width:40%">具体信息</th>
+        </tr>
+        </thead>
+        <tbody id="wlxx_tbody">
+        {{each list value i}}
+        <tr>
+            <td>{{value.acceptAddress}}</td>
+            <td>{{value.acceptTime}}</td>
+            <td>{{value.remark}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</script>
+
+<script id="upload_sdjg_html" type="text/html">
+    <div style="margin: 10px 10px 10px 10px">
+        <div class="form-group row">
+            <label class="col-sm-3">送达结果</label>
+            <div class="col-sm-6">
+                <select class="form-control sdjg_select" id="sdjg_select_ems">
+                    <option value="1">成功</option>
+                    <option value="2">失败</option>
+                    <!--                    <option value="3">未寄出</option>-->
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">委托方式</label>
+            <div class="col-sm-6">
+                <select class="select_wtfs form-control" id="select_wtfs_ems" data-id="select_wtfs_ems"
+                        data-change="select_wtclr_ems" onchange="changeWtfs(this)">
+                    <option value=""></option>
+                    <option value="DHSD">电话送达</option>
+                    <option value="DXSD">短信送达</option>
+                    <option value="EMS">邮寄送达</option>
+                    <option value="LYLQ">来院领取</option>
+                    <option value="ZZSD">直接送达</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">委托流转处理人：</label>
+            <div class="col-sm-6">
+                <select class="form-control select_wtclr" id="select_wtclr_ems">
+                </select>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        <div>
+            <button class="layui-btn" onclick="upload_sdjg_ems(this)" data-yysdbh="{{yysdbh}}" data-id="{{kdid}}"
+                    data-type="EMS">提交
+            </button>
+        </div>
+    </div>
+</script>
+<!--编辑外呼信息模态框-->
+<div class="modal fade" id="editDhsdModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    修改电话送达信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">电话状态：</label>
+                        <div class="col-sm-9">
+                            <select class="selectFy" id="dhztSelect" style="width: 30%;height: 30px;">
+                                <option value="">请选择电话状态</option>
+                                <option value="1">有效-本人</option>
+                                <option value="2">可联-非本人</option>
+                                <option value="3">可联-关机</option>
+                                <option value="4">可联-停机</option>
+                                <option value="5">可联-未接通</option>
+                                <option value="6">可联-再跟进</option>
+                                <option value="7">可联-正忙</option>
+                                <option value="8">空号</option>
+                                <option value="9">呼叫受限</option>
+                                <option value="10">可联-挂机</option>
+                                <option value="11">代理人接听</option>
+                                <option value="12">代理律师接听</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">是否同意电子送达：</label>
+                        <div class="col-sm-9">
+                            <input type="radio" name="sftydzsd" id="editsftydzsd1" class="radio-inline" value="0"/>是
+                            <input type="radio" name="sftydzsd" id="editsftydzsd2" class="radio-inline" value="1"/>否
+                            <input type="radio" name="sftydzsd" id="editsftydzsd3" class="radio-inline" value=""/>未知
+                        </div>
+                    </div>
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label class="col-sm-3 control-label cus-required">送达方式：</label>-->
+                    <!--                        <div class="col-sm-9">-->
+                    <!--                            <select class="selectSdfs" id="sdtype" style="width: 30%;height: 30px;">-->
+                    <!--                                <option value="0">请选择送达方式</option>-->
+                    <!--                                <option value=""></option>-->
+                    <!--                                <option value="1">来院领取</option>-->
+                    <!--                                <option value="2">邮寄送达</option>-->
+                    <!--                                <option value="3">短信电子送达</option>-->
+                    <!--                            </select>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label class="col-sm-3 control-label cus-required">送达信息：</label>-->
+                    <!--                        <div class="col-sm-9">-->
+                    <!--                            <input class="form-control-static" id="sdfscontent"></input>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">确认号码：</label>
+                        <div class="col-sm-9">
+                            <input class="form-control-static" id="confirmPhone"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">确认地址：</label>
+                        <div class="col-sm-9">
+                            <input class="form-control-static" id="confirmAddress">
+                        </div>
+                    </div>
+
+
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label class="col-sm-3 control-label cus-required">送达方式：</label>-->
+                    <!--                        <div class="col-sm-9">-->
+                    <!--                            <select id="sendTypeModel" class="form-control" onchange="showInfoModel(this[selectedIndex].value)">-->
+                    <!--                                <option value="0">请选择送达方式</option>-->
+                    <!--                                <option value="1">来院领取</option>-->
+                    <!--                                <option value="2">邮寄送达</option>-->
+                    <!--                                <option value="3">短信电子送达</option>-->
+                    <!--                            </select>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    &lt;!&ndash;默认隐藏&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;来院领取&ndash;&gt;-->
+                    <!--                    <div style="display: none" id="showAA">-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <label class="col-sm-3 control-label cus-required">预约时间：</label>-->
+                    <!--                            <div class="col-sm-9">-->
+                    <!--                                <input type="text" readonly placeholder="请选择来院领取时间" class="form-control lylq-yysj-input" id="lylq-yysj-inputA">-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <label class="col-sm-3 control-label cus-required">预约地点：</label>-->
+                    <!--                            <div class="col-sm-9">-->
+                    <!--                                <input type="text" id="orderAddressA" class="form-control" rows="3">-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    &lt;!&ndash;邮寄送达&ndash;&gt;-->
+                    <!--                    <div style="display: none" id="showBB">-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <label class="col-sm-3 control-label cus-required">地址确认：</label>-->
+                    <!--                            <div class="col-sm-9">-->
+                    <!--                                <div id="addressListA">-->
+                    <!--                                    <div id="addressRadioA"></div>-->
+                    <!--                                    <div id="addressInputA"></div>-->
+                    <!--                                    &lt;!&ndash;                                    <input type="radio"  name="conAddress" class="radio-inline" value="天津市"/>天津市&ndash;&gt;-->
+                    <!--                                </div>-->
+                    <!--                                <button type="button" class="btn btn-link" rows="3" id="addAddressBA" onclick="addAddressA(this.id)">输入地址</button>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    &lt;!&ndash;短信电子送达&ndash;&gt;-->
+                    <!--                    <div style="display: none" id="showCC">-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <label class="col-sm-3 control-label cus-required">号码确认：</label>-->
+                    <!--                            <div class="col-sm-9">-->
+                    <!--                                <div id="phoneListA">-->
+
+                    <!--                                </div>-->
+                    <!--                                <div id="phoneListInputA">-->
+
+                    <!--                                </div>-->
+                    <!--                                <button type="button" class="btn btn-link" rows="3" id="addPhoneBA" onclick="addPhoneA(this.id)">输入号码</button>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">备注：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" rows="3" id="remark"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <button type="button" class="btn btn-primary" id="editCallData">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div>
+<!--编辑来院领取信息模态框-->
+<div class="modal fade" id="editLylqModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    修改来院领取状态
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">领取状态：</label>
+                        <div class="col-sm-9">
+                            <select class="selectFy" id="lylqSelect" style="width: 30%;height: 30px;">
+                                <option value="">请选择领取状态</option>
+                                <option value="1">已领取</option>
+                                <option value="2">未领取</option>
+                                <option value="0">待领取</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <button type="button" class="btn btn-primary" id="editLylqData">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div>
+<!--编辑当事人送达状态模态框-->
+<div class="modal fade" id="editSdztModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    修改送达状态
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label cus-required">送达状态：</label>
+                        <div class="col-sm-9">
+                            <select class="selectFy" id="sdztSelect" style="width: 30%;height: 30px;">
+                                <option value="">请选择送达状态</option>
+                                <option value="1">成功</option>
+                                <option value="2">失败</option>
+                                <option value="3">送达中</option>
+                                <option value="4">待送达</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <button type="button" class="btn btn-primary" id="editSdztData">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div>
+<!--电话送达-->
+<script id="dhsdInfos_html" type="text/html">
+
+    <table class="table-bordered" style="width: 96%;border-collapse: collapse">
+        <thead>
+        <tr style="color: #f3f3f3; height: 30px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">
+            <th style="text-align: center;width: 11%">当事人</th>
+            <th style="text-align: center;width: 10%">被叫号码</th>
+            <th style="text-align: center;width: 7%">确认信息</th>
+            <th style="text-align: center;width: 7%">电子送达</th>
+            <th style="text-align: center;width: 5%">送达方式信息</th>
+            <th style="text-align: center;width: 10%">外呼时间</th>
+            <th style="text-align: center;width: 10%">电话状态</th>
+            <th style="text-align: center;width: 5%">通话时长</th>
+            <th style="text-align: center;width: 10%">送达专员电话</th>
+            <th style="text-align: center;width: 15%">备注</th>
+            <th style="text-align: center;width: 5%">录音</th>
+            <th style="text-align: center;width: 5%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{each list subList i}}
+        {{if i!=0}}
+        <tr>
+            <td colspan="12">&nbsp;</td>
+        </tr>
+        {{/if}}
+        {{each subList value j}}
+        <tr>
+            <td style="text-align: center;">{{value.ssdrmc}}</td>
+            <td style="text-align: center;">{{value.webtel}}</td>
+            <td style="text-align: center;">
+                {{if value.confirmnumber != null && value.confirmaddress != null}}
+                <button type='button' class="myButton hasAuthority"
+                        onclick='viewWebCallInfo1("{{value.webcallid}}","确认信息")'>
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+                {{/if}}
+            </td>
+            <td style="text-align: center;">
+                {{if value.electronsend == null}}
+                {{ else if value.electronsend == 0}}
+                是
+                {{ else if value.electronsend == 1}}
+                否
+                {{else}}
+                {{/if}}
+            </td>
+            <td style="text-align: center;">
+                {{if value.sdtype != null && value.sdtype > 0 }}
+                <button type='button' class="myButton hasAuthority"
+                        onclick='viewWebCallInfo1("{{value.webcallid}}","选择送达方式信息")'>
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+                {{/if}}
+            </td>
+            <td style="text-align: center;">{{value.whTime}}</td>
+            <td style="text-align: center;">{{value.callstate}}</td>
+            <td style="text-align: center;">
+                {{if value.callduration != null }}
+                {{value.callduration}}
+                {{/if}}
+            </td>
+            <td style="text-align: center;">{{value.seatnumber}}</td>
+            <td style="text-align: center;">{{value.remarks}}</td>
+            <td style="text-align: center;">
+                {{if value.callduration != null && value.callduration > 0}}
+                <button onclick='downloadCallRadio("{{value.webcallid}}")' class="myButton">
+                    <img src="/img/download.png" height="18" width="18" style="margin: 0">
+                </button>
+                {{/if}}
+            </td>
+            <td style="text-align: center;">
+                {{if isAdmin}}
+                <button class="myButton hasAuthority" type="button" onclick="editDhsd(this)"
+                        data-ssdrbh="{{subList[j].ssdrbh}}" data-yysdbh="{{subList[j].yysdbh}}"
+                        data-webcallid="{{subList[j].webcallid}}" data-callstate="{{subList[j].callstate}}"
+                        data-sdtype="{{subList[j].sdtype}}" data-sdfscontent="{{subList[j].sdfscontent}}"
+                        data-electronsend="{{subList[j].electronsend}}" data-remarks="{{subList[j].remarks}}"
+                        data-phone="{{subList[j].confirmnumber}}" data-address="{{subList[j].confirmaddress}}">
+                    <img src="/img/jbxx_write.png" height="16" width="16" style="margin-left: 10px">
+                </button>
+                {{/if}}
+            </td>
+        </tr>
+        {{/each}}
+        {{/each}}
+        </tbody>
+    </table>
+</script>
+<!--短信送达-->
+<script id="dxtzInfos_html" type="text/html">
+
+    <table class="table-bordered" style="width: 96%">
+        <thead>
+        <tr style="color: #f3f3f3; height: 30px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">
+            <th style="text-align: center;width: 10%">当事人</th>
+            <th style="text-align: center;width: 10%">接收号码</th>
+            <th style="text-align: center;width: 10%">下发时间</th>
+            <th style="text-align: center;width: 10%">短信模板名称</th>
+            <th style="text-align: center;width: 10%">文书名称</th>
+            <th style="text-align: center;width: 10%">短信内容</th>
+            <th style="text-align: center;width: 10%">发送状态</th>
+            <th style="text-align: center;width: 10%">访问状态</th>
+            <th style="text-align: center;width: 10%">文书内容</th>
+            <th style="text-align: center;width: 10%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{each list subList i}}
+        {{if i!=0}}
+        <tr>
+            <td colspan="12">&nbsp;</td>
+        </tr>
+        {{/if}}
+        {{each subList value j}}
+        <tr>
+            <td>{{value.ssdrmc}}</td>
+            <td>{{value.webtel}}</td>
+            <td>{{value.createtimeStr}}</td>
+            <td>{{value.mbmc}}</td>
+            <td>
+                <button onclick='look_dsr_ws(" {{value.ssdrbh}} ")' type="button" class="myButton hasAuthority">
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+            </td>
+            <td>
+                <button onclick='showMsgContent("{{value.msgcontent}}")' class="myButton hasAuthority">
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+            </td>
+            {{if value.sendstate == 1 }}
+            <td>发送成功</td>
+            {{else if value.sendstate == 2 }}
+            <td>发送失败</td>
+            {{else}}
+            <td>暂无</td>
+            {{/if}}
+            {{if value.fwzt == 1 }}
+            <td>已访问</td>
+            {{else if value.fwzt == 0 }}
+            <td>未访问</td>
+            {{else}}
+            <td>暂无</td>
+            {{/if}}
+            {{if value.dxtzid}}
+            <td>
+                <button onclick='showImages( "{{value.dxtzid}}")' class="myButton hasAuthority">
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+            </td>
+            {{else}}
+            <td>暂无</td>
+            {{/if}}
+            {{if isAdmin}}
+            <td>
+                <button onclick='deleteMsg( "{{value.dxtzid}}")' class="myButton hasAuthority">
+                    <img src="/img/delete.png" height="18" width="18" style="margin: 0">
+                </button>
+            </td>
+            {{else}}
+            <td></td>
+            {{/if}}
+        </tr>
+        {{/each}}
+        {{/each}}
+        </tbody>
+    </table>
+
+</script>
+<!--EMS送达-->
+<script id="emssdInfos_html" type="text/html">
+
+    <table id="dzsd_table" class="table-bordered" style="width: 96%">
+        <thead>
+        <tr style="color: #f3f3f3; height: 30px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">
+            <th style="text-align: center;width: 8%">收件人姓名</th>
+            <th style="text-align: center;width: 10%">邮寄地址</th>
+            <th style="text-align: center;width: 5%">邮寄时间</th>
+            <th style="text-align: center;width: 5%">文书名称</th>
+            <th style="text-align: center;width: 22%">邮寄单号</th>
+            <th style="text-align: center;width: 8%">送达回执</th>
+            <th style="text-align: center;width: 10%">邮寄面单</th>
+            <th style="text-align: center;width: 5%">物流信息</th>
+            <th style="text-align: center;width: 10%">送达结果</th>
+            <th style="text-align: center;width: 3%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{each list subList i}}
+        {{if i!=0}}
+        <tr>
+            <td colspan="12">&nbsp;</td>
+        </tr>
+        {{/if}}
+        {{each subList value j}}
+        <tr>
+            <td>{{value.sjrxm}}</td>
+            <td>{{value.yjdz}}</td>
+            <td>{{value.yjsj}}</td>
+            <td>
+                <button onclick='look_dsr_ws("{{value.ssdrbh}}")' class="myButton hasAuthority" type="button">
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+            </td>
+            <td>
+                <div>
+                    <div>
+                        <input type="text" id="input-kddh{{value.kdid}}" value="{{value.kddh==' '?'':value.kddh}}"
+                               class="layui-input" style="width: 60%;float: left;font-size: 13px;padding: 2px;"
+                               onkeyup="verification(this,'{{value.kdid}}')"/>
+                        <span id="tip{{value.kdid}}" style="color: red"></span>
+                    </div>
+                    <div id="btn{{value.kdid}}">
+                        <button class="btn btn-primary layui-btn-sm upload_kddh" style="margin-left: 0"
+                                onclick='uploadKddh(this,"{{value.kdid}}")' data-index={{value.kdid}}>提交
+                        </button>
+                    </div>
+
+                </div>
+            </td>
+            {{if value.sdhz!=null}}
+            <td>
+                <button class="myButton hasAuthority" onclick="look_kdhz(this)"
+                        data-index={{value.kdid}}>
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+                <button class="myButton hasAuthority" onclick="delete_kdhz(this)"
+                        data-index={{value.kdid}}>
+                    <img src="/img/delete.png" height="18" width="18" style="margin: 0">
+                </button>
+            </td>
+            {{else}}
+            <td>
+                <button class="myButton hasAuthority" type="button" onclick="upload_kdhz(this)"
+                        data-index={{value.kdid}}>
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+            </td>
+            {{/if}}
+
+            {{if value.sfscmd == 'Y'}}
+            <td>
+                <button class="myButton hasAuthority" type="button" style="margin-right: 15px"
+                        onclick="downloadMd(this)"
+                        data-index={{value.kdid}}>
+                    <img src="/img/download.png" height="18" width="18" style="margin: 0">
+                </button>
+                <button class="myButton hasAuthority" type="button" onclick="deleteMd(this)"
+                        data-index={{value.kdid}}>
+                    <img src="/img/delete.png" height="18" width="18" style="margin: 0">
+                </button>
+            </td>
+            {{else}}
+            <td>
+                <button class="myButton hasAuthority uploadEmsmd" type="button" onclick="scmd(this)"
+                        data-index={{value.kdid}}>
+                    <img src="/img/upload.png" height="18" width="18" style="margin: 0">
+                </button>
+            </td>
+            {{/if}}
+
+            {{if value.kddh!=null&&value.kddh.trim()!=''}}
+            <td>
+                <button class="myButton hasAuthority" type="button" onclick="look_wlxx(this)"
+                        data-index={{value.kddh}}>
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+            </td>
+            {{else}}
+            <td>暂无</td>
+            {{/if}}
+
+            {{if value.sdjg!=null&&value.sdjg.trim()!=''}}
+            <td>
+                <div>
+                    <label>{{value.sdjg}}</label>
+                    <!--                    <div class="layui-input-block" style="margin-left: 0">-->
+                    <button class="myButton hasAuthority" type="button" onclick="delete_emsSdjg(this)"
+                            data-index={{value.kdid}} data-fybh={{value.fybh}}>
+                        <img src="/img/jbxx_write.png" height="16" width="16" style="margin-left: 10px">
+                    </button>
+                    <!--                    </div>-->
+                </div>
+            </td>
+            {{else}}
+            <td>
+                <button class="myButton hasAuthority" type="button" onclick="upload_emsSdjg(this)"
+                        data-index={{value.kdid}}>
+                    <img src="/img/upload.png" height="18" width="18" style="margin: 0">
+                </button>
+            </td>
+            {{/if}}
+            <td>
+                <div>
+                    <button class="myButton hasAuthority" onclick="delete_Record(this,'ems')"
+                            data-index="{{value.kdid}}">
+                        <img src="/img/delete.png" height="18" width="18" style="margin: 0">
+                    </button>
+                </div>
+            </td>
+        </tr>
+        {{/each}}
+        {{/each}}
+        </tbody>
+    </table>
+
+</script>
+<!--直接送达-->
+<script id="zhijsdInfos_html" type="text/html">
+
+    <table id="zjsd_table" class="table-bordered" style="width: 96%">
+        <thead>
+        <tr style="color: #f3f3f3; height: 30px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">
+            <th style="text-align: center;width: 10%">当事人</th>
+            <th style="text-align: center;width: 10%">送达地址</th>
+            <th style="text-align: center;width: 10%">上门时间</th>
+            <th style="text-align: center;width: 10%">送达过程记录</th>
+            <th style="text-align: center;width: 20%">备注</th>
+            <th style="text-align: center;width: 10%">签收结果</th>
+            <th style="text-align: center;width: 10%">送达回执</th>
+            <th style="text-align: center;width: 10%">相关文件</th>
+            <th style="text-align: center;width: 10%">文书名称</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{each list subList i}}
+        {{each subList value j}}
+        <tr>
+            <td> {{value.ssdrmc}}</td>
+            <td> {{value.sddz}}</td>
+            <td> {{value.smsjStr}}</td>
+            <td>
+                {{if value.sdgcjl}}
+                <button class="myButton hasAuthority" onclick='look_zjsdjl("{{value.zjsdbh}}")' type="button">
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+                {{else}} 暂无
+                {{/if}}
+            </td>
+            <td> {{value.remark}}</td>
+            <td>
+                {{if value.qszt == 1}} 妥投
+                {{else if value.qszt == 2}} 拒收
+                {{else if value.qszt == 3}} 本人签收
+                {{else}} 暂无
+                {{/if}}
+            </td>
+            <td>
+                {{if(value.sdhz)}}
+                <button class="myButton hasAuthority" onclick='look_zjsdhz("{{value.zjsdbh}}")' type="button">
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+                {{else}} 暂无
+                {{/if}}
+            </td>
+            <td>
+                {{if value.sfscwj=='Y'}}
+                <button class="myButton hasAuthority" type="button" onclick='downloadWj(this)'
+                        data-yysdbh="{{value.yysdbh}}"
+                        data-zjsdbh="{{value.zjsdbh}}" data-wjid="{{value.wjid}}" data-wjmc="{{value.wjmc}}">
+                    <img src="/img/download.png" height="18" width="18" style="margin: 0">
+                </button>
+                <button class="myButton hasAuthority" type="button" onclick="cxscWj(this)"
+                        data-yysdbh="{{value.yysdbh}}" data-zjsdbh="{{value.zjsdbh}}">
+                    <img src="/img/upload.png" height="18" width="18" style="margin: 0">
+                </button>
+                {{else}}
+                <button class="myButton hasAuthority" id="scwj" type="button" onclick="scWj(this)"
+                        data-yysdbh="{{value.yysdbh}}" data-zjsdbh="{{value.zjsdbh}}">
+                    <img src="/img/upload.png" height="18" width="18" style="margin: 0">
+                </button>
+                {{/if}}
+            </td>
+            <td>
+                <button onclick='look_dsr_ws(" {{value.ssdrbh}} ")' class="myButton hasAuthority" type="button">
+                    <img src="/img/detail.png" height="24" width="24" style="margin: 0">
+                </button>
+            </td>
+        </tr>
+        {{/each}}
+        {{/each}}
+        </tbody>
+    </table>
+
+</script>
+<!--来院领取-->
+<script id="lylqInfos_html" type="text/html">
+
+    <table id="lylq_table" class="table-bordered" style="width: 96%">
+        <thead>
+        <tr style="color: #f3f3f3; height: 30px;font-size: 13px;background: linear-gradient(to bottom, #37aaed,#266cf4);">
+            <th style="text-align: center;width: 20%">当事人</th>
+            <th style="text-align: center;width: 10%">预约领取时间</th>
+            <th style="text-align: center;width: 10%">预约领取地点</th>
+            <th style="text-align: center;width: 10%">领取状态</th>
+            <th style="text-align: center;width: 10%">送达回执</th>
+            <th style="text-align: center;width: 25%">文书名称</th>
+            <th style="text-align: center;width: 20%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{each list subList i}}
+        {{each subList value j}}
+        <tr>
+            <td> {{value.ssdrmc}}</td>
+            <td> {{value.yylqsjStr}}</td>
+            <td> {{value.lylqaddress}}</td>
+            <td>
+                {{if value.lqstate==1}} 已领取
+                {{else}} 待领取
+                {{/if}}
+            </td>
+            <td>
+                {{if value.sdhz!=null}}
+                <a href="lylq/imgView_lylq_sdhz.zf?lylqId={{value.lylqid}}">
+                    <button class="btn btn-primary " type="button">查看</button>
+                </a>
+                {{else}} 暂无
+                {{/if }}
+            </td>
+            <td>
+                <button onclick='look_dsr_ws(" {{value.ssdrbh}} ")' class="btn btn-primary " type="button">查看</button>
+            </td>
+            <td>
+                {{if isAdmin}}
+                <button onclick='deleteLy(" {{value.lylqid}} ")' class="btn btn-primary " type="button">删除</button>
+                <button onclick='editLy(" {{value.lylqid}} ")' class="myButton hasAuthority" type="button">
+                    <img src="/img/jbxx_write.png" height="16" width="16" style="margin-left: 10px">
+                </button>
+                {{/if}}
+            </td>
+        </tr>
+        {{/each}}
+        {{/each}}
+        </tbody>
+    </table>
+
+</script>
+
+<script src="/js/gd/wbrywdsd.js?v=6.33"></script>
+</body>
+
+</html>

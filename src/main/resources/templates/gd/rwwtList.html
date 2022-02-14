@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>委托任务列表</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+</head>
+<body>
+<div style="width: 100%;height: 80px;background-color: rgb(0,169,238)">
+    <div style="padding-top: 10px;padding-left: 30px;">
+        <div style="float: left">
+            <img  src="/css/img/mySd_fahui.png" height="50px" width="50px" style="margin-top: 5px">
+        </div>
+        <div style="float: left;padding-top: 10px;padding-bottom: 5px;margin-left: 10px;">
+            <div style="color: white;font-size: 30px;" id="current_fymc">天津市高级人民法院</div>
+        </div>
+
+
+        <div  id="logout" class="headLogout"><img  src="/css/img/mySD_tuichu.jpg" height="30px" width="100px"> </div>
+
+        <div style="margin-right: 100px">
+            <div id="userName"  style="color: white;font-size: 15px;margin-top: 20px;float: right;">
+            </div>
+            <div  style="color: white;font-size: 15px;margin-top: 20px;float: right;">欢迎 &nbsp; ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div style="float: right">
+            <img  src="/css/img/mySd_fahui.png" id="circle" width="50px" height="50px" style="margin-right: 20px;margin-top: 5px">
+        </div>
+    </div>
+</div>
+<div style="background-color: rgb(245,245,245);min-height: 60px">
+    <div style="float: left">
+        <img src="/css/img/mySd_index.png">
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5>&nbsp;&nbsp;当前位置：首页 - &nbsp;&nbsp; </h5>
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5 style="color: rgb(0,169,238)">委托任务列表</h5>
+
+    </div>
+</div>
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 20px;background-color: white;min-height: 500px">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div style="margin-top: 10px;min-height: 35px">
+        <div style="float: left;margin-left: 20px">
+            委托任务列表
+        </div>
+        <div style="margin-left: 20px;float: left;">
+            <select style="width: 100px; height: 25px;" id="select_wtzt" onchange="getRwwtList()">
+                <option value=0>未完成</option>
+                <option value=1>已完成</option>
+            </select>
+        </div>
+        <div id="return_main" style="float: right;margin-right: 10px"><img src="/css/img/return_icon.png" width="60px" height="24px"></div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped table-condensed" id="rwwt_table" style="font-size: small">
+            <thead>
+            <tr>
+                <th style="text-align: center;width:5% ">工单号</th>
+                <th style="text-align: center;width:10%">法院名称</th>
+                <th style="text-align: center;width:10%">案号</th>
+                <th style="text-align: center;width:10%">案件名称</th>
+                <th style="text-align: center;width:10%">受送达人</th>
+                <th style="text-align: center;width:5%">委托人</th>
+                <th style="text-align: center;width:10%">委托时间</th>
+                <th style="text-align: center;width:10%">委托方式</th>
+                <th style="text-align: center;width:10%">委托结果</th>
+                <th style="text-align: center;width:10%">操作</th>
+            </tr>
+            </thead>
+            <tbody id="rwwt_tbody">
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<script id="rwwt_tbody_html" type="text/html">
+    {{each list value i}}
+    <tr>
+       <td>{{value.yysdbh}}</td>
+        <td>{{value.fymc}}</td>
+        <td>{{value.ah}}</td>
+        <td>{{value.ajmc}}</td>
+        <td>{{value.ssdrmc}}</td>
+        <td>{{value.wtrmc}}</td>
+        <td>{{value.wtsj}}</td>
+        <td>{{value.wtfs}}</td>
+        <td>{{value.wtjg}}</td>
+        <td>
+            <button class="btn btn-primary" type="button" onclick="info(this)" data-index="{{value.yysdbh}}">送达</button>
+            {{if value.cljg == null|| value.cljg.trim() == ''}}
+            <button class="btn btn-primary" type="button" onclick="cljg(this)" data-index="{{value.rwwtid}}">结果</button>
+            {{/if}}
+        </td>
+    </tr>
+    {{/each}}
+</script>
+<script src="/js/gd/rwwtList.js?v=0.1"></script>
+</html>

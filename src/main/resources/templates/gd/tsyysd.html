@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的送达</title>
+    <link rel="stylesheet" href="/css/wdds.css?v=1.1">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <link rel="stylesheet" href="/css/tsyysd.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <!--    <script src="/bootstrap/js/bootstrap.min.js"></script>-->
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/common.js?v=2.2"></script>
+    <script src="/js/gd/tsyysd.js"></script>
+</head>
+
+<body style="background-image:url('/img/tsyysd.jpg');">
+<div class="container-fluid">
+    <div class="fixed-top">
+        <!-- <div class="d-flex justify-content-around" style="padding-top: 0.3%;">
+            <div style="padding-top: 0.8%;padding-left: 0.2%;">LOGO</div>
+            <div style="width: 51%;"></div>
+            <div style="color: white;padding-left: 35px;">欢迎您 XXX|登录登出</div>
+        </div> -->
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #027bf0;">
+            <div style="margin-left: 4%;width: 30%;">
+                <img src="../img/fh.png" style="width: 10%;height: 10.5%;">
+                <span class="align-middle topnav" style="padding-left: 1%;" id="current_fymc">天津市高级人民法院</span>
+            </div>
+            <div style="width: 45%;">
+                <div class="float-right topnav" style="font-size:18px;">
+                    欢迎您 <span id="userName"></span>
+
+                </div>
+            </div>
+
+        </nav>
+    </div>
+
+
+</div>
+<div style="margin: 8% 20px 0 20px;width:100%" align="center">
+    <fieldset class="commonFieldset ajxxFieldset" style="width: 80%">
+        <legend class="commonLegend" style="color:rgb(2,123,240) ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预约信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
+        <div class="step">
+            <table id="ajxxTable" style="width: 80%">
+                <tbody style="width: 100%">
+                <tr style="width: 100%">
+                    <td width="10%">
+                        <div class="ajxxLabelText" style="font-size: 18px;font-weight: bolder">案 &nbsp;&nbsp;&nbsp;&nbsp;号：</div>
+                    </td>
+                    <td  colspan="2">
+                        <div id="ah" align="center" style="font-size: 16px;font-weight: bolder">
+
+                        </div>
+                    </td>
+                    <td id="ajlx" width="40%">
+                        <button class="btn btn-primary" onclick="searchForAj()" style="font-size: 14px">选择</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="ajxxLabel ajxxLabelText" style="font-size: 18px;font-weight: bolder">
+                            承办法官：
+                        </div>
+                    </td>
+                    <td>
+                        <div id="cbfg" align="center" style="font-size: 16px;font-weight: bolder">
+
+                        </div>
+                    </td>
+                    <td width="10%">
+                        <div class="ajxxLabel ajxxLabelText" style="font-size: 18px;font-weight: bolder">
+                            预约人：
+                        </div>
+                    </td>
+                    <td class="ajxx">
+                        <div id="yyr" align="center" style="font-size: 16px;font-weight: bolder">
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="10%">
+                        <div class="ajxxLabel ajxxLabelText" style="font-size: 18px;font-weight: bolder">
+                            预约部门：
+                        </div>
+                    </td>
+                    <td  width="40%">
+                        <div id="bmmc" align="center" style="font-size: 16px;font-weight: bolder">
+
+                        </div>
+                    </td>
+                    <td width="10%">
+                        <div class="ajxxLabel ajxxLabelText" style="font-size: 18px;font-weight: bolder">
+                            法官电话：
+                        </div>
+                    </td >
+                    <td class="ajxx"  width="40%">
+                        <div id="lxfs" align="center" style="font-size: 16px;font-weight: bolder">
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="ajxxLabel ajxxLabelText" style="font-size: 18px;font-weight: bolder">
+                            案件名称：
+                        </div>
+                    </td>
+                    <td >
+                        <div id="ajmc" align="center" style="font-size: 16px;font-weight: bolder">
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ajxxLabel ajxxLabelText" style="font-size: 18px;font-weight: bolder">
+                            案 &nbsp;&nbsp;&nbsp;&nbsp;由：
+                        </div>
+                    </td>
+                    <td class="ajxx" >
+                        <div id="laay" align="center" style="font-size: 16px;font-weight: bolder">
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="ajxxLabel ajxxLabelText" style="font-size: 18px;font-weight: bolder">
+                            送达专员：
+                        </div>
+                    </td>
+                    <td>
+                        <div id="sdzy" align="center" style="font-size: 16px;font-weight: bolder">
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ajxxLabel ajxxLabelText" style="font-size: 18px;font-weight: bolder">
+                            专员电话：
+                        </div>
+                    </td>
+                    <td class="ajxx">
+                        <div id="zydh" align="center" style="font-size: 16px;font-weight: bolder">
+
+                        </div>
+                    </td>
+                </tr>
+                <tr align="center" style="width: 100%">
+                    <td colspan="4">
+                        <div class="ajxxLabelText" style="font-size: 18px;font-weight: bolder">当事人列表</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <table class="table table-bordered" style="background: white">
+                            <thead align="center">
+                            <th>
+                            </th>
+                            <th >当事人姓名</th>
+                            </thead>
+                            <tbody id="dsr_tbody">
+                            <tr>
+                                <!--                            <td>-->
+                                <!--                                <button type="button" class="myButton hasAuthority">-->
+                                <!--                                    <img src="/img/get.png" height="24" width="24" style="margin: 0">-->
+                                <!--                                </button>-->
+                                <!--                            </td>-->
+                                <!--                            <td>-->
+                                <!--                                民初1号-->
+                                <!--                            </td>-->
+                                <!--                            <td>-->
+                                <!--                                我打架了-->
+                                <!--                            </td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+    <div style="min-height: 50px"></div>
+
+    <button id="wcyy" onclick="submitTsyysd()" style="height: 3em;font-size: small;background-color: rgb(2,123,240);color: white;border: none;outline: none;width: 8%;" align="center">
+        完成预约
+    </button>
+    <button id="return_main" onclick="return_main()" style="height: 3em;font-size: small;background-color: rgb(2,123,240);color: white;border: none;outline: none;width: 8%;" align="center">
+        返回主页
+    </button>
+    <button id="return_glym" onclick="return_glym()" style="height: 3em;font-size: small;background-color: rgb(2,123,240);color: white;border: none;outline: none;width: 8%;" align="center">
+        返回特殊送达管理页面
+    </button>
+</div>
+<script src="/js/gd/wbryIndex.js?v=1.142"></script>
+<div class="modal fade" id="ssajModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;z-index: 1000000;">
+        <div class="modal-content" style="width: 180%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    搜索案件
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <input id="search" name="search" type="text" onblur="findAjInLike()" align="center"/>
+                    <!--                    <button class="btn btn-primary" >搜索</button>-->
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label cus-required">目录列表：</label>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>
+
+                        </th>
+                        <th>案号</th>
+                        <th>案件名称</th>
+                        </thead>
+                        <tbody id="aj_tbody">
+                        <tr>
+                            <!--                            <td>-->
+                            <!--                                <button type="button" class="myButton hasAuthority">-->
+                            <!--                                    <img src="/img/get.png" height="24" width="24" style="margin: 0">-->
+                            <!--                                </button>-->
+                            <!--                            </td>-->
+                            <!--                            <td>-->
+                            <!--                                民初1号-->
+                            <!--                            </td>-->
+                            <!--                            <td>-->
+                            <!--                                我打架了-->
+                            <!--                            </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="yyrxx" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;z-index: 1000000;">
+        <div class="modal-content" style="width: 180%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">
+                    选择预约人
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <!--                    <button class="btn btn-primary" >搜索</button>-->
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label cus-required">目录列表：</label>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>
+                        </th>
+                        <th>预约人姓名</th>
+                        <th>所在部门</th>
+                        <th>联系方式</th>
+                        </thead>
+                        <tbody id="yyr_tbody">
+                        <tr>
+                            <!--                            <td>-->
+                            <!--                                <button type="button" class="myButton hasAuthority">-->
+                            <!--                                    <img src="/img/get.png" height="24" width="24" style="margin: 0">-->
+                            <!--                                </button>-->
+                            <!--                            </td>-->
+                            <!--                            <td>-->
+                            <!--                                民初1号-->
+                            <!--                            </td>-->
+                            <!--                            <td>-->
+                            <!--                                我打架了-->
+                            <!--                            </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dsrxx" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;z-index: 1000000;">
+        <div class="modal-content" style="width: 180%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    选择当事人
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <!--                    <button class="btn btn-primary" >搜索</button>-->
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label cus-required">目录列表：</label>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>
+                        </th>
+                        <th>当事人姓名</th>
+                        </thead>
+                        <tbody id="dsr_tbody1">
+                        <tr>
+                            <!--                            <td>-->
+                            <!--                                <button type="button" class="myButton hasAuthority">-->
+                            <!--                                    <img src="/img/get.png" height="24" width="24" style="margin: 0">-->
+                            <!--                                </button>-->
+                            <!--                            </td>-->
+                            <!--                            <td>-->
+                            <!--                                民初1号-->
+                            <!--                            </td>-->
+                            <!--                            <td>-->
+                            <!--                                我打架了-->
+                            <!--                            </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

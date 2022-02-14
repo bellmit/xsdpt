@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>数据统计-法官</title>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/js/g2plot.min.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script language="JavaScript">
+        if(window.screen.width<=1280){
+            document.write("<link rel=\"stylesheet\" href=\"/css/statistics1024.css\">")
+        }
+        if(window.screen.width>1640){
+            document.write("<link rel=\"stylesheet\" href=\"/css/statistics.css\">")
+        }
+    </script>
+</head>
+
+<body>
+
+<!--    <div class="fixed-top statistics-top" style="height: 20%;">-->
+    <div class="statistics-top" style="height: 20%;">
+        <div class="d-flex">
+            <div class="float-left" style="height: 75%;width: 75%;" id="icon">
+                <img src="../img/statistics/53-icon.png"
+                    style="margin-left:4.5%;margin-top:2.5%;height: 60%;width: 58%;" />
+            </div>
+            <div class="float-right select" style="width: 100%;">
+                <!-- <div >
+                    <div >Flex item 1</div>
+                    <div class="p-2">Flex item 2</div>
+                    <div class="p-2">Flex item 3</div>
+                  </div> -->
+                <div class="d-flex justify-content-end" style="padding-right: 5%;">
+<!--                    <div style="margin-top: 0.8%;">-->
+<!--                        <p class="p-2" style="color:white;font-size: 14px;">请选择工单量/案件量统计</p>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <div class="btn-group btn-group-sm p-2 " role="group" aria-label="Basic example">-->
+<!--                            <button type="button" class="btn btn-primary btn-sm">Left</button>-->
+<!--                            <button type="button" class="btn btn-sm" style="color: white;">Right</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div style="margin-top: 0.4%;width: 40%">
+                        <p class="p-2" style="color:white;font-size: 10px">请选择统计日期</p>
+                    </div>
+                    <div style="width: 70%">
+                        <div class="row">
+                            <div class="col-8 p-2" style="margin-top: 2%" align="center">
+                                <!--                                <input type="text" class="layui-input" id="select_time1" style="height: 1.5rem;font-size: 10px">-->
+                                <p style="color:white;font-size: 10px;">
+                                    <span id="select_time1">1</span> -
+                                    <span id="select_time2">1</span>
+                                </p>
+                            </div>
+<!--                            <div class="col p-2" style="color:white;font-size: 14px;width: 5%">-</div>-->
+<!--                            <div class="col p-2"><input type="text" class="layui-input" id="select_time2" style="height: 1.5rem;font-size: 10px"></div>-->
+                            <div class="col-4 p-2">
+                                <button type="button" class="btn btn-primary btn-sm" style="font-size: 10px" onclick="changeTime()">查询</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 0.8%;width: 40%">
+                        <p class="p-2" style="color:white;font-size: 12px;">请选择统计周期</p>
+                    </div>
+                    <div style="width: 70%">
+                        <div class="btn-group btn-group-sm p-2 " role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-primary btn-sm lx" style="color: white;font-size: 10px" value="4" onclick="changelx(this)">全部</button>
+                            <button type="button" class="btn btn-sm lx" style="color: white;font-size: 10px" value="3" onclick="changelx(this)">过去30天</button>
+                            <button type="button" class="btn btn-sm lx" style="color: white;font-size: 10px" value="2" onclick="changelx(this)">过去7天</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end" style="padding-right: 5%;">
+                    <div >
+                        <p id="clock" class="p-2" style="color:white;font-size: 14px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="width: 100%;height: 100%">
+        <div class="col-sm-7" style="padding: 0;padding-left:1%;height: 100%">
+            <div class="bottom" style="margin-top:1%;width: 95%;height: 50%">
+                <!-- 四个角的边框效果 -->
+                <div class="border_corner border_corner_left_top"></div>
+                <div class="border_corner border_corner_right_top"></div>
+                <div class="border_corner border_corner_left_bottom"></div>
+                <div class="border_corner border_corner_right_bottom"></div>
+                <div class="content">
+                    <div class="title_bottom" style="width: 100%;" align="center">
+                        <p style="color: #00fff0;">全&nbsp&nbsp&nbsp&nbsp院</p>
+                    </div>
+                    <div class="container"
+                        style="margin-left: 0.8%;margin-right: 1%;margin-top: 3.5%;margin-bottom: 2.5%;height: 50%;">
+                        <div class="row row-cols-5 align-items-end">
+                            <div class="col" align="center">
+                                <div class="addBg circle" style="background-color: #0889bc;">
+                                    <div style="padding-top: 30%;color: white">
+                                        <div id="tsgdds">0000000</div>
+                                        <div>单</div>
+                                    </div>
+                                    <!-- <p>middle垂直居中</p> -->
+                                    <!-- <span>hel</span> -->
+                                </div>
+                                <div style="color: white;margin: 5px;font-size: 15px;">累计推送工单单数</div>
+                            </div>
+                            <div class="col" align="center">
+                                <div class="addBg circle" style="background-color: #1b69c8;">
+                                    <div style="padding-top: 30%;color: white">
+                                        <div id="wcgdds">0000000</div>
+                                        <div>单</div>
+                                    </div>
+                                    <!-- <p>middle垂直居中</p> -->
+                                    <!-- <span>hel</span> -->
+                                </div>
+                                <div style="color: white;margin: 5px;font-size: 15px;">累计完成工单单数</div>
+                            </div>
+                            <div class="col" align="center">
+                                <div class="addBg circle" style="background-color: #7eb958;">
+                                    <div style="padding-top: 30%;color: white">
+                                        <div id="wcsdsl">0000000</div>
+                                        <div>件</div>
+                                    </div>
+                                    <!-- <p>middle垂直居中</p> -->
+                                    <!-- <span>hel</span> -->
+                                </div>
+                                <div style="color: white;margin: 5px;font-size: 15px;">累计完成送达案件</div>
+                            </div>
+                            <div class="col" align="center">
+                                <div class="addBg circle" style="background-color: #e2a758;">
+                                    <div style="padding-top: 30%;color: white">
+                                        <div id="sdcgsl">0000000</div>
+                                        <div>件</div>
+                                    </div>
+                                    <!-- <p>middle垂直居中</p> -->
+                                    <!-- <span>hel</span> -->
+                                </div>
+                                <div style="color: white;margin: 5px;font-size: 15px;">累计送达成功案件</div>
+                            </div>
+                            <div class="col" align="center">
+                                <div class="addBg circle" style="background-color: #d2823b;">
+                                    <div style="padding-top: 30%;color: white">
+                                        <div id="wcsdrs">0000000</div>
+                                        <div>人</div>
+                                    </div>
+                                </div>
+                                <div style="color: white;margin: 5px;font-size: 15px;">累计完成送达人数</div>
+                            </div>
+                        </div>
+                        <div class="row row-cols-4 align-items-end">
+                            <div class="col" align="center">
+                                <div class="addBg circle" style="background-color: #e2a758;">
+                                    <div style="padding-top: 30%;color: white">
+                                        <div id="sdcgrs">0000000</div>
+                                        <div>人</div>
+                                    </div>
+                                </div>
+                                <div style="color: white;margin: 5px;font-size: 15px;">累计送达成功人数</div>
+                            </div>
+                            <div class="col" align="center">
+                                <div class="addBg circle" style="background-color: #7eb958;">
+                                    <div style="padding-top: 30%;color: white">
+                                        <div id="dzsdcgl">0000000</div>
+                                        <div>%</div>
+                                    </div>
+                                </div>
+                                <div style="color: white;margin: 5px;font-size: 15px;">累计电子送达成功率</div>
+                            </div>
+                            <div class="col" align="center">
+                                <div class="addBg circle" style="background-color: #1b69c8;">
+                                    <div style="padding-top: 30%;color: white">
+                                        <div id="zjsdcs">0000000</div>
+                                        <div>次</div>
+                                    </div>
+                                </div>
+                                <div style="color: white;margin: 5px;font-size: 15px;">累计发起直接送达次数</div>
+                            </div>
+                            <div class="col" align="center">
+                                <div class="addBg circle" style="background-color: #0889bc;">
+                                    <div style="padding-top: 30%;color: white">
+                                        <div id="wczjsdcs">0000000</div>
+                                        <div>次</div>
+                                    </div>
+                                </div>
+                                <div style="color: white;margin: 5px;font-size: 15px;">累计完成直接送达次数</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom" style="margin-top:1.5%;width: 95%;">
+                <!-- 四个角的边框效果 -->
+                <div class="border_corner border_corner_left_top"></div>
+                <div class="border_corner border_corner_right_top"></div>
+                <div class="border_corner border_corner_left_bottom"></div>
+                <div class="border_corner border_corner_right_bottom"></div>
+                <div class="content" style="height: 100%">
+                    <div class="title_bottom" style="width: 100%;" align="center">
+                        <p style="color: #00fff0;">业务庭</p>
+                    </div>
+                    <div class="container"
+                        style="margin-left: 0.8%;margin-right: 1%;margin-top: 3.5%;margin-bottom: 2.5%;" align="center">
+                        <table style="width: 95%;color: #d5dbee;font-weight: normal;height: 20.3rem">
+                            <thead>
+                                <tr align="center" style="font-size: 16px;">
+                                    <th style="width: 16%;background: #124cb8;border-right: 1px solid #00ffff;"></th>
+                                    <th style="width: 17%;background: #3f5cb3;">
+                                        <div style="width: 50%;font-size: 10px">累计完成送达案件</div>
+                                    </th>
+                                    <th style="width: 17%;background: #3f5cb3;">
+                                        <div style="width: 50%;font-size: 10px">累计送达成功件数</div>
+                                    </th>
+                                    <th style="width: 17%;background: #3f5cb3;">
+                                        <div style="width: 50%;font-size: 10px">累计完成送达人数</div>
+                                    </th>
+                                    <th style="width: 17%;background: #3f5cb3;">
+                                        <div style="width: 50%;font-size: 10px">累计送达成功人数</div>
+                                    </th>
+                                    <th style="width: 16%;background: #3f5cb3;">
+                                        <div style="width: 60%;font-size: 10px">电子送达成功率</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="statisticsTable">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5" style="padding: 0;padding-right: 1%;height: 100%">
+            <div class="bottom" style="margin-top:1%;width: 100%; height: 50%">
+                <!-- 四个角的边框效果 -->
+                <div class="border_corner border_corner_left_top"></div>
+                <div class="border_corner border_corner_right_top"></div>
+                <div class="border_corner border_corner_left_bottom"></div>
+                <div class="border_corner border_corner_right_bottom"></div>
+                <div class="content">
+                    <div class="title_bottom" style="width: 100%;" align="center">
+                        <p style="color: #00fff0;">电子送达成功率</p>
+                    </div>
+                    <div style="padding: 2%;">
+                        <div id="container" style="height: 50%;">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="bottom" style="margin-top:4%;width: 100%;height: 50%">
+                <!-- 四个角的边框效果 -->
+                <div class="border_corner border_corner_left_top"></div>
+                <div class="border_corner border_corner_right_top"></div>
+                <div class="border_corner border_corner_left_bottom"></div>
+                <div class="border_corner border_corner_right_bottom"></div>
+                <div class="content">
+                    <div class="title_bottom" style="width: 100%;" align="center">
+                        <p style="color: #00fff0;">业务庭占全院送达比例</p>
+                    </div>
+                    <div style="padding: 2%;">
+                        <div id="container1" style="height: 50%;">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="/js/fg/statistics.js"></script>
+<script>
+    var d = new Date();
+    //传入的时间初始值，以对象的方式，可以在传参的过程中改变参数的值
+    var c = {a:d}
+    //页面初始化时获取当前系统时间
+    setTime(c);
+    var temp;
+    //每隔一秒，再放置一次最新的时间
+    temp = setInterval("setTime(c)", 1000);
+
+    //返回系统当前时间
+    function returnTime() {
+
+        var d = new Date();
+        c.a = d;
+    }
+
+    //设置时间，定时器执行的方法
+    function setTime(o) {
+
+        o.a = new Date(o.a);
+        document.getElementById("clock").innerHTML =
+            o.a.getFullYear() + "-" + addZero((o.a.getMonth() + 1)) + "-" + addZero(o.a.getDate()) + " "
+            + addZero(o.a.getHours()) + ":" + addZero(o.a.getMinutes()) + ":" + addZero(o.a.getSeconds());
+        o.a = new Date(o.a.getTime()+1000);
+    }
+
+    //时间格式补0
+    function addZero(d) {
+
+        if (d < 10) {
+            return "0" + d;
+        } else {
+            return d;
+        }
+    }
+</script>
+</html>

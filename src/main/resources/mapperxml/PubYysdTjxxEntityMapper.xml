@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubYysdTjxxEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubYysdTjxxEntity">
+    <constructor>
+      <idArg column="uuid" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lx" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sjwd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="time" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="tjcount" javaType="java.lang.Float" jdbcType="REAL" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, lx, sjwd, time, tjcount
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_yysd_tjxx
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from pub_yysd_tjxx
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubYysdTjxxEntity">
+    insert into pub_yysd_tjxx (uuid, lx, sjwd, 
+      time, tjcount)
+    values (#{uuid,jdbcType=VARCHAR}, #{lx,jdbcType=VARCHAR}, #{sjwd,jdbcType=VARCHAR}, 
+      #{time,jdbcType=DATE}, #{tjcount,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubYysdTjxxEntity">
+    insert into pub_yysd_tjxx
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="lx != null">
+        lx,
+      </if>
+      <if test="sjwd != null">
+        sjwd,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="tjcount != null">
+        tjcount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lx != null">
+        #{lx,jdbcType=VARCHAR},
+      </if>
+      <if test="sjwd != null">
+        #{sjwd,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="tjcount != null">
+        #{tjcount,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubYysdTjxxEntity">
+    update pub_yysd_tjxx
+    <set>
+      <if test="lx != null">
+        lx = #{lx,jdbcType=VARCHAR},
+      </if>
+      <if test="sjwd != null">
+        sjwd = #{sjwd,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="tjcount != null">
+        tjcount = #{tjcount,jdbcType=REAL},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubYysdTjxxEntity">
+    update pub_yysd_tjxx
+    set lx = #{lx,jdbcType=VARCHAR},
+      sjwd = #{sjwd,jdbcType=VARCHAR},
+      time = #{time,jdbcType=DATE},
+      tjcount = #{tjcount,jdbcType=REAL}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

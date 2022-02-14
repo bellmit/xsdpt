@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubDxtzInfoEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubDxtzInfoEntity">
+    <constructor>
+      <idArg column="dxtzid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="dsrbgh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="hmbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="webtel" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="targettel" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="telbatchno" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="serialnumber" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="operatortype" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="shownumber" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sendstate" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="templateid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="templateno" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="msgcontent" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="paramjson" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="msgreceipt" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="sdjg" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="flashmsgreceipt" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="flashsendstate" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fybh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ajxh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fgbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fwzt" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="taskid" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sdybh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="submittime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="wsnum" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    dxtzid, yysdbh, dsrbgh, hmbh, webtel, targettel, telbatchno, serialnumber, operatortype,
+    shownumber, sendstate, templateid, templateno, msgcontent, paramjson, msgreceipt,
+    createtime, sdjg, flashmsgreceipt, flashsendstate, ssdrbh, fybh, ajxh, fgbh, fwzt,
+    taskid, sdybh, submittime, wsnum
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pub_dxtz_info
+    where dxtzid = #{dxtzid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_dxtz_info
+    where dxtzid = #{dxtzid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubDxtzInfoEntity">
+    <selectKey keyProperty="dxtzid" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_dxtz_info_dxtzid_seq'::regclass)
+    </selectKey>
+    insert into pub_dxtz_info (dxtzid, yysdbh, dsrbgh,
+    hmbh, webtel, targettel,
+    telbatchno, serialnumber, operatortype,
+    shownumber, sendstate, templateid,
+    templateno, msgcontent, paramjson,
+    msgreceipt, createtime, sdjg,
+    flashmsgreceipt, flashsendstate, ssdrbh,
+    fybh, ajxh, fgbh, fwzt,
+    taskid, sdybh, submittime, wsnum
+    )
+    values (#{dxtzid,jdbcType=INTEGER}, #{yysdbh,jdbcType=INTEGER}, #{dsrbgh,jdbcType=INTEGER},
+    #{hmbh,jdbcType=INTEGER}, #{webtel,jdbcType=VARCHAR}, #{targettel,jdbcType=VARCHAR},
+    #{telbatchno,jdbcType=VARCHAR}, #{serialnumber,jdbcType=VARCHAR}, #{operatortype,jdbcType=VARCHAR},
+    #{shownumber,jdbcType=VARCHAR}, #{sendstate,jdbcType=INTEGER}, #{templateid,jdbcType=INTEGER},
+    #{templateno,jdbcType=VARCHAR}, #{msgcontent,jdbcType=VARCHAR}, #{paramjson,jdbcType=VARCHAR},
+    #{msgreceipt,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{sdjg,jdbcType=INTEGER},
+    #{flashmsgreceipt,jdbcType=VARCHAR}, #{flashsendstate,jdbcType=INTEGER}, #{ssdrbh,jdbcType=INTEGER},
+    #{fybh,jdbcType=VARCHAR}, #{ajxh,jdbcType=INTEGER}, #{fgbh,jdbcType=INTEGER}, #{fwzt,jdbcType=INTEGER},
+    #{taskid,jdbcType=VARCHAR}, #{sdybh,jdbcType=INTEGER}, #{submittime,jdbcType=TIMESTAMP}, #{wsnum,jdbcType=INTEGER}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubDxtzInfoEntity">
+    <selectKey keyProperty="dxtzid" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_dxtz_info_dxtzid_seq'::regclass)
+    </selectKey>
+    insert into pub_dxtz_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      dxtzid,
+      <if test="yysdbh != null">
+        yysdbh,
+      </if>
+      <if test="dsrbgh != null">
+        dsrbgh,
+      </if>
+      <if test="hmbh != null">
+        hmbh,
+      </if>
+      <if test="webtel != null">
+        webtel,
+      </if>
+      <if test="targettel != null">
+        targettel,
+      </if>
+      <if test="telbatchno != null">
+        telbatchno,
+      </if>
+      <if test="serialnumber != null">
+        serialnumber,
+      </if>
+      <if test="operatortype != null">
+        operatortype,
+      </if>
+      <if test="shownumber != null">
+        shownumber,
+      </if>
+      <if test="sendstate != null">
+        sendstate,
+      </if>
+      <if test="templateid != null">
+        templateid,
+      </if>
+      <if test="templateno != null">
+        templateno,
+      </if>
+      <if test="msgcontent != null">
+        msgcontent,
+      </if>
+      <if test="paramjson != null">
+        paramjson,
+      </if>
+      <if test="msgreceipt != null">
+        msgreceipt,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="sdjg != null">
+        sdjg,
+      </if>
+      <if test="flashmsgreceipt != null">
+        flashmsgreceipt,
+      </if>
+      <if test="flashsendstate != null">
+        flashsendstate,
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh,
+      </if>
+      <if test="fybh != null">
+        fybh,
+      </if>
+      <if test="ajxh != null">
+        ajxh,
+      </if>
+      <if test="fgbh != null">
+        fgbh,
+      </if>
+      <if test="fwzt != null">
+        fwzt,
+      </if>
+      <if test="taskid != null">
+        taskid,
+      </if>
+      <if test="sdybh != null">
+        sdybh,
+      </if>
+      <if test="submittime != null">
+        submittime,
+      </if>
+      <if test="wsnum != null">
+        wsnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{dxtzid,jdbcType=INTEGER},
+      <if test="yysdbh != null">
+        #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="dsrbgh != null">
+        #{dsrbgh,jdbcType=INTEGER},
+      </if>
+      <if test="hmbh != null">
+        #{hmbh,jdbcType=INTEGER},
+      </if>
+      <if test="webtel != null">
+        #{webtel,jdbcType=VARCHAR},
+      </if>
+      <if test="targettel != null">
+        #{targettel,jdbcType=VARCHAR},
+      </if>
+      <if test="telbatchno != null">
+        #{telbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="serialnumber != null">
+        #{serialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="operatortype != null">
+        #{operatortype,jdbcType=VARCHAR},
+      </if>
+      <if test="shownumber != null">
+        #{shownumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sendstate != null">
+        #{sendstate,jdbcType=INTEGER},
+      </if>
+      <if test="templateid != null">
+        #{templateid,jdbcType=INTEGER},
+      </if>
+      <if test="templateno != null">
+        #{templateno,jdbcType=VARCHAR},
+      </if>
+      <if test="msgcontent != null">
+        #{msgcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="paramjson != null">
+        #{paramjson,jdbcType=VARCHAR},
+      </if>
+      <if test="msgreceipt != null">
+        #{msgreceipt,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sdjg != null">
+        #{sdjg,jdbcType=INTEGER},
+      </if>
+      <if test="flashmsgreceipt != null">
+        #{flashmsgreceipt,jdbcType=VARCHAR},
+      </if>
+      <if test="flashsendstate != null">
+        #{flashsendstate,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="fybh != null">
+        #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="ajxh != null">
+        #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="fgbh != null">
+        #{fgbh,jdbcType=INTEGER},
+      </if>
+      <if test="fwzt != null">
+        #{fwzt,jdbcType=INTEGER},
+      </if>
+      <if test="taskid != null">
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="sdybh != null">
+        #{sdybh,jdbcType=INTEGER},
+      </if>
+      <if test="submittime != null">
+        #{submittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wsnum != null">
+        #{wsnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubDxtzInfoEntity">
+    update pub_dxtz_info
+    <set>
+      <if test="yysdbh != null">
+        yysdbh = #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="dsrbgh != null">
+        dsrbgh = #{dsrbgh,jdbcType=INTEGER},
+      </if>
+      <if test="hmbh != null">
+        hmbh = #{hmbh,jdbcType=INTEGER},
+      </if>
+      <if test="webtel != null">
+        webtel = #{webtel,jdbcType=VARCHAR},
+      </if>
+      <if test="targettel != null">
+        targettel = #{targettel,jdbcType=VARCHAR},
+      </if>
+      <if test="telbatchno != null">
+        telbatchno = #{telbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="serialnumber != null">
+        serialnumber = #{serialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="operatortype != null">
+        operatortype = #{operatortype,jdbcType=VARCHAR},
+      </if>
+      <if test="shownumber != null">
+        shownumber = #{shownumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sendstate != null">
+        sendstate = #{sendstate,jdbcType=INTEGER},
+      </if>
+      <if test="templateid != null">
+        templateid = #{templateid,jdbcType=INTEGER},
+      </if>
+      <if test="templateno != null">
+        templateno = #{templateno,jdbcType=VARCHAR},
+      </if>
+      <if test="msgcontent != null">
+        msgcontent = #{msgcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="paramjson != null">
+        paramjson = #{paramjson,jdbcType=VARCHAR},
+      </if>
+      <if test="msgreceipt != null">
+        msgreceipt = #{msgreceipt,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sdjg != null">
+        sdjg = #{sdjg,jdbcType=INTEGER},
+      </if>
+      <if test="flashmsgreceipt != null">
+        flashmsgreceipt = #{flashmsgreceipt,jdbcType=VARCHAR},
+      </if>
+      <if test="flashsendstate != null">
+        flashsendstate = #{flashsendstate,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="fybh != null">
+        fybh = #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="ajxh != null">
+        ajxh = #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="fgbh != null">
+        fgbh = #{fgbh,jdbcType=INTEGER},
+      </if>
+      <if test="fwzt != null">
+        fwzt = #{fwzt,jdbcType=INTEGER},
+      </if>
+      <if test="taskid != null">
+        taskid = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="sdybh != null">
+        sdybh = #{sdybh,jdbcType=INTEGER},
+      </if>
+      <if test="submittime != null">
+        submittime = #{submittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wsnum != null">
+        wsnum = #{wsnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where dxtzid = #{dxtzid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubDxtzInfoEntity">
+    update pub_dxtz_info
+    set yysdbh = #{yysdbh,jdbcType=INTEGER},
+      dsrbgh = #{dsrbgh,jdbcType=INTEGER},
+      hmbh = #{hmbh,jdbcType=INTEGER},
+      webtel = #{webtel,jdbcType=VARCHAR},
+      targettel = #{targettel,jdbcType=VARCHAR},
+      telbatchno = #{telbatchno,jdbcType=VARCHAR},
+      serialnumber = #{serialnumber,jdbcType=VARCHAR},
+      operatortype = #{operatortype,jdbcType=VARCHAR},
+      shownumber = #{shownumber,jdbcType=VARCHAR},
+      sendstate = #{sendstate,jdbcType=INTEGER},
+      templateid = #{templateid,jdbcType=INTEGER},
+      templateno = #{templateno,jdbcType=VARCHAR},
+      msgcontent = #{msgcontent,jdbcType=VARCHAR},
+      paramjson = #{paramjson,jdbcType=VARCHAR},
+      msgreceipt = #{msgreceipt,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      sdjg = #{sdjg,jdbcType=INTEGER},
+      flashmsgreceipt = #{flashmsgreceipt,jdbcType=VARCHAR},
+      flashsendstate = #{flashsendstate,jdbcType=INTEGER},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      fybh = #{fybh,jdbcType=VARCHAR},
+      ajxh = #{ajxh,jdbcType=INTEGER},
+      fgbh = #{fgbh,jdbcType=INTEGER},
+      fwzt = #{fwzt,jdbcType=INTEGER},
+      taskid = #{taskid,jdbcType=VARCHAR},
+      sdybh = #{sdybh,jdbcType=INTEGER},
+      submittime = #{submittime,jdbcType=TIMESTAMP},
+      wsnum = #{wsnum,jdbcType=INTEGER}
+    where dxtzid = #{dxtzid,jdbcType=INTEGER}
+  </update>
+</mapper>

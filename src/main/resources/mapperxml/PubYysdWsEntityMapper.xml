@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubYysdWsEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubYysdWsEntity">
+    <constructor>
+      <idArg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="bh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="wslb" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wsly" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="wslybh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="xxdz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wsmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="qzbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="failnum" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ajxh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="bz" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.nju.sdpt.entity.PubYysdWsEntity">
+    <constructor>
+      <idArg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="bh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="wslb" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wsly" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="wslybh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="xxdz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wsmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="qzbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="failnum" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ajxh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="bz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wsnr" javaType="_byte[]" jdbcType="BINARY" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    yysdbh, bh, wslb, wsly, wslybh, xxdz, wsmc, qzbh, ssdrbh, failnum, status, ajxh, 
+    bz
+  </sql>
+  <sql id="Blob_Column_List">
+    wsnr
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.nju.sdpt.entity.PubYysdWsEntityKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pub_yysd_ws
+    where yysdbh = #{yysdbh,jdbcType=INTEGER}
+      and bh = #{bh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.nju.sdpt.entity.PubYysdWsEntityKey">
+    delete from pub_yysd_ws
+    where yysdbh = #{yysdbh,jdbcType=INTEGER}
+      and bh = #{bh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubYysdWsEntity">
+    insert into pub_yysd_ws (yysdbh, bh, wslb, 
+      wsly, wslybh, xxdz, 
+      wsmc, qzbh, ssdrbh, 
+      failnum, status, ajxh, 
+      bz, wsnr)
+    values (#{yysdbh,jdbcType=INTEGER}, #{bh,jdbcType=INTEGER}, #{wslb,jdbcType=VARCHAR}, 
+      #{wsly,jdbcType=INTEGER}, #{wslybh,jdbcType=INTEGER}, #{xxdz,jdbcType=VARCHAR}, 
+      #{wsmc,jdbcType=VARCHAR}, #{qzbh,jdbcType=INTEGER}, #{ssdrbh,jdbcType=INTEGER}, 
+      #{failnum,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{ajxh,jdbcType=INTEGER}, 
+      #{bz,jdbcType=VARCHAR}, #{wsnr,jdbcType=BINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubYysdWsEntity">
+    insert into pub_yysd_ws
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="yysdbh != null">
+        yysdbh,
+      </if>
+      <if test="bh != null">
+        bh,
+      </if>
+      <if test="wslb != null">
+        wslb,
+      </if>
+      <if test="wsly != null">
+        wsly,
+      </if>
+      <if test="wslybh != null">
+        wslybh,
+      </if>
+      <if test="xxdz != null">
+        xxdz,
+      </if>
+      <if test="wsmc != null">
+        wsmc,
+      </if>
+      <if test="qzbh != null">
+        qzbh,
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh,
+      </if>
+      <if test="failnum != null">
+        failnum,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="ajxh != null">
+        ajxh,
+      </if>
+      <if test="bz != null">
+        bz,
+      </if>
+      <if test="wsnr != null">
+        wsnr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="yysdbh != null">
+        #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="bh != null">
+        #{bh,jdbcType=INTEGER},
+      </if>
+      <if test="wslb != null">
+        #{wslb,jdbcType=VARCHAR},
+      </if>
+      <if test="wsly != null">
+        #{wsly,jdbcType=INTEGER},
+      </if>
+      <if test="wslybh != null">
+        #{wslybh,jdbcType=INTEGER},
+      </if>
+      <if test="xxdz != null">
+        #{xxdz,jdbcType=VARCHAR},
+      </if>
+      <if test="wsmc != null">
+        #{wsmc,jdbcType=VARCHAR},
+      </if>
+      <if test="qzbh != null">
+        #{qzbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="failnum != null">
+        #{failnum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="ajxh != null">
+        #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="wsnr != null">
+        #{wsnr,jdbcType=BINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubYysdWsEntity">
+    update pub_yysd_ws
+    <set>
+      <if test="wslb != null">
+        wslb = #{wslb,jdbcType=VARCHAR},
+      </if>
+      <if test="wsly != null">
+        wsly = #{wsly,jdbcType=INTEGER},
+      </if>
+      <if test="wslybh != null">
+        wslybh = #{wslybh,jdbcType=INTEGER},
+      </if>
+      <if test="xxdz != null">
+        xxdz = #{xxdz,jdbcType=VARCHAR},
+      </if>
+      <if test="wsmc != null">
+        wsmc = #{wsmc,jdbcType=VARCHAR},
+      </if>
+      <if test="qzbh != null">
+        qzbh = #{qzbh,jdbcType=INTEGER},
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="failnum != null">
+        failnum = #{failnum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="ajxh != null">
+        ajxh = #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="bz != null">
+        bz = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="wsnr != null">
+        wsnr = #{wsnr,jdbcType=BINARY},
+      </if>
+    </set>
+    where yysdbh = #{yysdbh,jdbcType=INTEGER}
+      and bh = #{bh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.nju.sdpt.entity.PubYysdWsEntity">
+    update pub_yysd_ws
+    set wslb = #{wslb,jdbcType=VARCHAR},
+      wsly = #{wsly,jdbcType=INTEGER},
+      wslybh = #{wslybh,jdbcType=INTEGER},
+      xxdz = #{xxdz,jdbcType=VARCHAR},
+      wsmc = #{wsmc,jdbcType=VARCHAR},
+      qzbh = #{qzbh,jdbcType=INTEGER},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      failnum = #{failnum,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      ajxh = #{ajxh,jdbcType=INTEGER},
+      bz = #{bz,jdbcType=VARCHAR},
+      wsnr = #{wsnr,jdbcType=BINARY}
+    where yysdbh = #{yysdbh,jdbcType=INTEGER}
+      and bh = #{bh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubYysdWsEntity">
+    update pub_yysd_ws
+    set wslb = #{wslb,jdbcType=VARCHAR},
+      wsly = #{wsly,jdbcType=INTEGER},
+      wslybh = #{wslybh,jdbcType=INTEGER},
+      xxdz = #{xxdz,jdbcType=VARCHAR},
+      wsmc = #{wsmc,jdbcType=VARCHAR},
+      qzbh = #{qzbh,jdbcType=INTEGER},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      failnum = #{failnum,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      ajxh = #{ajxh,jdbcType=INTEGER},
+      bz = #{bz,jdbcType=VARCHAR}
+    where yysdbh = #{yysdbh,jdbcType=INTEGER}
+      and bh = #{bh,jdbcType=INTEGER}
+  </update>
+</mapper>

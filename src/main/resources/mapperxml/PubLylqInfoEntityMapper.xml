@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubLylqInfoEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubLylqInfoEntity">
+    <constructor>
+      <idArg column="lylqid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yylqsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="lylqaddress" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lqstate" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sdjg" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ygno" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ygcjsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="ygqjsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="ygqjzt" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="create_operator" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_operator" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fybh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ajxh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fgbh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sdybh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="lqsj" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="submittime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.nju.sdpt.entity.PubLylqInfoEntity">
+    <constructor>
+      <idArg column="lylqid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yylqsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="lylqaddress" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lqstate" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sdjg" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ygno" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ygcjsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="ygqjsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="ygqjzt" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="create_operator" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_operator" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fybh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ajxh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fgbh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sdybh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="lqsj" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="submittime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="sdhz" javaType="_byte[]" jdbcType="BINARY" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    lylqid, yysdbh, yylqsj, lylqaddress, lqstate, sdjg, ygno, ygcjsj, ygqjsj, ygqjzt,
+    create_time, create_operator, update_time, update_operator, ssdrbh, fybh, ajxh, fgbh,
+    sdybh, lqsj, submittime
+  </sql>
+  <sql id="Blob_Column_List">
+    sdhz
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pub_lylq_info
+    where lylqid = #{lylqid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_lylq_info
+    where lylqid = #{lylqid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubLylqInfoEntity">
+    <selectKey keyProperty="lylqid" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_lylq_info_lylqid_seq'::regclass)
+    </selectKey>
+    insert into pub_lylq_info (lylqid, yysdbh, yylqsj,
+    lylqaddress, lqstate, sdjg,
+    ygno, ygcjsj, ygqjsj,
+    ygqjzt, create_time, create_operator,
+    update_time, update_operator, ssdrbh,
+    fybh, ajxh, fgbh, sdybh,
+    lqsj, submittime, sdhz
+    )
+    values (#{lylqid,jdbcType=INTEGER}, #{yysdbh,jdbcType=INTEGER}, #{yylqsj,jdbcType=TIMESTAMP},
+    #{lylqaddress,jdbcType=VARCHAR}, #{lqstate,jdbcType=INTEGER}, #{sdjg,jdbcType=INTEGER},
+    #{ygno,jdbcType=VARCHAR}, #{ygcjsj,jdbcType=TIMESTAMP}, #{ygqjsj,jdbcType=TIMESTAMP},
+    #{ygqjzt,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createOperator,jdbcType=VARCHAR},
+    #{updateTime,jdbcType=TIMESTAMP}, #{updateOperator,jdbcType=VARCHAR}, #{ssdrbh,jdbcType=INTEGER},
+    #{fybh,jdbcType=VARCHAR}, #{ajxh,jdbcType=INTEGER}, #{fgbh,jdbcType=VARCHAR}, #{sdybh,jdbcType=INTEGER},
+    #{lqsj,jdbcType=VARCHAR}, #{submittime,jdbcType=TIMESTAMP}, #{sdhz,jdbcType=BINARY}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubLylqInfoEntity">
+    <selectKey keyProperty="lylqid" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_lylq_info_lylqid_seq'::regclass)
+    </selectKey>
+    insert into pub_lylq_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      lylqid,
+      <if test="yysdbh != null">
+        yysdbh,
+      </if>
+      <if test="yylqsj != null">
+        yylqsj,
+      </if>
+      <if test="lylqaddress != null">
+        lylqaddress,
+      </if>
+      <if test="lqstate != null">
+        lqstate,
+      </if>
+      <if test="sdjg != null">
+        sdjg,
+      </if>
+      <if test="ygno != null">
+        ygno,
+      </if>
+      <if test="ygcjsj != null">
+        ygcjsj,
+      </if>
+      <if test="ygqjsj != null">
+        ygqjsj,
+      </if>
+      <if test="ygqjzt != null">
+        ygqjzt,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createOperator != null">
+        create_operator,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateOperator != null">
+        update_operator,
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh,
+      </if>
+      <if test="fybh != null">
+        fybh,
+      </if>
+      <if test="ajxh != null">
+        ajxh,
+      </if>
+      <if test="fgbh != null">
+        fgbh,
+      </if>
+      <if test="sdybh != null">
+        sdybh,
+      </if>
+      <if test="lqsj != null">
+        lqsj,
+      </if>
+      <if test="submittime != null">
+        submittime,
+      </if>
+      <if test="sdhz != null">
+        sdhz,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{lylqid,jdbcType=INTEGER},
+      <if test="yysdbh != null">
+        #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="yylqsj != null">
+        #{yylqsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lylqaddress != null">
+        #{lylqaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="lqstate != null">
+        #{lqstate,jdbcType=INTEGER},
+      </if>
+      <if test="sdjg != null">
+        #{sdjg,jdbcType=INTEGER},
+      </if>
+      <if test="ygno != null">
+        #{ygno,jdbcType=VARCHAR},
+      </if>
+      <if test="ygcjsj != null">
+        #{ygcjsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ygqjsj != null">
+        #{ygqjsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ygqjzt != null">
+        #{ygqjzt,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperator != null">
+        #{createOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperator != null">
+        #{updateOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="ssdrbh != null">
+        #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="fybh != null">
+        #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="ajxh != null">
+        #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="fgbh != null">
+        #{fgbh,jdbcType=VARCHAR},
+      </if>
+      <if test="sdybh != null">
+        #{sdybh,jdbcType=INTEGER},
+      </if>
+      <if test="lqsj != null">
+        #{lqsj,jdbcType=VARCHAR},
+      </if>
+      <if test="submittime != null">
+        #{submittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sdhz != null">
+        #{sdhz,jdbcType=BINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubLylqInfoEntity">
+    update pub_lylq_info
+    <set>
+      <if test="yysdbh != null">
+        yysdbh = #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="yylqsj != null">
+        yylqsj = #{yylqsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lylqaddress != null">
+        lylqaddress = #{lylqaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="lqstate != null">
+        lqstate = #{lqstate,jdbcType=INTEGER},
+      </if>
+      <if test="sdjg != null">
+        sdjg = #{sdjg,jdbcType=INTEGER},
+      </if>
+      <if test="ygno != null">
+        ygno = #{ygno,jdbcType=VARCHAR},
+      </if>
+      <if test="ygcjsj != null">
+        ygcjsj = #{ygcjsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ygqjsj != null">
+        ygqjsj = #{ygqjsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ygqjzt != null">
+        ygqjzt = #{ygqjzt,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperator != null">
+        create_operator = #{createOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperator != null">
+        update_operator = #{updateOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="fybh != null">
+        fybh = #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="ajxh != null">
+        ajxh = #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="fgbh != null">
+        fgbh = #{fgbh,jdbcType=VARCHAR},
+      </if>
+      <if test="sdybh != null">
+        sdybh = #{sdybh,jdbcType=INTEGER},
+      </if>
+      <if test="lqsj != null">
+        lqsj = #{lqsj,jdbcType=VARCHAR},
+      </if>
+      <if test="submittime != null">
+        submittime = #{submittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sdhz != null">
+        sdhz = #{sdhz,jdbcType=BINARY},
+      </if>
+    </set>
+    where lylqid = #{lylqid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.nju.sdpt.entity.PubLylqInfoEntity">
+    update pub_lylq_info
+    set yysdbh = #{yysdbh,jdbcType=INTEGER},
+      yylqsj = #{yylqsj,jdbcType=TIMESTAMP},
+      lylqaddress = #{lylqaddress,jdbcType=VARCHAR},
+      lqstate = #{lqstate,jdbcType=INTEGER},
+      sdjg = #{sdjg,jdbcType=INTEGER},
+      ygno = #{ygno,jdbcType=VARCHAR},
+      ygcjsj = #{ygcjsj,jdbcType=TIMESTAMP},
+      ygqjsj = #{ygqjsj,jdbcType=TIMESTAMP},
+      ygqjzt = #{ygqjzt,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_operator = #{createOperator,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_operator = #{updateOperator,jdbcType=VARCHAR},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      fybh = #{fybh,jdbcType=VARCHAR},
+      ajxh = #{ajxh,jdbcType=INTEGER},
+      fgbh = #{fgbh,jdbcType=VARCHAR},
+      sdybh = #{sdybh,jdbcType=INTEGER},
+      lqsj = #{lqsj,jdbcType=VARCHAR},
+      submittime = #{submittime,jdbcType=TIMESTAMP},
+      sdhz = #{sdhz,jdbcType=BINARY}
+    where lylqid = #{lylqid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubLylqInfoEntity">
+    update pub_lylq_info
+    set yysdbh = #{yysdbh,jdbcType=INTEGER},
+      yylqsj = #{yylqsj,jdbcType=TIMESTAMP},
+      lylqaddress = #{lylqaddress,jdbcType=VARCHAR},
+      lqstate = #{lqstate,jdbcType=INTEGER},
+      sdjg = #{sdjg,jdbcType=INTEGER},
+      ygno = #{ygno,jdbcType=VARCHAR},
+      ygcjsj = #{ygcjsj,jdbcType=TIMESTAMP},
+      ygqjsj = #{ygqjsj,jdbcType=TIMESTAMP},
+      ygqjzt = #{ygqjzt,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_operator = #{createOperator,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_operator = #{updateOperator,jdbcType=VARCHAR},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      fybh = #{fybh,jdbcType=VARCHAR},
+      ajxh = #{ajxh,jdbcType=INTEGER},
+      fgbh = #{fgbh,jdbcType=VARCHAR},
+      sdybh = #{sdybh,jdbcType=INTEGER},
+      lqsj = #{lqsj,jdbcType=VARCHAR},
+      submittime = #{submittime,jdbcType=TIMESTAMP}
+    where lylqid = #{lylqid,jdbcType=INTEGER}
+  </update>
+</mapper>

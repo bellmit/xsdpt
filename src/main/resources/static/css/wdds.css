@@ -1,0 +1,107 @@
+html,body{height: 100%;width: 100%;margin:0;padding:0;}
+body{
+    background-image:url('../img/background.jpg');
+    background-repeat: no-repeat;
+    height:100%;
+    width:100%;
+
+    background-size:100% 100%;
+    position:absolute;
+}
+
+.bottombox{
+    bottom: 50px;
+}
+
+.icon{
+    width: 60%;
+    height: 60%;
+}
+
+.data{
+    width: 100%;
+    height: 100%;
+    padding: 0 1.5em 0 1.5em
+}
+
+#wdsd{
+    width: 1%;
+    height: 1%;
+}
+
+.topnav{
+    font-size: 24px;
+    color: white;
+    font-family: 华文中宋;
+}
+
+.number{
+    color: #ff6c00;
+    font-size: 32px;
+    font-weight: bolder;
+    font-family: Times New Roman;
+    margin-left: 15%;
+}
+
+.text{
+    color: #003997;
+    font-size: 24px;
+    font-weight: bolder;
+    font-family: 华文中宋;
+    margin-left: 6%;
+}
+
+.title{
+    margin-top: 13.5%;
+}
+
+.left1{
+    margin-top: 1.5%;
+    margin-left: 4.5%;
+}
+
+.left-col1{
+    margin-bottom: 19%;
+    width: 11%;
+}
+
+.left-col2{
+    margin-bottom: 9.5%;
+    width: 10.5%;
+}
+
+
+.left-col3{
+    margin-bottom: 4%;
+    width: 11%;
+}
+
+.left-col4{
+    margin-bottom: 1%;
+    width: 11%;
+}
+
+.left-col5{
+    margin-bottom: -0.5%;
+    width: 11%;
+}
+
+.left-col6{
+    margin-bottom: 1%;
+    width: 11%;
+}
+
+.left-col7{
+    margin-bottom: 4%;
+    width: 11%;
+}
+
+.left-col8{
+    margin-bottom: 9.5%;
+    width: 11%;
+}
+
+.left-col9{
+    margin-bottom: 19%;
+    width: 10%;
+}

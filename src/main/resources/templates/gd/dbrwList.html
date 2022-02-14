@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>待办任务列表</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/lylqList.css?v=1">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+</head>
+<body>
+
+<div style="width: 100%;height: 80px;background-color: rgb(0,169,238)">
+    <div style="padding-top: 10px;padding-left: 30px;">
+        <div style="float: left">
+            <img  src="/css/img/mySd_fahui.png" height="50px" width="50px" style="margin-top: 5px">
+        </div>
+        <div style="float: left;padding-top: 10px;padding-bottom: 5px;margin-left: 10px;">
+            <div style="color: white;font-size: 30px;"id="current_fymc">天津市高级人民法院</div>
+        </div>
+
+        <div  id="logout" class="headLogout"><img src="/css/img/mySD_tuichu.jpg" height="30px" width="100px"> </div>
+        <div style="margin-right: 100px">
+            <div id="userName"  style="color: white;font-size: 15px;margin-top: 20px;float: right;">
+            </div>
+            <div  style="color: white;font-size: 15px;margin-top: 20px;float: right;">欢迎 &nbsp; ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div style="float: right">
+            <img  src="/css/img/mySd_fahui.png" id="circle" width="50px" height="50px" style="margin-right: 20px;margin-top: 5px">
+        </div>
+    </div>
+</div>
+<div style="background-color: rgb(245,245,245);min-height: 60px">
+    <div style="float: left">
+        <img src="/css/img/mySd_index.png">
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5>&nbsp;&nbsp;当前位置：首页 - &nbsp;&nbsp; </h5>
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5 style="color: rgb(0,169,238)">待办任务列表</h5>
+    </div>
+<!--    <div class="input-group" style="float: right">-->
+<!--        <div >-->
+<!--            <form class="bs-example bs-example-form" role="form">-->
+<!--                <div class="input-group"style="margin-top: 15px">-->
+<!--                    <input type="text" class="form-control"height="30px" placeholder="站内搜索">-->
+<!--                    <span class="input-group-addon" style="background-color: rgb(221,221,221)"><img src="/css/img/search_icon.png" height="20px" width="20px"></span>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<input id = "dbrw_mark" hidden value="1">
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 20px;background-color: white;min-height: 500px">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div style="margin-top: 10px;min-height: 35px">
+        <div style="float: left;margin-left: 20px">
+            待办任务列表
+        </div>
+        <div style="margin-left: 20px;float: left;">
+            <select style="width: 100px; height: 35px;" onchange="selectDbrw(this[selectedIndex].value)">
+                <option value="0">全部</option>
+                <option value="1">待处理</option>
+                <option value="2">已处理</option>
+                <option value="3">处理中</option>
+            </select>
+        </div>
+        <div style="margin-left: 20px;float: left;">
+            <select style="width: 100px; height: 35px;" onchange="selectDbrwByType(this[selectedIndex].value)">
+                <option value="0">全部</option>
+                <option value="1">来院领取</option>
+                <option value="2">邮寄送达</option>
+                <option value="3">短信电子送达</option>
+            </select>
+        </div>
+        <div id="return_main" style="float: right;margin-right: 10px"><img src="/css/img/return_icon.png" width="60px" height="24px"></div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped table-condensed" id="dbrw_table">
+            <thead>
+            <tr>
+                <th style="text-align: center;width:5% ">送达编号</th>
+                <th style="text-align: center;width:15%">案号</th>
+                <th style="text-align: center;width:30%">预约人</th>
+                <th style="text-align: center;width:10%">被送达人</th>
+                <th style="text-align: center;width:10%">选择送达方式</th>
+                <th style="text-align: center;width:10%">选择送达方式详情</th>
+                <th style="text-align: center;width:10%">处理状态</th>
+                <th style="text-align: center;width:10%">操作</th>
+            </tr>
+            </thead>
+            <tbody id="dbrw_tbody">
+            </tbody>
+        </table>
+    </div>
+    <!-- 来院领取记录弹窗 -->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="addLylqModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        新增来院领取任务
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label cus-required">工单号：</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="gdh" readonly>
+                            </div>
+                        </div>
+                        <div id="sdp" class="form-group">
+                            <label class="col-sm-2 control-label cus-required">当事人：</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="dsr" readonly>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label cus-required">预约时间：</label>
+                            <div class="col-sm-10">
+                                <input type="text" disabled placeholder="请选择来院领取时间" class="form-control lylq-yysj-input" id="lylq-yysj-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label cus-required">预约地点：</label>
+                            <div class="col-sm-10">
+                                <input type="text" disabled class="form-control" id="yydd">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">送达回执：</label>
+                            <div class="col-sm-8" id = "lylq_sdhz_wsmc">
+                            </div>
+                            <div class="col-sm-2">
+                                <button  type="button" class="layui-btn" id="upload_lylq_sdhz" style="float: left">
+                                    上传
+                                </button>
+                            </div>
+                        </div>
+                        <button id="submit" style="visibility: hidden"></button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submit-lylq">
+                        确定
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- 短信通知记录弹窗 步骤1 -->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="addDxtzModela" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabelList">
+                        选择工单
+                    </h4>
+                    <button class="btn btn-primary" style="float: right;margin-right: 20px" type="button" id="ajxq">查看工单详情</button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label cus-required">工单号：</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="gdha" readonly>
+                            </div>
+                        </div>
+                        <div id="sdpList" class="form-group">
+                            <label class="col-sm-2 control-label cus-required">当事人：</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="dsra" readonly>
+                            </div>
+                        </div>
+                        <div id="dxtz-zhuti">
+                            <hr/>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label cus-required">下发号码：</label>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <th>
+                                    <label>
+                                        <input name="dxtz-tel-checkbox-checkAll" type="checkbox">
+                                        全选
+                                    </label>
+                                </th>
+                                <th>电话</th>
+                                </thead>
+                                <tbody id="tel-tbody">
+                                </tbody>
+                            </table>
+                            <hr/>
+                            <hr/>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label cus-required">立案案由：</label>
+                            </div>
+                            <table class="table table-bordered">
+                                <div class="col-sm-10" id="laay">
+                                    <p class="form-control-static"><label class="laay"></label></p>
+                                </div>
+                            </table>
+                            <hr/>
+                            <!--                        短信模板选择-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label cus-required">短信模板：</label>
+                                <div class="col-sm-10">
+                                    <select id="dxtz-dxmb-input" class="form-control">
+                                        <option>请选择短信模板</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--                        短信模板参数填充动态表单-->
+                            <div id="dxtz-param">
+                                <hr/>
+                                <!--                                短信通知模板填充部分-->
+                                <div id="dxtz-mbtc">
+                                </div>
+                            </div>
+                            <div style="background-color: rgb(245,245,245);min-height: 60px">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label cus-required">短信预览：</label>
+                            </div>
+                            <table class="table table-bordered">
+                                <div id="dxtz-mbtc1">
+                                </div>
+                            </table>
+                            </div>
+                        </div>
+                    </form>
+                    <div style="display: none" id="JZDXLS" class="layui-upload">
+                        <button class="layui-btn layui-btn-normal" id="jzlssj-dx" style="margin-right:20px" onclick="jzlssj()">导入上一次短信记录</button>
+                    </div>
+                    <div style="display: none" id="uploadFileShow" class="layui-upload">
+                        <button id="uploadFile" class="layui-btn layui-btn-normal" style="margin-top: 20px">上传pdf文件</button>
+                        <button class="layui-btn layui-btn-normal" id="sclj-btn" style="margin-top: 20px" onclick="sclj()">生成链接</button>
+                        <p style="color: red">目前支持上传的文件类型：pdf文件</p>
+                        <div class="layui-upload-list">
+                            <table class="layui-table">
+                                <thead>
+                                <tr><th>文件名</th>
+                                    <th>操作</th></tr>
+                                </thead>
+                                <tbody id="demoList"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-primary" id="sendMSg">
+                        发送短信
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+<script id="dbrw_td_body" type="text/html">
+    {{if isAdmin}}
+    {{each list value i}}
+    <tr>
+        <td style="text-align: center">{{list[i].yysdbh}}</td>
+        <td>{{list[i].casenumber}}</td>
+        <td>{{list[i].orderpeople}}</td>
+        <td>{{list[i].bsdpeople}}</td>
+        <td>
+            {{if list[i].xzsdfs==1}}
+                来院领取
+            {{else if list[i].xzsdfs==2}}
+                邮寄送达
+            {{else if list[i].xzsdfs==3}}
+                短信电子送达
+            {{/if}}
+        </td>
+        <td>{{list[i].xzsdfsxq}}</td>
+        <td>
+            {{if list[i].clzt==1}}
+                待处理
+            {{else if list[i].clzt==2}}
+                已处理
+            {{else if list[i].clzt==3}}
+                处理中
+            {{/if}}
+        </td>
+        <td>
+            {{if list[i].clzt==1 }}
+            <button data-hint="{{list[i].lylqid}}" id="isShow" class="btn btn-primary" onclick="sddbrw(this)" data-index={{i}} type="button">送达</button>
+            {{/if}}
+            {{if (list[i].clzt==1 || list[i].clzt==3 ) && (list[i].xzsdfs != 1)}}
+            <button data-hint="{{list[i].lylqid}}" class="btn btn-primary" onclick="wcdb(this)" data-index={{i}} type="button">完成</button>
+            {{/if}}
+        </td>
+    </tr>
+    {{/each}}
+    {{/if}}
+</script>
+<th:block th:include="pop/pop_gdxqxx.html"></th:block>
+<th:block th:include="pop/pop_addEms.html"></th:block>
+<script src="/js/gd/dbrwList.js?v=7"></script>
+<style>
+    #circle{
+        border-radius: 50%;      -moz-border-radius: 50%;      -webkit-border-radius: 50%;
+    }
+    body{
+        background-color: rgb(241,241,241);
+    }
+    .add-lylq-form{
+        width: 400px;
+    }
+    .col-sm-2{
+        padding-left: 0px !important;
+    }
+    .cus-required:before{
+        content: "*";
+        color: red;
+    }
+    .lylq-yysj-input{
+        background-color: white !important;
+    }
+    .dxmb-param.form-control{
+        display: inline;
+        width: auto;
+        margin-top: 5px;
+    }
+</style>
+</body>
+</html>
+

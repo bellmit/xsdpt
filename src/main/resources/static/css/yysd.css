@@ -1,0 +1,192 @@
+td.ajxx{
+    height:3em;
+}
+div.step{
+    width:100%;
+    /*padding:20px 0 20px 10%;*/
+}
+.table th,.table td{
+    text-align: center;
+}
+.myButton{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    outline-color: rgba(255,255,255,0);
+
+}
+#circle{
+    border-radius: 50%;      -moz-border-radius: 50%;      -webkit-border-radius: 50%;
+}
+fieldset{
+    padding: .35em .625em .75em;
+    margin: 0 2px;
+    border: 1px solid silver;
+}
+legend{
+    padding: .5em;
+    border: 0;
+    width: auto;
+    margin-bottom: 0px;
+}
+#ajxxTable tr{
+    margin-top: 20em;
+}
+.ajxxLabel{
+    float: left;
+}
+.ajxxLabelStar{
+    color:rgb(255,98,0);
+}
+.ajxxLabelText{
+    color:rgb(2,123,240);
+}
+.commonFieldset{
+    border-width: 10px;
+    border-style: solid
+}
+.ajxxFieldset{
+    width: 80%;
+    /*margin-left: 10%;*/
+    border-color: #027bf0;
+    padding: 2em 5em 2em 5em;
+}
+.caajListFieldset{
+    width: 80%;
+    margin-left: 10%;
+    border-color: rgb(223,223,223);
+}
+#yysdbz{
+    width: 40em;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(160,160,160);
+    height: 2em
+}
+.commonLegend{
+    text-align: center;
+    font-size: 200%;
+}
+.dsrxxFieldset{
+    width: 80%;
+    border-color: rgb(2,123,240);
+    padding: 2em 5em 2em 5em;
+}
+.dsrTable{
+    table-layout: fixed;
+    word-break: break-all;
+}
+.dsrTable thead{
+    background-color: rgb(2,123,240);
+    color: white;
+}
+
+#caajTable{
+    table-layout: fixed;
+    word-break: break-all;
+}
+#caajTable thead{
+    background-color: rgb(2,123,240);
+    color: white;
+}
+#sdNrTable thead{
+    background-color: rgb(2,123,240);
+    color: white;
+}
+
+.sdnrFieldset{
+    width: 80%;
+    /*margin-left: 10%;*/
+    border-color: rgb(2,123,240);
+    padding: 2em 5em 2em 5em;
+}
+.blueLine{
+    min-height: .3em;
+    background-color: rgb(2,123,240);
+    margin:2em 0 2em 0;
+}
+.sdrxxFieldset{
+    width: 80%;
+    margin-left: 10%;
+    border-color: #027bf0;
+    padding: 2em 5em 2em 5em;
+}
+
+#sdrxxTable td{
+    height: 3em;
+}
+.filebuton div{
+    font-size: 10px;
+    background: rgb(2,123,240);
+    color: white;
+    padding: 5px 8px;
+}
+.filebuton{
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    margin-left: 1em;
+}
+.filebuton input{
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    font-size: 25px;
+}
+.selectedDsr{
+    background-color: rgb(223,223,223);
+}
+
+#xssc{
+    background-color:rgb(2,123,240);
+    width: 8em;
+    height: 2em;
+    float: left;
+    line-height: 2em;
+}
+#xxsd{
+    visibility: hidden;
+}
+#addXxsd{
+    background-color:rgb(2,123,240);
+    width: 8em;
+    height: 2em;
+    margin-left: 1em ;
+    float: left;
+    line-height: 2em;
+    float: left;
+    border: none;
+    outline: none;
+    outline-color: rgba(255,255,255,0);
+    color: white;
+
+}
+
+#dzjzcx{
+    background-color:rgb(2,123,240);
+    width: 8em;
+    height: 2em;
+    margin-left: 1em ;
+    float: left;
+    line-height: 2em;
+    float: left;
+    border: none;
+    outline: none;
+    outline-color: rgba(255,255,255,0);
+    color: white;
+
+}
+.infoArea{
+    width:80%;
+    margin:0 auto;
+    padding-top:10px;
+}
+.quote{
+    padding: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 2%;
+    line-height: 12px;
+    border-left:5px solid #009688;
+    background-color: #f2f2f2;
+}
+

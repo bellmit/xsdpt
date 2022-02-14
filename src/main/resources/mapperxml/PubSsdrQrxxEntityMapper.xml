@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubSsdrQrxxEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubSsdrQrxxEntity">
+    <constructor>
+      <idArg column="bh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ajxh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fybh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dsrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sfqssddzqrs" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sftydzsd" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    bh, ajxh, fybh, dsrbh, sfqssddzqrs, sftydzsd
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_ssdr_qrxx
+    where bh = #{bh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_ssdr_qrxx
+    where bh = #{bh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubSsdrQrxxEntity">
+    <selectKey keyProperty="bh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_ssdr_qrxx_bh_seq'::regclass)
+    </selectKey>
+    insert into pub_ssdr_qrxx (bh, ajxh, fybh, 
+      dsrbh, sfqssddzqrs, sftydzsd
+      )
+    values (#{bh,jdbcType=INTEGER}, #{ajxh,jdbcType=INTEGER}, #{fybh,jdbcType=VARCHAR}, 
+      #{dsrbh,jdbcType=INTEGER}, #{sfqssddzqrs,jdbcType=INTEGER}, #{sftydzsd,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubSsdrQrxxEntity">
+    <selectKey keyProperty="bh" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_ssdr_qrxx_bh_seq'::regclass)
+    </selectKey>
+    insert into pub_ssdr_qrxx
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      bh,
+      <if test="ajxh != null">
+        ajxh,
+      </if>
+      <if test="fybh != null">
+        fybh,
+      </if>
+      <if test="dsrbh != null">
+        dsrbh,
+      </if>
+      <if test="sfqssddzqrs != null">
+        sfqssddzqrs,
+      </if>
+      <if test="sftydzsd != null">
+        sftydzsd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{bh,jdbcType=INTEGER},
+      <if test="ajxh != null">
+        #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="fybh != null">
+        #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="dsrbh != null">
+        #{dsrbh,jdbcType=INTEGER},
+      </if>
+      <if test="sfqssddzqrs != null">
+        #{sfqssddzqrs,jdbcType=INTEGER},
+      </if>
+      <if test="sftydzsd != null">
+        #{sftydzsd,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubSsdrQrxxEntity">
+    update pub_ssdr_qrxx
+    <set>
+      <if test="ajxh != null">
+        ajxh = #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="fybh != null">
+        fybh = #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="dsrbh != null">
+        dsrbh = #{dsrbh,jdbcType=INTEGER},
+      </if>
+      <if test="sfqssddzqrs != null">
+        sfqssddzqrs = #{sfqssddzqrs,jdbcType=INTEGER},
+      </if>
+      <if test="sftydzsd != null">
+        sftydzsd = #{sftydzsd,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bh = #{bh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubSsdrQrxxEntity">
+    update pub_ssdr_qrxx
+    set ajxh = #{ajxh,jdbcType=INTEGER},
+      fybh = #{fybh,jdbcType=VARCHAR},
+      dsrbh = #{dsrbh,jdbcType=INTEGER},
+      sfqssddzqrs = #{sfqssddzqrs,jdbcType=INTEGER},
+      sftydzsd = #{sftydzsd,jdbcType=INTEGER}
+    where bh = #{bh,jdbcType=INTEGER}
+  </update>
+</mapper>

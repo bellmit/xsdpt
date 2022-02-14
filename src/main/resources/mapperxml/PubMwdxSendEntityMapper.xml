@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubMwdxSendEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubMwdxSendEntity">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sendphone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lsh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sendtype" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="sendstatus" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="cratetime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="cusid" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="fybh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ajxh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fgbh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="fwzt" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="msgcontent" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sendphone, lsh, sendtype, sendstatus, cratetime, yysdbh, cusid, fybh, ajxh, fgbh, 
+    ssdrbh, fwzt, msgcontent
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_mwdx_send
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_mwdx_send
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubMwdxSendEntity">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+       select nextval('pub_mwdx_send_id_seq'::regclass)
+    </selectKey>
+    insert into pub_mwdx_send (id, sendphone, lsh, 
+      sendtype, sendstatus, cratetime, 
+      yysdbh, cusid, fybh, 
+      ajxh, fgbh, ssdrbh, 
+      fwzt, msgcontent)
+    values (#{id,jdbcType=INTEGER}, #{sendphone,jdbcType=VARCHAR}, #{lsh,jdbcType=VARCHAR}, 
+      #{sendtype,jdbcType=INTEGER}, #{sendstatus,jdbcType=INTEGER}, #{cratetime,jdbcType=TIMESTAMP}, 
+      #{yysdbh,jdbcType=INTEGER}, #{cusid,jdbcType=VARCHAR}, #{fybh,jdbcType=VARCHAR}, 
+      #{ajxh,jdbcType=INTEGER}, #{fgbh,jdbcType=VARCHAR}, #{ssdrbh,jdbcType=INTEGER}, 
+      #{fwzt,jdbcType=INTEGER}, #{msgcontent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubMwdxSendEntity">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+       select nextval('pub_mwdx_send_id_seq'::regclass)
+    </selectKey>
+    insert into pub_mwdx_send
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="sendphone != null">
+        sendphone,
+      </if>
+      <if test="lsh != null">
+        lsh,
+      </if>
+      <if test="sendtype != null">
+        sendtype,
+      </if>
+      <if test="sendstatus != null">
+        sendstatus,
+      </if>
+      <if test="cratetime != null">
+        cratetime,
+      </if>
+      <if test="yysdbh != null">
+        yysdbh,
+      </if>
+      <if test="cusid != null">
+        cusid,
+      </if>
+      <if test="fybh != null">
+        fybh,
+      </if>
+      <if test="ajxh != null">
+        ajxh,
+      </if>
+      <if test="fgbh != null">
+        fgbh,
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh,
+      </if>
+      <if test="fwzt != null">
+        fwzt,
+      </if>
+      <if test="msgcontent != null">
+        msgcontent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=INTEGER},
+      <if test="sendphone != null">
+        #{sendphone,jdbcType=VARCHAR},
+      </if>
+      <if test="lsh != null">
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtype != null">
+        #{sendtype,jdbcType=INTEGER},
+      </if>
+      <if test="sendstatus != null">
+        #{sendstatus,jdbcType=INTEGER},
+      </if>
+      <if test="cratetime != null">
+        #{cratetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yysdbh != null">
+        #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="cusid != null">
+        #{cusid,jdbcType=VARCHAR},
+      </if>
+      <if test="fybh != null">
+        #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="ajxh != null">
+        #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="fgbh != null">
+        #{fgbh,jdbcType=VARCHAR},
+      </if>
+      <if test="ssdrbh != null">
+        #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="fwzt != null">
+        #{fwzt,jdbcType=INTEGER},
+      </if>
+      <if test="msgcontent != null">
+        #{msgcontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubMwdxSendEntity">
+    update pub_mwdx_send
+    <set>
+      <if test="sendphone != null">
+        sendphone = #{sendphone,jdbcType=VARCHAR},
+      </if>
+      <if test="lsh != null">
+        lsh = #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtype != null">
+        sendtype = #{sendtype,jdbcType=INTEGER},
+      </if>
+      <if test="sendstatus != null">
+        sendstatus = #{sendstatus,jdbcType=INTEGER},
+      </if>
+      <if test="cratetime != null">
+        cratetime = #{cratetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yysdbh != null">
+        yysdbh = #{yysdbh,jdbcType=INTEGER},
+      </if>
+      <if test="cusid != null">
+        cusid = #{cusid,jdbcType=VARCHAR},
+      </if>
+      <if test="fybh != null">
+        fybh = #{fybh,jdbcType=VARCHAR},
+      </if>
+      <if test="ajxh != null">
+        ajxh = #{ajxh,jdbcType=INTEGER},
+      </if>
+      <if test="fgbh != null">
+        fgbh = #{fgbh,jdbcType=VARCHAR},
+      </if>
+      <if test="ssdrbh != null">
+        ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      </if>
+      <if test="fwzt != null">
+        fwzt = #{fwzt,jdbcType=INTEGER},
+      </if>
+      <if test="msgcontent != null">
+        msgcontent = #{msgcontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubMwdxSendEntity">
+    update pub_mwdx_send
+    set sendphone = #{sendphone,jdbcType=VARCHAR},
+      lsh = #{lsh,jdbcType=VARCHAR},
+      sendtype = #{sendtype,jdbcType=INTEGER},
+      sendstatus = #{sendstatus,jdbcType=INTEGER},
+      cratetime = #{cratetime,jdbcType=TIMESTAMP},
+      yysdbh = #{yysdbh,jdbcType=INTEGER},
+      cusid = #{cusid,jdbcType=VARCHAR},
+      fybh = #{fybh,jdbcType=VARCHAR},
+      ajxh = #{ajxh,jdbcType=INTEGER},
+      fgbh = #{fgbh,jdbcType=VARCHAR},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      fwzt = #{fwzt,jdbcType=INTEGER},
+      msgcontent = #{msgcontent,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

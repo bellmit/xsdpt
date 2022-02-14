@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工单系统-全市工单查询</title>
+    <link rel="stylesheet" href="/css/wbrywdsd_new.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <!--    <script src="/js/common/bootstrap.min.js"></script>-->
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.1"></script>
+    <script src="/js/layui/layui.js"></script>
+</head>
+<body>
+
+
+<!--<div style="width: 100%;height: 80px;background-color: rgb(0,169,238)">-->
+<!--    <div style="padding-top: 10px;padding-left: 30px;">-->
+<!--        <div style="float: left">-->
+<!--            <img src="/css/img/mySd_fahui.png" height="50px" width="50px" style="margin-top: 5px">-->
+<!--        </div>-->
+<!--        <div style="float: left;padding-top: 10px;padding-bottom: 5px;margin-left: 10px;">-->
+<!--            <div style="color: white;font-size: 30px;" id="current_fymc">天津市高级人民法院</div>-->
+<!--        </div>-->
+
+<!--        <div id="logout" class="headLogout"><img-->
+<!--                src="/css/img/mySD_tuichu.jpg" height="30px" width="100px"></div>-->
+<!--        <div style="margin-right: 100px">-->
+<!--            <div id="userName" style="color: white;font-size: 15px;margin-top: 20px;float: right;">-->
+<!--            </div>-->
+<!--            <div style="color: white;font-size: 15px;margin-top: 20px;float: right;">欢迎 &nbsp; ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>-->
+<!--        </div>-->
+<!--        <div style="float: right">-->
+<!--            <img src="/css/img/mySd_fahui.png" id="circle" width="50px" height="50px"-->
+<!--                 style="margin-right: 20px;margin-top: 5px">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<div id="top" class="fixed-top d-flex flex-column" style="height: 15%;">
+    <div class="d-flex bd-highlight" style="height: 75%;">
+        <div style="width:25%">
+            <div id="logo" class="float-left align-middle" style="margin-left: 17%;margin-top: 4%;font-size: 13px;">
+            </div>
+        </div>
+        <div class="d-flex flex-column" style="width: 75%;">
+            <div style="height: 40%;">
+                <div class="float-right" style="font-size:13px; color: white;padding-top: 1%;padding-right: 4%;">
+                    <span style="font-size: 18px">欢迎您 <span id="userName"></span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                    <button id="logout" type="button" class="btn btn-default"
+                            style="color:white;float: right;padding: 0px">退出系统
+                    </button>
+                </div>
+                <div>
+                    <div class="d-flex flex-row float-right" style="padding-right: 20%;font-size: 14px;">
+                        <!--                        <a href="#dhsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">电话送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#dxtz" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label focus">短信通知</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#lylq" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">来院领取</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#emssd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">EMS送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#zjsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">直接送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#wtdc" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">委托送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#ggsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">公告送达</div>-->
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="float-right" style="font-size: 14px;padding-left: 8%;">
+        当前位置：首页 - 全市工单查询
+    </div>
+</div>
+<!--<div style="background-color: rgb(245,245,245);min-height: 60px">-->
+<!--    <div style="float: left">-->
+<!--        <img src="/css/img/mySd_index.png">-->
+<!--    </div>-->
+<!--    <div style="float: left;margin-top: 15px">-->
+<!--        <h5>&nbsp;&nbsp;当前位置：首页 - &nbsp;&nbsp; </h5>-->
+<!--    </div>-->
+<!--    <div style="float: left;margin-top: 15px">-->
+<!--        <h5 style="color: rgb(0,169,238)">全市工单查询</h5>-->
+<!--    </div>-->
+
+<!--</div>-->
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 8%;">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div style="margin-top: 10px;width: 100%;">
+        <div>
+            <div class="row row-cols-lg-4">
+                <div class="col">
+                    <span class="gdcx_font" style="">法院简称</span>
+                    <select id="gdcx_fy" class="layui-select gdcx_input">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col">
+                    <span class="gdcx_font">送达编号</span>
+                    <input id="gdcx_yysdbh" class="layui-input gdcx_input">
+                </div>
+                <div class="col">
+                    <span class="gdcx_font">案&nbsp;&nbsp;&nbsp;&nbsp;号</span>
+                    <input id="gdcx_ah" class="layui-input gdcx_input">
+                </div>
+                <div class="col">
+                    <span class="gdcx_font">案件名称</span>
+                    <input id="gdcx_ajmc" class="layui-input gdcx_input">
+                </div>
+                <div class="col">
+                    <span class="gdcx_font">送达状态</span>
+                    <select name="" id="gdcx_sdzt" class="layui-select gdcx_input">
+                        <option value=""></option>
+                        <option value="0">未送达</option>
+                        <option value="1">送达中</option>
+                        <option value="2">已送达</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <span class="gdcx_font">被送达人</span>
+                    <input id="gdcx_ssdr" class="layui-input gdcx_input">
+                </div>
+                <div class="col">
+                    <span class="gdcx_font">预约人&nbsp;&nbsp;</span>
+                    <input id="gdcx_yyr" class="layui-input gdcx_input">
+                </div>
+                <div class="col">
+                    <span class="gdcx_font">送达专员&nbsp;&nbsp;</span>
+                    <input id="gdcx_sdr" class="layui-input gdcx_input">
+                </div>
+                <div class="col">
+                    <span class="gdcx_font">
+                        起始时间
+                    </span>
+                    <input type="text" class="layui-input gdcx_input" id="select_time1">
+                </div>
+                <div class="col">
+                    <span class="gdcx_font">
+                        结束时间
+                    </span>
+                    <input type="text" class="layui-input gdcx_input" id="select_time2">
+                </div>
+                <div class="col">
+                    <div style="float: left">
+                        <button type="button" class="btn btn-primary gdcx_input" id="gdcx_sybmit">查询</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-12" style="margin-top: 2em">
+            <table class="table table-bordered table-striped table-condensed" id="gdxx_table" style="width: 100%" >
+                <thead>
+                    <th style="text-align: center;width:4%">送达编号</th>
+                    <th style="text-align: center;width:10%">案号</th>
+                    <th style="text-align: center;width:6%">法院名称</th>
+                    <th style="text-align: center;width:26%">案件名称</th>
+                    <th style="text-align: center;width:20%">被送达人</th>
+                    <th style="text-align: center;width:6%">预约人</th>
+                    <th style="text-align: center;width:6%">预约时间</th>
+                    <th style="text-align: center;width:4%">送达专员</th>
+                    <th style="text-align: center;width:8%">送达状态</th>
+                    <th style="text-align: center;width:10%">操作</th>
+                </thead>
+                <tbody id="gdxx_tbody">
+                </tbody>
+            </table>
+            <div style="text-align: center" id="table_info"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="editSdztModel" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        修改送达状态
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label cus-required">送达状态：</label>
+                            <div class="col-sm-9">
+                                <select class="selectFy" id="sdztSelect" style="width: 30%;height: 30px;">
+                                    <option value="ych">已撤回</option>
+                                    <option value="wsd">未送达</option>
+                                    <option value="sdz">送达中</option>
+                                    <option value="sdcg">送达成功</option>
+                                    <option value="sdsb">送达失败</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <!--                <button type="button" class="btn btn-default" data-dismiss="modal">取消-->
+                    <!--                </button>-->
+                    <button type="button" class="btn btn-primary" id="editSdzt">
+                        提交
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div>
+    </div>
+</div>
+
+<script id="test" type="text/html">
+    {{each list value i}}
+    <tr>
+        <td style="text-align: center;width:4%">{{list[i].yysdbh}}</td>
+        <td style="text-align: center;width:10%">{{list[i].ah}}</td>
+        <td style="text-align: center;width:6%">{{list[i].fymc}}</td>
+        <td style="text-align: center;width:26%">{{list[i].ajmc}}</td>
+        <td style="text-align: center;width:20%">{{list[i].dsrmc}}</td>
+        <td style="text-align: center;width:6%">{{list[i].yyr}}</td>
+        <td style="text-align: center;width:6%">{{list[i].yysj}}</td>
+        <td style="text-align: center;width:4%">{{list[i].sdymc}}</td>
+        <td style="text-align: center;width:8%">{{list[i].sdzt}}</td>
+        <td style="text-align: center;width:10%">
+            <button class="btn p-2" type="button" onclick="info(this)" data-index={{list[i].yysdbh}}>
+                <img src="/img/jbxx_write.png" height="16" width="16" style="margin: 0" title="查看">
+            </button>
+            <button class="btn p-2" type="button" onclick="editSdzt(this)" data-index={{list[i].yysdbh}}>
+                <img src="/img/detail.png" height="24" width="24" style="margin: 0" title="编辑送达结果">
+            </button>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+
+
+<script src="/js/gd/qsgdcx.js?v=1.11"></script>
+<style>
+    #circle {
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    body {
+        background-color: rgb(241, 241, 241);
+    }
+
+    .table td {
+        text-align: center;
+    }
+
+    .gdcx_font {
+        float: left;
+        font-size: large;
+        margin-left: 2em;
+        margin-top: 1em;
+    }
+
+    .gdcx_input {
+        width: 10em;
+        float: left;
+        font-size: large;
+        margin-left: 2em;
+        margin-top: 1em;
+    }
+</style>
+</body>
+</html>
+

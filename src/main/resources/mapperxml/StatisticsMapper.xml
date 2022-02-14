@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.StatisticsMapper">
+
+    <select id="getGdl" resultType="java.lang.Integer">
+        select count(*) from pub_yysd_jb jb
+        where jb.yysj>#{start} and #{end}>jb.yysj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getCgGdl" resultType="java.lang.Integer">
+        select count(*) from pub_yysd_jb jb
+        where jb.sdjg='Y'
+        and jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getSbGdl" resultType="java.lang.Integer">
+        select count(*) from pub_yysd_jb jb
+        where (jb.sdjg='N' or jb.sdjg='X')
+        and jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getLjSa" resultType="java.lang.Integer">
+        select count(ajxh) from (
+        -- 非串案信息 --
+        select jb.ajxh from pub_yysd_jb jb
+        where jb.ajxh!= -1
+        and jb.yysj>#{start} and #{end}>jb.yysj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+        UNION ALL
+        -- 串案的信息 --
+        select caxx.ajxh from pub_yysd_jb jb,pub_caxx caxx
+        where jb.yysdbh=caxx.yysdbh
+        and jb.yysj>#{start} and #{end}>jb.yysj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>) as xx
+    </select>
+
+    <select id="getCgAj" resultType="java.lang.Integer">
+        select count(ajxh) from (
+        -- 非串案信息 --
+        select jb.yysdbh,jb.ajxh from pub_yysd_jb jb
+        where jb.ajxh!= -1 and jb.sdjg='Y'
+        and jb.yysj>#{start} and #{end}>jb.yysj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+        UNION ALL
+        -- 串案的信息 --
+        select jb.yysdbh,caxx.ajxh from pub_yysd_jb jb,pub_caxx caxx
+        where jb.yysdbh=caxx.yysdbh and jb.sdjg='Y'
+        and jb.yysj>#{start} and #{end}>jb.yysj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+        ) as xx
+    </select>
+
+    <select id="getSbAj" resultType="java.lang.Integer">
+        select count(ajxh) from (
+        -- 非串案信息 --
+        select jb.yysdbh,jb.ajxh from pub_yysd_jb jb
+        where jb.ajxh!= -1 and (jb.sdjg='N' or jb.sdjg='X')
+        and jb.yysj>#{start} and #{end}>jb.yysj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+        UNION ALL
+        -- 串案的信息 --
+        select jb.yysdbh,caxx.ajxh from pub_yysd_jb jb,pub_caxx caxx
+        where jb.yysdbh=caxx.yysdbh and (jb.sdjg='N' or jb.sdjg='X')
+        and jb.yysj>#{start} and #{end}>jb.yysj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+        ) as xx
+    </select>
+
+    <select id="getLjSsdr" resultType="java.lang.Integer">
+        select count(*) from pub_yysd_ssdr ssdr
+        where ssdr.yysdbh in
+        (
+        select yysdbh from pub_yysd_jb jb
+        where jb.yysj>#{start} and #{end}>jb.yysj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+        )
+    </select>
+
+    <select id="getCgSsdr" resultType="java.lang.Integer">
+        select count(*) from pub_yysd_ssdr ssdr
+        where ssdr.yysdbh in
+        (
+        select yysdbh from pub_yysd_jb jb
+        where jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+        ) and ssdr.sdjg=1
+    </select>
+
+    <select id="getSbSsdr" resultType="java.lang.Integer">
+        select count(*) from pub_yysd_ssdr ssdr
+        where ssdr.yysdbh in
+        (
+        select yysdbh from pub_yysd_jb jb
+        where jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+        ) and ssdr.sdjg=2
+    </select>
+
+    <select id="getAjpjSdzq" resultType="java.lang.Double">
+        select cast(sum(datediff(jb.yysj,jb.sdsj)*1.)/count(*) as decimal(18,2)) as ajpjsdzq from pub_yysd_jb jb
+        where jb.sdsj is not null
+        and jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getDzpjSdzq" resultType="java.lang.Double">
+        select cast(sum(datediff(yysj,createtime)*1.)/count(*) as decimal(18,2)) as dzpjsdzq
+        from
+        (select call.yysdbh,call.createtime,jbxx.yysj
+        from pub_web_call_info call,
+        -- 获取所有已经反馈的案件 --
+        (select yysdbh,yysj from pub_yysd_jb jb
+        where jb.sdsj is not null
+        and jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+        ) as jbxx
+        where call.yysdbh=jbxx.yysdbh) as a
+        where a.createtime= (
+        select max(b.createtime)
+        from (select call.yysdbh, call.createtime
+        from pub_web_call_info call,
+        -- 获取所有已经反馈的案件 --
+        (select yysdbh
+        from pub_yysd_jb jb
+        where jb.sdsj is not null
+        and
+        jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+        ) as jbxx
+        where call.yysdbh = jbxx.yysdbh) as b
+        where a.yysdbh = b.yysdbh
+        )
+    </select>
+
+    <select id="getYjpjSdzq" resultType="java.lang.Double">
+select cast(sum(datediff(ems.scrq,ems.submittime)*1.)/count(*) as decimal(18,2)) from rpo_ems_info ems,pub_yysd_jb jb
+where ems.submittime is not null and ems.submittime>#{start} and #{end}>ems.submittime and ems.yysdbh=jb.yysdbh
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getLypjSdzq" resultType="java.lang.Double">
+select cast(sum(datediff(lylq.create_time,lylq.submittime)*1.)/count(*) as decimal(18,2))
+from pub_lylq_info lylq,pub_yysd_jb jb
+where lylq.yysdbh=jb.yysdbh and lylq.submittime is not null
+and lylq.submittime>#{start} and #{end}>lylq.submittime
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getZjpjSdzq" resultType="java.lang.Double">
+select cast(sum(datediff(zjsd.cjsj,zjsd.smsj)*1.)/count(*) as decimal(18,2))
+from pub_zjsd_info zjsd,pub_yysd_jb jb
+where zjsd.smsj is not null
+and zjsd.smsj>#{start} and #{end}>zjsd.smsj
+and zjsd.yysdbh=jb.yysdbh
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getDxxf" resultType="java.lang.Integer">
+select count(*)
+from pub_dxtz_info dxtz,pub_yysd_jb jb
+where dxtz.yysdbh=jb.yysdbh
+and jb.yysj>#{start} and #{end}>jb.yysj
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getDxljfwl" resultType="java.lang.Double">
+select cast(b.num*100*1./a.num as decimal(18,4))
+from (
+     select count(*) as num from pub_dxtz_info dxtz,pub_yysd_jb jb
+    where dxtz.fwzt is not null
+    and dxtz.createtime>#{start} and #{end}>dxtz.createtime
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+         ) as a,
+     (
+     select count(*) as num from pub_dxtz_info dxtz,pub_yysd_jb jb
+         where dxtz.fwzt=1
+        and dxtz.createtime>#{start} and #{end}>dxtz.createtime
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+         ) as b
+    </select>
+
+    <select id="getDhwhbdcs" resultType="java.lang.Integer">
+select count(*)
+from pub_web_call_info call,pub_yysd_jb jb
+where call.createtime>#{start} and #{end}>call.createtime and call.yysdbh=jb.yysdbh
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getJts" resultType="java.lang.Integer">
+select count(*)
+from pub_web_call_info call,pub_yysd_jb jb
+where call.createtime>#{start} and #{end}>call.createtime and call.yysdbh=jb.yysdbh
+and call.callduration!=0 and call.callduration is not null
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getYjjs" resultType="java.lang.Integer">
+select count(*)
+from rpo_ems_info ems,pub_yysd_jb jb
+where ems.yysdbh=jb.yysdbh
+and ems.scrq>#{start} and #{end}>ems.scrq
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getWssl" resultType="java.lang.Integer">
+select count(*)
+from pub_yysd_ws ws,pub_yysd_jb jb
+where ws.yysdbh=jb.yysdbh
+and jb.yysj>#{start} and #{end}>jb.yysj
+        <if test="fybh!=-1">
+            and fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getXfs" resultType="java.lang.Integer">
+select count(*)
+from pub_repair_info repair,pub_yysd_jb jb
+where repair.yysdbh=jb.yysdbh
+and repair.createtime>#{start} and #{end}>repair.createtime
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getXfcgs" resultType="java.lang.Integer">
+select count(*)
+from pub_repair_info repair,pub_yysd_jb jb
+where repair.yysdbh=jb.yysdbh and repair.repairstatus='RPBS003'
+        and repair.createtime>#{start} and #{end}>repair.createtime
+        <if test="fybh!=-1">
+        and jb.fybh=#{fybh}
+        </if>
+    </select>
+
+    <select id="getStatisticsFgModel" resultType="com.nju.sdpt.model.StatisticsFgModel">
+select
+       sdcgsl.bmmc,
+       (
+           CASE
+               WHEN wcsdsl.num is null THEN 0
+           ELSE wcsdsl.num
+           END
+           ) as wcsdsl,
+       (
+           CASE
+               WHEN sdcgsl.num is null THEN 0
+           ELSE sdcgsl.num
+           END
+           ) as sdcgsl,
+       (
+           CASE
+               WHEN sdcgrs.num is null THEN 0
+           ELSE sdcgrs.num
+           END
+           ) as sdcgrs,
+       (
+           CASE
+               WHEN wcsdrs.num is null THEN 0
+           ELSE wcsdrs.num
+           END
+           ) as wcsdrs,
+       (
+           CASE
+               WHEN dzsdcgl.num is null THEN 0
+           ELSE dzsdcgl.num
+           END
+           ) as dzsdcgl,
+(
+           CASE
+               WHEN dzsdcgl.fsnum is null THEN 0
+           ELSE dzsdcgl.fsnum
+           END
+           ) as fsnum,
+(
+           CASE
+               WHEN dzsdcgl.cgnum is null THEN 0
+           ELSE dzsdcgl.cgnum
+           END
+           ) as cgnum
+from
+(
+-- 累计送达成功数量 --
+select count(distinct ajxh) num,xx.bmmc from (
+-- 非串案信息 --
+select jb.yysdbh,jb.ajxh,jb.bmmc,jb.bmbh from pub_yysd_jb jb
+where jb.ajxh!= -1 and jb.sdjg='Y'
+and jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+UNION ALL
+-- 串案的信息 --
+select jb.yysdbh,caxx.ajxh,jb.bmmc,jb.bmbh from pub_yysd_jb jb,pub_caxx caxx
+where jb.yysdbh=caxx.yysdbh and jb.sdjg='Y'
+and jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+        ) as xx
+group by xx.bmmc
+order by xx.bmmc
+    ) as sdcgsl
+     full outer join
+     (
+     -- 累计完成送达数量 --
+select count(distinct ajxh) num,xx.bmmc from (
+-- 非串案信息 --
+select jb.yysdbh,jb.ajxh,jb.bmmc,jb.bmbh from pub_yysd_jb jb
+where jb.ajxh!= -1 and jb.sdjg is not null and jb.sdjg!='X'
+and jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+UNION ALL
+-- 串案的信息 --
+select jb.yysdbh,caxx.ajxh,jb.bmmc,jb.bmbh from pub_yysd_jb jb,pub_caxx caxx
+where jb.yysdbh=caxx.yysdbh and jb.sdjg is not null and jb.sdjg!='X'
+and jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+        ) as xx
+group by xx.bmmc
+order by xx.bmmc
+         ) as wcsdsl
+    on sdcgsl.bmmc=wcsdsl.bmmc
+         full outer join
+    (
+        --累计完成送达人数 --
+        select count(*) num,jb.bmmc from pub_yysd_ssdr ssdr,pub_yysd_jb jb
+where ssdr.yysdbh =jb.yysdbh and (ssdr.sdjg=1 or ssdr.sdjg=2)
+and jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+group by jb.bmmc
+        ) as wcsdrs
+on sdcgsl.bmmc=wcsdrs.bmmc
+full outer join
+    (
+        select count(*) num,jb.bmmc from pub_yysd_ssdr ssdr,pub_yysd_jb jb
+where ssdr.yysdbh =jb.yysdbh and ssdr.sdjg=1
+and jb.sdsj>#{start} and #{end}>jb.sdsj
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+group by jb.bmmc
+        ) as sdcgrs
+on sdcgsl.bmmc=sdcgrs.bmmc
+full outer join
+    (
+        -- 电子送达成功率--
+        select a.bmmc,cast(b.num*1./a.num as decimal(18,4)) num,a.num fsnum,b.num cgnum
+from
+(
+select count(*) num,jb.bmmc bmmc from pub_dxtz_info dxtz,pub_yysd_jb jb
+    where dxtz.fwzt is not null and createtime>#{start} and #{end}>createtime
+    and dxtz.yysdbh=jb.yysdbh
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+    group by jb.bmmc
+    ) as a,
+     (
+select count(*) num,jb.bmmc bmmc from pub_dxtz_info dxtz,pub_yysd_jb jb
+    where dxtz.fwzt=1 and createtime>#{start} and #{end}>createtime
+    and dxtz.yysdbh=jb.yysdbh
+        <if test="fybh!=-1">
+            and jb.fybh=#{fybh}
+        </if>
+    group by jb.bmmc
+    ) as b
+where a.bmmc=b.bmmc
+        ) as dzsdcgl
+on sdcgsl.bmmc=dzsdcgl.bmmc
+    </select>
+
+</mapper>

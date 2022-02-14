@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubWebCallInfoEntityMapper">
+    <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubWebCallInfoEntity">
+        <constructor>
+            <idArg column="webcallid" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="yysdbh" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="hmbh" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="telbatchno" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="uuid" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="operatortype" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="shownumber" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="seatnumber" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="webtel" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="targettel" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="callradio" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="callduration" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="querystate" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="callstate" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="remarks" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="confirmnumber" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="confirmaddress" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="electronsend" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="sdtype" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="ssdrbh" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="fybh" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="ajxh" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="fgbh" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="seatid" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="sdfscontent" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="sdjg" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="sdybh" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    webcallid, yysdbh, hmbh, telbatchno, uuid, operatortype, shownumber, seatnumber, 
+    webtel, targettel, callradio, callduration, querystate, callstate, createtime, remarks, 
+    confirmnumber, confirmaddress, electronsend, sdtype, ssdrbh, fybh, ajxh, fgbh, seatid, 
+    sdfscontent, sdjg, sdybh
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pub_web_call_info
+        where webcallid = #{webcallid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_web_call_info
+    where webcallid = #{webcallid,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.nju.sdpt.entity.PubWebCallInfoEntity">
+        <selectKey keyProperty="webcallid" order="BEFORE" resultType="java.lang.Integer">
+            select nextval('pub_web_call_info_webcallid_seq'::regclass)
+        </selectKey>
+        insert into pub_web_call_info (webcallid, yysdbh, hmbh,
+        telbatchno, uuid, operatortype,
+        shownumber, seatnumber, webtel,
+        targettel, callradio, callduration,
+        querystate, callstate, createtime,
+        remarks, confirmnumber, confirmaddress,
+        electronsend, sdtype, ssdrbh,
+        fybh, ajxh, fgbh, seatid,
+        sdfscontent, sdjg, sdybh
+        )
+        values (#{webcallid,jdbcType=INTEGER}, #{yysdbh,jdbcType=INTEGER}, #{hmbh,jdbcType=INTEGER},
+        #{telbatchno,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, #{operatortype,jdbcType=VARCHAR},
+        #{shownumber,jdbcType=VARCHAR}, #{seatnumber,jdbcType=VARCHAR}, #{webtel,jdbcType=VARCHAR},
+        #{targettel,jdbcType=VARCHAR}, #{callradio,jdbcType=VARCHAR}, #{callduration,jdbcType=INTEGER},
+        #{querystate,jdbcType=INTEGER}, #{callstate,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP},
+        #{remarks,jdbcType=VARCHAR}, #{confirmnumber,jdbcType=VARCHAR}, #{confirmaddress,jdbcType=VARCHAR},
+        #{electronsend,jdbcType=INTEGER}, #{sdtype,jdbcType=VARCHAR}, #{ssdrbh,jdbcType=INTEGER},
+        #{fybh,jdbcType=VARCHAR}, #{ajxh,jdbcType=INTEGER}, #{fgbh,jdbcType=INTEGER}, #{seatid,jdbcType=VARCHAR},
+        #{sdfscontent,jdbcType=VARCHAR}, #{sdjg,jdbcType=INTEGER}, #{sdybh,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubWebCallInfoEntity">
+        <selectKey keyProperty="webcallid" order="BEFORE" resultType="java.lang.Integer">
+            select nextval('pub_web_call_info_webcallid_seq'::regclass)
+        </selectKey>
+        insert into pub_web_call_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            webcallid,
+            <if test="yysdbh != null">
+                yysdbh,
+            </if>
+            <if test="hmbh != null">
+                hmbh,
+            </if>
+            <if test="telbatchno != null">
+                telbatchno,
+            </if>
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="operatortype != null">
+                operatortype,
+            </if>
+            <if test="shownumber != null">
+                shownumber,
+            </if>
+            <if test="seatnumber != null">
+                seatnumber,
+            </if>
+            <if test="webtel != null">
+                webtel,
+            </if>
+            <if test="targettel != null">
+                targettel,
+            </if>
+            <if test="callradio != null">
+                callradio,
+            </if>
+            <if test="callduration != null">
+                callduration,
+            </if>
+            <if test="querystate != null">
+                querystate,
+            </if>
+            <if test="callstate != null">
+                callstate,
+            </if>
+            <if test="createtime != null">
+                createtime,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="confirmnumber != null">
+                confirmnumber,
+            </if>
+            <if test="confirmaddress != null">
+                confirmaddress,
+            </if>
+            <if test="electronsend != null">
+                electronsend,
+            </if>
+            <if test="sdtype != null">
+                sdtype,
+            </if>
+            <if test="ssdrbh != null">
+                ssdrbh,
+            </if>
+            <if test="fybh != null">
+                fybh,
+            </if>
+            <if test="ajxh != null">
+                ajxh,
+            </if>
+            <if test="fgbh != null">
+                fgbh,
+            </if>
+            <if test="seatid != null">
+                seatid,
+            </if>
+            <if test="sdfscontent != null">
+                sdfscontent,
+            </if>
+            <if test="sdjg != null">
+                sdjg,
+            </if>
+            <if test="sdybh != null">
+                sdybh,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{webcallid,jdbcType=INTEGER},
+            <if test="yysdbh != null">
+                #{yysdbh,jdbcType=INTEGER},
+            </if>
+            <if test="hmbh != null">
+                #{hmbh,jdbcType=INTEGER},
+            </if>
+            <if test="telbatchno != null">
+                #{telbatchno,jdbcType=VARCHAR},
+            </if>
+            <if test="uuid != null">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="operatortype != null">
+                #{operatortype,jdbcType=VARCHAR},
+            </if>
+            <if test="shownumber != null">
+                #{shownumber,jdbcType=VARCHAR},
+            </if>
+            <if test="seatnumber != null">
+                #{seatnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="webtel != null">
+                #{webtel,jdbcType=VARCHAR},
+            </if>
+            <if test="targettel != null">
+                #{targettel,jdbcType=VARCHAR},
+            </if>
+            <if test="callradio != null">
+                #{callradio,jdbcType=VARCHAR},
+            </if>
+            <if test="callduration != null">
+                #{callduration,jdbcType=INTEGER},
+            </if>
+            <if test="querystate != null">
+                #{querystate,jdbcType=INTEGER},
+            </if>
+            <if test="callstate != null">
+                #{callstate,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="confirmnumber != null">
+                #{confirmnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="confirmaddress != null">
+                #{confirmaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="electronsend != null">
+                #{electronsend,jdbcType=INTEGER},
+            </if>
+            <if test="sdtype != null">
+                #{sdtype,jdbcType=VARCHAR},
+            </if>
+            <if test="ssdrbh != null">
+                #{ssdrbh,jdbcType=INTEGER},
+            </if>
+            <if test="fybh != null">
+                #{fybh,jdbcType=VARCHAR},
+            </if>
+            <if test="ajxh != null">
+                #{ajxh,jdbcType=INTEGER},
+            </if>
+            <if test="fgbh != null">
+                #{fgbh,jdbcType=INTEGER},
+            </if>
+            <if test="seatid != null">
+                #{seatid,jdbcType=VARCHAR},
+            </if>
+            <if test="sdfscontent != null">
+                #{sdfscontent,jdbcType=VARCHAR},
+            </if>
+            <if test="sdjg != null">
+                #{sdjg,jdbcType=INTEGER},
+            </if>
+            <if test="sdybh != null">
+                #{sdybh,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubWebCallInfoEntity">
+        update pub_web_call_info
+        <set>
+            <if test="yysdbh != null">
+                yysdbh = #{yysdbh,jdbcType=INTEGER},
+            </if>
+            <if test="hmbh != null">
+                hmbh = #{hmbh,jdbcType=INTEGER},
+            </if>
+            <if test="telbatchno != null">
+                telbatchno = #{telbatchno,jdbcType=VARCHAR},
+            </if>
+            <if test="uuid != null">
+                uuid = #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="operatortype != null">
+                operatortype = #{operatortype,jdbcType=VARCHAR},
+            </if>
+            <if test="shownumber != null">
+                shownumber = #{shownumber,jdbcType=VARCHAR},
+            </if>
+            <if test="seatnumber != null">
+                seatnumber = #{seatnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="webtel != null">
+                webtel = #{webtel,jdbcType=VARCHAR},
+            </if>
+            <if test="targettel != null">
+                targettel = #{targettel,jdbcType=VARCHAR},
+            </if>
+            <if test="callradio != null">
+                callradio = #{callradio,jdbcType=VARCHAR},
+            </if>
+            <if test="callduration != null">
+                callduration = #{callduration,jdbcType=INTEGER},
+            </if>
+            <if test="querystate != null">
+                querystate = #{querystate,jdbcType=INTEGER},
+            </if>
+            <if test="callstate != null">
+                callstate = #{callstate,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="confirmnumber != null">
+                confirmnumber = #{confirmnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="confirmaddress != null">
+                confirmaddress = #{confirmaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="electronsend != null">
+                electronsend = #{electronsend,jdbcType=INTEGER},
+            </if>
+            <if test="sdtype != null">
+                sdtype = #{sdtype,jdbcType=VARCHAR},
+            </if>
+            <if test="ssdrbh != null">
+                ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+            </if>
+            <if test="fybh != null">
+                fybh = #{fybh,jdbcType=VARCHAR},
+            </if>
+            <if test="ajxh != null">
+                ajxh = #{ajxh,jdbcType=INTEGER},
+            </if>
+            <if test="fgbh != null">
+                fgbh = #{fgbh,jdbcType=INTEGER},
+            </if>
+            <if test="seatid != null">
+                seatid = #{seatid,jdbcType=VARCHAR},
+            </if>
+            <if test="sdfscontent != null">
+                sdfscontent = #{sdfscontent,jdbcType=VARCHAR},
+            </if>
+            <if test="sdjg != null">
+                sdjg = #{sdjg,jdbcType=INTEGER},
+            </if>
+            <if test="sdybh != null">
+                sdybh = #{sdybh,jdbcType=INTEGER},
+            </if>
+        </set>
+        where webcallid = #{webcallid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubWebCallInfoEntity">
+    update pub_web_call_info
+    set yysdbh = #{yysdbh,jdbcType=INTEGER},
+      hmbh = #{hmbh,jdbcType=INTEGER},
+      telbatchno = #{telbatchno,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      operatortype = #{operatortype,jdbcType=VARCHAR},
+      shownumber = #{shownumber,jdbcType=VARCHAR},
+      seatnumber = #{seatnumber,jdbcType=VARCHAR},
+      webtel = #{webtel,jdbcType=VARCHAR},
+      targettel = #{targettel,jdbcType=VARCHAR},
+      callradio = #{callradio,jdbcType=VARCHAR},
+      callduration = #{callduration,jdbcType=INTEGER},
+      querystate = #{querystate,jdbcType=INTEGER},
+      callstate = #{callstate,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      confirmnumber = #{confirmnumber,jdbcType=VARCHAR},
+      confirmaddress = #{confirmaddress,jdbcType=VARCHAR},
+      electronsend = #{electronsend,jdbcType=INTEGER},
+      sdtype = #{sdtype,jdbcType=VARCHAR},
+      ssdrbh = #{ssdrbh,jdbcType=INTEGER},
+      fybh = #{fybh,jdbcType=VARCHAR},
+      ajxh = #{ajxh,jdbcType=INTEGER},
+      fgbh = #{fgbh,jdbcType=INTEGER},
+      seatid = #{seatid,jdbcType=VARCHAR},
+      sdfscontent = #{sdfscontent,jdbcType=VARCHAR},
+      sdjg = #{sdjg,jdbcType=INTEGER},
+      sdybh = #{sdybh,jdbcType=INTEGER}
+    where webcallid = #{webcallid,jdbcType=INTEGER}
+  </update>
+</mapper>

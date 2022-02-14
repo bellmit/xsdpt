@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.YysdInfoMapper">
+    <resultMap id="YysdInfoResultMap" type="com.nju.sdpt.model.info.YysdInfoModel">
+        <id property="yysdbh" column="YYSDBH" jdbcType="VARCHAR" />
+        <result property="ajxh" column="AJXH" jdbcType="VARCHAR" />
+        <result property="fybh" column="FYBH" jdbcType="VARCHAR" />
+        <result property="ah" column="AH" jdbcType="VARCHAR" />
+        <result property="ajmc" column="AJMC" jdbcType="VARCHAR" />
+        <result property="yyr" column="YYR" jdbcType="VARCHAR" />
+        <result property="yysj" column="YYSJ" jdbcType="VARCHAR" />
+        <result property="sdzt" column="SDZT" jdbcType="VARCHAR" />
+        <result property="sdyxm" column="SDYMC" jdbcType="VARCHAR" />
+        <result property="yyrdh" column="SJHM" jdbcType="VARCHAR" />
+        <result property="sdjg" column="SDJG" jdbcType="VARCHAR" />
+        <result property="ktsj" column="KTSJ" jdbcType="VARCHAR" />
+        <result property="sdsj" column="SDSJ" jdbcType="VARCHAR" />
+        <result property="bmmc" column="BMMC" jdbcType="VARCHAR" />
+        <result property="laay" column="LAAY" jdbcType="VARCHAR" />
+        <result property="bz" column="BZ" jdbcType="VARCHAR" />
+        <result property="wtrws" column="WTRWS" jdbcType="VARCHAR" />
+        <result property="yysdbz" column="YYSDBZ" jdbcType="VARCHAR" />
+        <collection property="dsrmc" javaType="java.util.ArrayList" ofType="java.lang.String">
+            <result column="SSDRMC" />
+        </collection>
+    </resultMap>
+</mapper>

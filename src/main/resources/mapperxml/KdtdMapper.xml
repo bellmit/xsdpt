@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.KdtdMapper">
+
+
+    <insert id="insertKdtd">
+        insert into PUB_KDTD
+        (DJH, JJRBM, DYRQ, KDDH, SCRQ, JJRXM, JJRDH, SJRDZ, DWMC, BGDH, ZZDH, YDDH, SJRXM, AH, KDID, DSRBH,  FYDZ,  YYSDBH,  SDYBH)
+        values
+        (#{djh},#{jjrbm},#{dyrq},#{kddh},#{scrq},#{jjrxm},#{jjrdh},#{sjrdz},#{dwmc},#{bgdh},#{zzdh},#{yddh},#{sjrxm},#{ah},#{kdid},#{dsrbh},#{fydz},#{yysdbh},#{sdybh})
+    </insert>
+</mapper>
+

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>人员质效</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <link rel="stylesheet" href="/js/layui/css/modules/dropdown.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+
+</head>
+<body>
+<script src="/js/layui/layui.js"></script>
+
+<div style="width: 100%;height: 80px;background-color: rgb(0,169,238)">
+    <div style="padding-top: 10px;padding-left: 30px;">
+        <div style="float: left">
+            <img src="/css/img/mySd_fahui.png" height="50px" width="50px" style="margin-top: 5px">
+        </div>
+        <div style="float: left;padding-top: 10px;padding-bottom: 5px;margin-left: 10px;">
+            <div style="color: white;font-size: 30px;" id="current_fymc">天津市高级人民法院</div>
+        </div>
+
+        <div id="logout" class="headLogout"><img
+                src="/css/img/mySD_tuichu.jpg" height="30px" width="100px"></div>
+        <div style="margin-right: 100px">
+            <div id="userName" style="color: white;font-size: 15px;margin-top: 20px;float: right;">
+            </div>
+            <div style="color: white;font-size: 15px;margin-top: 20px;float: right;">欢迎 &nbsp; ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div style="float: right">
+            <img src="/css/img/mySd_fahui.png" id="circle" width="50px" height="50px"
+                 style="margin-right: 20px;margin-top: 5px">
+        </div>
+    </div>
+</div>
+<div style="background-color: rgb(245,245,245);min-height: 60px">
+    <div style="float: left">
+        <img src="/css/img/mySd_index.png">
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5>&nbsp;&nbsp;当前位置：首页 - &nbsp;&nbsp; </h5>
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5 style="color: rgb(0,169,238)">人员质效表</h5>
+    </div>
+
+</div>
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 20px;">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-primary layui-btn-normal" data-id="4" onclick="switchTo(this,'4')">全部
+        </button>
+        <button class="layui-btn layui-btn-primary " data-id="1" onclick="switchTo(this,'1')">当日</button>
+        <button class="layui-btn layui-btn-primary " data-id="2" onclick="switchTo(this,'2')">当周</button>
+        <button class="layui-btn layui-btn-primary " data-id="3" onclick="switchTo(this,'3')">当月</button>
+        <select id="menu" onchange="menu(this.options[this.options.selectedIndex].value)" class="layui-btn layui-btn-primary ">
+            <option value="0">全部</option>
+            <option value="51">天津市高级人民法院</option>
+            <option value="52">天津市第一中级人民法院</option>
+            <option value="62">天津市第二中级人民法院</option>
+            <option value="5015">天津市第三中级人民法院</option>
+            <option value="72">天津海事法院</option>
+            <option value="53">天津市和平区人民法院</option>
+            <option value="54">天津市南开区人民法院</option>
+            <option value="64">天津市河西区人民法院</option>
+            <option value="63">天津市河东区人民法院</option>
+            <option value="55">天津市河北区人民法院</option>
+            <option value="56">天津市红桥区人民法院</option>
+            <option value="74">天津市滨海新区人民法院</option>
+            <option value="5047">天津自贸试验区人民法院</option>
+            <option value="68">天津市东丽区人民法院</option>
+            <option value="69">天津市津南区人民法院</option>
+            <option value="57">天津市西青区人民法院</option>
+            <option value="58">天津市北辰区人民法院</option>
+            <option value="59">天津市武清区人民法院</option>
+            <option value="61">天津市宝坻区人民法院</option>
+            <option value="60">天津市静海区人民法院</option>
+            <option value="70">天津市宁河区人民法院</option>
+            <option value="73">天津市蓟州区人民法院</option>
+            <option value="24">天津市铁路运输法院</option>
+        </select>
+    </div>
+    <div style="margin-top: 10px;min-height: 40px;">
+        <div class="col-md-12 " style="margin-top: 2em">
+            <table class="table table-bordered table-striped table-condensed" id="gdxx_table">
+                <thead>
+                <tr>
+                    <th style="text-align: center;width:8%">送达专员</th>
+                    <th style="text-align: center;width:4%">用户代码</th>
+                    <th style="text-align: center;width:4%">工单反馈总量</th>
+                    <th style="text-align: center;width:4%">工单送达成功总量</th>
+                    <th style="text-align: center;width:4%">工单送达失败总量</th>
+                    <th style="text-align: center;width:4%">工单送达成功率</th>
+                    <th style="text-align: center;width:4%">送达超审限案件</th>
+                    <th style="text-align: center;width:4%">电话送达超审限案件</th>
+                    <th style="text-align: center;width:4%">邮寄送达超审限案件</th>
+                    <th style="text-align: center;width:4%">平均送达时间（分钟）</th>
+                    <th style="text-align: center;width:4%">接收委托任务流转后响应时间（分钟）</th>
+                    <th style="text-align: center;width:4%">送达总人数</th>
+                    <th style="text-align: center;width:4%">送达成功人数</th>
+                    <th style="text-align: center;width:4%">送达失败人数</th>
+                    <th style="text-align: center;width:4%">同意电子送达人数</th>
+                    <th style="text-align: center;width:4%">拨打电话量（按次）</th>
+                    <th style="text-align: center;width:4%">拨打电话量（按人）</th>
+                    <th style="text-align: center;width:4%">通话总时长（分钟）</th>
+                    <th style="text-align: center;width:4%">平均通话时长（分钟）</th>
+                    <th style="text-align: center;width:4%">电话接通率</th>
+                    <th style="text-align: center;width:4%">短信发送量（按次）</th>
+                    <th style="text-align: center;width:4%">带链接短信发送量（按次）</th>
+                    <th style="text-align: center;width:4%">邮寄次数</th>
+                    <th style="text-align: center;width:4%">来院领取次数</th>
+                </tr>
+                </thead>
+                <tbody id="gdxx_tbody">
+                </tbody>
+            </table>
+            <div id="page"></div>
+            <div style="text-align: center" id="table_info"></div>
+        </div>
+    </div>
+
+</div>
+
+<script id="test" type="text/html">
+    {{each list value i}}
+    <tr>
+        <td style="text-align: center">{{list[i].sdzy}}</td>
+        <td>{{list[i].yhdm}}</td>
+        <td>{{list[i].gdfkzl}}</td>
+        <td>{{list[i].gdsdcgl}}</td>
+        <td>{{list[i].gdsdsbl}}</td>
+        <td>{{list[i].gdsdcgRate}}</td>
+        <td>{{list[i].sdcsxaj}}</td>
+        <td>{{list[i].dhsdcsxaj}}</td>
+        <td>{{list[i].yjsdcsxaj}}</td>
+        <td>{{list[i].pjsdsc}}</td>
+        <td>{{list[i].jswtrwlzhxysj}}</td>
+        <td>{{list[i].sdzrs}}</td>
+        <td>{{list[i].sdcgrs}}</td>
+        <td>{{list[i].sdsbrs}}</td>
+        <td>{{list[i].tydzsdrs}}</td>
+        <td>{{list[i].bddhlac}}</td>
+        <td>{{list[i].bddhlar}}</td>
+        <td>{{list[i].thzsc}}</td>
+        <td>{{list[i].pjthsc}}</td>
+        <td>{{list[i].dhjtlarRate}}</td>
+        <td>{{list[i].dxfsl}}</td>
+        <td>{{list[i].dljdxzl}}</td>
+        <td>{{list[i].yjcs}}</td>
+        <td>{{list[i].lylqcs}}</td>
+    </tr>
+    {{/each}}
+</script>
+<script id="pageBox" type="text/html">
+    <div class="layui-row layui-col-space5">
+        <div class="layui-col-md4">
+        </div>
+        <div class="layui-col-md4">
+            <div class="layui-row layui-col-space5">
+                <div class="layui-col-md4">
+                    {{if page>1}}
+                    <button class="layui-btn layui-btn-sm " onclick="up()">上一页</button>
+                    {{/if}}
+                </div>
+                <div class="layui-col-md4">第 {{page}} / {{total}} 页</div>
+
+                <div class="layui-col-md4">
+                    {{if total>page}}
+                    <button class="layui-btn layui-btn-sm layui-col-md4" onclick="next()">下一页</button>
+                    {{/if}}
+                </div>
+
+            </div>
+        </div>
+        <div class="layui-col-md4">
+
+        </div>
+
+    </div>
+</script>
+
+
+<script src="/js/gd/ryzx.js?v=1.11"></script>
+<style>
+    #circle {
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    body {
+        background-color: rgb(241, 241, 241);
+    }
+
+    .table td {
+        text-align: center;
+    }
+
+    .gdcx_font {
+        float: left;
+        font-size: large;
+        margin-left: 2em;
+        margin-top: 1em;
+    }
+
+    .gdcx_input {
+        width: 10em;
+        float: left;
+        font-size: large;
+        margin-left: 2em;
+        margin-top: 1em;
+    }
+</style>
+</body>
+</html>
+

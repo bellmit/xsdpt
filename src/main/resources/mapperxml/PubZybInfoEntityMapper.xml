@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubZybInfoEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubZybInfoEntity">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ywlx" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ywid" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zyurl" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zymc" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ywlx, ywid, zyurl, zymc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_zyb_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_zyb_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubZybInfoEntity">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_zyb_info_id_seq'::regclass)
+    </selectKey>
+    insert into pub_zyb_info (id, ywlx, ywid, 
+      zyurl, zymc)
+    values (#{id,jdbcType=INTEGER}, #{ywlx,jdbcType=INTEGER}, #{ywid,jdbcType=VARCHAR}, 
+      #{zyurl,jdbcType=VARCHAR}, #{zymc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubZybInfoEntity">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_zyb_info_id_seq'::regclass)
+    </selectKey>
+    insert into pub_zyb_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="ywlx != null">
+        ywlx,
+      </if>
+      <if test="ywid != null">
+        ywid,
+      </if>
+      <if test="zyurl != null">
+        zyurl,
+      </if>
+      <if test="zymc != null">
+        zymc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=INTEGER},
+      <if test="ywlx != null">
+        #{ywlx,jdbcType=INTEGER},
+      </if>
+      <if test="ywid != null">
+        #{ywid,jdbcType=VARCHAR},
+      </if>
+      <if test="zyurl != null">
+        #{zyurl,jdbcType=VARCHAR},
+      </if>
+      <if test="zymc != null">
+        #{zymc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubZybInfoEntity">
+    update pub_zyb_info
+    <set>
+      <if test="ywlx != null">
+        ywlx = #{ywlx,jdbcType=INTEGER},
+      </if>
+      <if test="ywid != null">
+        ywid = #{ywid,jdbcType=VARCHAR},
+      </if>
+      <if test="zyurl != null">
+        zyurl = #{zyurl,jdbcType=VARCHAR},
+      </if>
+      <if test="zymc != null">
+        zymc = #{zymc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubZybInfoEntity">
+    update pub_zyb_info
+    set ywlx = #{ywlx,jdbcType=INTEGER},
+      ywid = #{ywid,jdbcType=VARCHAR},
+      zyurl = #{zyurl,jdbcType=VARCHAR},
+      zymc = #{zymc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

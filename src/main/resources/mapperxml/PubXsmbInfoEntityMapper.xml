@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.sdpt.mapper.PubXsmbInfoEntityMapper">
+  <resultMap id="BaseResultMap" type="com.nju.sdpt.entity.PubXsmbInfoEntity">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="mbmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mbid" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="scalling" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mbnr" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="fybh" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mbmc, mbid, scalling, mbnr, fybh
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_xsmb_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pub_xsmb_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.sdpt.entity.PubXsmbInfoEntity">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_xsmb_info_id_seq'::regclass)
+    </selectKey>
+    insert into pub_xsmb_info (id, mbmc, mbid, 
+      scalling, mbnr, fybh
+      )
+    values (#{id,jdbcType=INTEGER}, #{mbmc,jdbcType=VARCHAR}, #{mbid,jdbcType=VARCHAR}, 
+      #{scalling,jdbcType=VARCHAR}, #{mbnr,jdbcType=VARCHAR}, #{fybh,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.sdpt.entity.PubXsmbInfoEntity">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      select nextval('pub_xsmb_info_id_seq'::regclass)
+    </selectKey>
+    insert into pub_xsmb_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="mbmc != null">
+        mbmc,
+      </if>
+      <if test="mbid != null">
+        mbid,
+      </if>
+      <if test="scalling != null">
+        scalling,
+      </if>
+      <if test="mbnr != null">
+        mbnr,
+      </if>
+      <if test="fybh != null">
+        fybh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=INTEGER},
+      <if test="mbmc != null">
+        #{mbmc,jdbcType=VARCHAR},
+      </if>
+      <if test="mbid != null">
+        #{mbid,jdbcType=VARCHAR},
+      </if>
+      <if test="scalling != null">
+        #{scalling,jdbcType=VARCHAR},
+      </if>
+      <if test="mbnr != null">
+        #{mbnr,jdbcType=VARCHAR},
+      </if>
+      <if test="fybh != null">
+        #{fybh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.sdpt.entity.PubXsmbInfoEntity">
+    update pub_xsmb_info
+    <set>
+      <if test="mbmc != null">
+        mbmc = #{mbmc,jdbcType=VARCHAR},
+      </if>
+      <if test="mbid != null">
+        mbid = #{mbid,jdbcType=VARCHAR},
+      </if>
+      <if test="scalling != null">
+        scalling = #{scalling,jdbcType=VARCHAR},
+      </if>
+      <if test="mbnr != null">
+        mbnr = #{mbnr,jdbcType=VARCHAR},
+      </if>
+      <if test="fybh != null">
+        fybh = #{fybh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.sdpt.entity.PubXsmbInfoEntity">
+    update pub_xsmb_info
+    set mbmc = #{mbmc,jdbcType=VARCHAR},
+      mbid = #{mbid,jdbcType=VARCHAR},
+      scalling = #{scalling,jdbcType=VARCHAR},
+      mbnr = #{mbnr,jdbcType=VARCHAR},
+      fybh = #{fybh,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

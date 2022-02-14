@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工单系统-主页</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+</head>
+<body>
+
+<script src="/js/layui/layui.js"></script>
+<div class="container-fluid" id="main_content">
+    <div class="row">
+        <div id="header" class="col-md-8 col-md-offset-2" style="margin-top: 20px;height: 60px">
+            <div class="col-md-6">
+                <div id="header_logo" style="float:left;">
+                    <img src="/css/img/logo.png" height="60">
+                </div>
+                <div id="header_text" style="margin-top:10px;float: left">
+                    <span style="font-size:200%;color: #2e6da4" id="current_fymc">天津市高级人民法院</span>
+                </div>
+            </div>
+            <div id="header_right" class="col-md-6" style="margin-top: 30px">
+                <div>
+                    <label class="col-md-5 col-md-offset-3">
+                        <span style="font-size:125%;color: #2e6da4">欢迎您!</span>
+                        <span style="font-size:125%;color: #2e6da4" id="userName"></span>
+                    </label>
+                </div>
+
+                <div class="col-md-4">
+                    <a id="logout" type="button" class="btn btn-default indexLogout">退出系统
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row"
+         style="background: url(/css/img/main_backgroud.png) fixed center center no-repeat;margin-top: 10px;">
+        <div class="col-md-4" style="margin: auto">
+            <div style="margin-left:10px;height: 560px;">
+                <div class="row"
+                     style="height: 520px;width: 440px;margin: auto;  position: absolute;  top: 0; left: 0; bottom: 0; right: 0;">
+                    <div class="col-md-6" style="height: 520px;width: 220px;">
+                        <div style="height:150px; width: 190px; background: url(/css/img/main_dhsd.png)  center no-repeat;background-size:cover; margin: 120px 10px 50px 10px;">
+                            <div style="height: 75px; width: 190px;">
+
+                            </div>
+                            <div style="margin-left: 30px;color: white;">
+                                <div style="font-size: 15px">
+                                    送达案件：<span id="dh_sdaj" style="font-size: 20px">123</span>
+                                </div>
+                                <div style="font-size: 15px">
+                                    送达人数：<span id="dh_sdrs" style="font-size: 20px">123</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div style="height:150px; width: 190px; background: url(/css/img/main_emssd.png)  center no-repeat;background-size:cover; margin: 10px 10px 10px 10px;">
+                            <div style="height: 75px; width: 190px;">
+
+                            </div>
+                            <div style="margin-left: 30px;color: white;">
+                                <div style="font-size: 15px">
+                                    送达案件：<span id="ems_sdaj" style="font-size: 20px">123</span>
+                                </div>
+                                <div style="font-size: 15px">
+                                    送达人数：<span id="ems_sdrs" style="font-size: 20px">123</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="height: 520px;width: 220px;">
+                        <div style="height:150px; width: 190px; background: url(/css/img/main_dzsd.png)  center no-repeat;background-size:cover; margin: 50px 10px 50px 0px;">
+                            <div style="height: 75px; width: 190px;">
+
+                            </div>
+                            <div style="margin-left: 30px;color: white;">
+                                <div style="font-size: 15px">
+                                    送达案件：<span id="dz_sdaj" style="font-size: 20px">123</span>
+                                </div>
+                                <div style="font-size: 15px">
+                                    送达人数：<span id="dz_sdrs" style="font-size: 20px">123</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height:150px; width: 190px; background: url(/css/img/main_ggsd.png)  center no-repeat;background-size:cover; margin: 10px 10px 10px 0px;">
+                            <div style="height: 75px; width: 190px;">
+
+                            </div>
+                            <div style="margin-left: 30px;color: white;">
+                                <div style="font-size: 15px">
+                                    送达案件：<span id="gg_sdaj" style="font-size: 20px">123</span>
+                                </div>
+                                <div style="font-size: 15px">
+                                    送达人数：<span id="gg_sdrs" style="font-size: 20px">123</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div style="height: 560px;">
+                <div style="height: 460px;width: 380px;background: url(/css/img/main_jzsdpt.png) center no-repeat;background-size:cover;;margin: auto;  position: absolute;  top: 0; left: 0; bottom: 0; right: 0;">
+                    <div style="height: 230px;width: 380px;">
+
+                    </div>
+                    <div style="margin-left: 60px;margin-top: 20px">
+                        <div style="height: 260px;width: 380px">
+                            <div style="font-size: 30px;color: #2D93CA">
+                                送达数： <span id="songda_sum" style="font-size: 50px;color: #d58512">123</span>
+                            </div>
+                            <div style="font-size: 30px;color: #2D93CA">
+                                送达完成数：<span id="already_songda_sum" style="font-size: 50px;color: #d58512">123</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="margin: auto">
+            <div style="height: 560px;">
+                <div class="row"
+                     style="height: 520px;width: 440px;margin: auto;  position: absolute;  top: 0; left: 0; bottom: 0; right: 0;">
+                    <div class="col-md-6" style="height: 520px;width: 220px;">
+                        <div style="height:150px; width: 190px; background: url(/css/img/main_zjsd.png)  center no-repeat;background-size:cover; margin: 20px 10px 15px 10px;">
+                            <div style="height: 75px; width: 190px;">
+
+                            </div>
+                            <div style="margin-left: 30px;color: white;">
+                                <div style="font-size: 15px">
+                                    送达案件：<span id="zj_sdaj" style="font-size: 20px">123</span>
+                                </div>
+                                <div style="font-size: 15px">
+                                    送达人数：<span id="zj_sdrs" style="font-size: 20px">123</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height:150px; width: 190px; background: url(/css/img/main_lylq.png)  center no-repeat;background-size:cover; margin: 10px 10px 15px 10px;">
+                            <div style="height: 75px; width: 190px;">
+
+                            </div>
+                            <div style="margin-left: 30px;color: white;">
+                                <div style="font-size: 15px">
+                                    送达案件：<span id="lylq_sdaj" style="font-size: 20px">123</span>
+                                </div>
+                                <div style="font-size: 15px">
+                                    送达人数：<span id="lylq_sdrs" style="font-size: 20px">123</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height:150px; width: 190px; background: url(/css/img/main_wtsd.png)  center no-repeat;background-size:cover; margin: 10px 10px 50px 10px;">
+                            <div style="height: 75px; width: 190px;">
+
+                            </div>
+                            <div style="margin-left: 30px;color: white;">
+                                <div style="font-size: 15px">
+                                    送达案件：<span id="wt_sdaj" style="font-size: 20px">123</span>
+                                </div>
+                                <div style="font-size: 15px">
+                                    送达人数：<span id="wt_sdrs" style="font-size: 20px">123</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="height: 520px;width: 220px;">
+                        <div style="height:150px; width: 190px; background: url(/css/img/main_zhjsd.png)  center no-repeat;background-size:cover; margin: 80px 10px 50px 0px;">
+                            <div style="height: 75px; width: 190px;">
+
+                            </div>
+                            <div style="margin-left: 30px;color: white;">
+                                <div style="font-size: 15px">
+                                    送达案件：<span id="zhj_sdaj" style="font-size: 20px">123</span>
+                                </div>
+                                <div style="font-size: 15px">
+                                    送达人数：<span id="zhj_sdrs" style="font-size: 20px">123</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height:150px; width: 190px; background: url(/css/img/main_dxtz.png)  center no-repeat;background-size:cover; margin: 10px 10px 10px 0px;">
+                            <div style="height: 75px; width: 190px;">
+
+                            </div>
+                            <div style="margin-left: 30px;color: white;">
+                                <div style="font-size: 15px">
+                                    送达案件：<span id="dxtz_sdaj" style="font-size: 20px">123</span>
+                                </div>
+                                <div style="font-size: 15px">
+                                    送达人数：<span id="dxtz_sdrs" style="font-size: 20px">123</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="main_bottom" style="height: 150px;width: 100%;border-bottom:1px solid #8c8c8c;">
+            <div id="my_songda"
+                 style="background: url(/css/img/bottom_wdsd.png)  center no-repeat;background-size:cover;width:11%; height:150px;float: left;cursor: pointer">
+
+            </div>
+            <div style="height: 200px;width:89%;float:left;">
+                <div id="zhijie_songda" class="bottom_div">
+                    <div class="in_div" style="background:url(/css/img/bottom_zjsd.png) center no-repeat;">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/gd/zjzyIndex.js?v=1.9"></script>
+</body>
+<style>
+    .bottom_div {
+        border-right: 1px solid #8c8c8c;
+        /*background-size:cover;*/
+        width: 10%;
+        height: 150px;
+        /*margin-top: 35px;*/
+        /*margin-left: 1%;*/
+        float: left;
+        cursor: pointer;
+    }
+
+    .in_div {
+        /*margin-top: 5px;*/
+        /*margin-left: 10%;*/
+        margin: auto;
+        height: 160px;
+        width: 100px;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-size: cover !important;
+
+    }
+    .div-btn{
+        color: #439DF4;
+        text-align: center;
+        font-size: 17px;
+        font-weight: bold;
+        line-height: 160px;
+    }
+
+</style>
+</html>

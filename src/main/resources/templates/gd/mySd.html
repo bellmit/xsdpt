@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>工单人员-我的送达</title>
+    <link rel="stylesheet" href="/css/wbrywdsd_new.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+<!--    <script src="/js/common/bootstrap.min.js"></script>-->
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.1"></script>
+    <script src="/js/layui/layui.js"></script>
+</head>
+<body>
+<div id="top" class="fixed-top d-flex flex-column" style="height: 15%;">
+    <div class="d-flex bd-highlight" style="height: 75%;">
+        <div style="width:25%">
+            <div id="logo" class="float-left align-middle" style="margin-left: 17%;margin-top: 4%;font-size: 13px;">
+            </div>
+        </div>
+        <div class="d-flex flex-column" style="width: 75%;">
+            <div style="height: 40%;">
+                <div class="float-right" style="font-size:13px; color: white;padding-top: 1%;padding-right: 4%;">
+                    <span style="font-size: 18px">欢迎您 <span id="userName"></span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                    <button id="logout"  type="button" class="btn btn-default"
+                            style="color:white;float: right;padding: 0px">退出系统
+                    </button>
+                </div>
+                <div>
+                    <div class="d-flex flex-row float-right" style="padding-right: 20%;font-size: 14px;">
+                        <!--                        <a href="#dhsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">电话送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#dxtz" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label focus">短信通知</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#lylq" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">来院领取</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#emssd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">EMS送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#zjsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">直接送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#wtdc" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">委托送达</div>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#ggsd" style="color: black;text-decoration:none">-->
+                        <!--                            <div class="p-2 label">公告送达</div>-->
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="float-right" style="font-size: 14px;padding-left: 8%;">
+        当前位置：首页 - 工单列表
+    </div>
+</div>
+<div style="padding-top: 8%;">
+    <div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+    <div style="margin-left: 1%;margin-right: 1%;margin-top: 20px;background-color: white;min-height: 500px">
+        <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+        <div style="margin-top: 10px;min-height: 40px;margin-bottom: 20px;">
+            <div style="float: left;margin-left: 20px;margin-top: 5px;font-size: 15px;">
+                工单列表
+            </div>
+            <div style="margin-left: 20px;float: left;margin-top: 5px;">
+                <select style="width: 100px; height: 25px;" id="select_sdjg">
+                    <option value=2>未送达</option>
+                    <option value=3>送达中</option>
+                    <option value=4>已送达未确认</option>
+                    <option value=5>已送达已确认</option>
+                    <option value=6>已撤回</option>
+                    <option value=7>已退回</option>
+                    <option value=8>超审限</option>
+                    <!--                <option value=9>催单案件</option>-->
+                    <option value=1>全部</option>
+                </select>
+
+            </div>
+
+            <div id="return_main" style="float: right;margin-right: 10px;cursor: pointer">
+                <button class="btn btn-primary btm-sm" >
+                    返回
+                </button>
+            </div>
+            <div style="float: left;margin-left: 10px;margin-top: 5px;">
+                时间范围选择：
+                <div class="layui-inline">
+                    <input type="text" class="layui-input" id="select_time1">
+                </div>
+                至
+                <div class="layui-inline">
+                    <input type="text" class="layui-input" id="select_time2">
+                </div>
+            </div>
+            <div style="margin-left: 20px;float: left">
+                <button class="btn btn-primary btm-sm" id=select_range_time>
+                    查询
+                </button>
+            </div>
+<!--            <div style="margin-left: 20px;float: left">-->
+<!--                <button class="btn btn-primary btm-sm" id=dxmb style="display: none">-->
+<!--                    短信模板配置-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div style="margin-left: 20px;float: left">-->
+<!--                <button class="btn btn-primary btm-sm" id=user style="display: none">-->
+<!--                    用户信息配置-->
+<!--                </button>-->
+<!--            </div>-->
+            <div style="margin-left: 20px;float: left">
+                <button class="btn btn-primary btm-sm" id="rwlz">
+                    流转
+                </button>
+            </div>
+            <div style="margin-left: 20px;float: left">
+                <button class="btn btn-primary btm-sm" id="tssdgl">
+                    特殊送达管理
+                </button>
+            </div>
+<!--            <div style="margin-left: 20px;float: left">-->
+<!--                <button class="btn btn-primary btm-sm" id=download_sdfk_excel>-->
+<!--                    批量导出工单信息-->
+<!--                </button>-->
+<!--            </div>-->
+        </div>
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped table-condensed" id="ajjbxx_table"
+                   style="font-size: small">
+                <thead>
+                <tr>
+                    <th style="text-align: center;width:5% ">操作</th>
+                    <th style="text-align: center;width:5% ">编号</th>
+                    <th style="text-align: center;width:10%">法院名称</th>
+                    <th style="text-align: center;width:10%">案号</th>
+                    <th style="text-align: center;width:10%">案件名称</th>
+                    <th style="text-align: center;width:10%">受送达人</th>
+                    <th style="text-align: center;width:5%">预约人</th>
+                    <th style="text-align: center;width:10%">预约时间</th>
+                    <th style="text-align: center;width:10%">开庭时间</th>
+                    <th style="text-align: center;width:10%">送达员名称</th>
+                    <th style="text-align: center;width:10%">送达状态</th>
+                    <th style="text-align: center;width:5%">委托任务</th>
+                    <th style="text-align: center;width:5%">备注</th>
+                    <th style="text-align: center;width:10%">送达结果</th>
+                    <th style="text-align: center;width:10%">操作</th>
+                </tr>
+                </thead>
+                <tbody id="ajjbxx_tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script id="test" type="text/html">
+    {{each list value i}}
+    {{if list[i].markRed == 'y' }}
+    <tr data-temp="1" style="color: red">
+        {{else if list[i].markYellow == 'y'}}
+    <tr data-temp="1" style="color: orange">
+        {{else}}
+    <tr>
+        {{/if}}
+        <td style="text-align: center">
+            {{if list[i].ajxh!=-2}}
+            <label><input name="ids" type="checkbox" value="{{list[i].yysdbh}}"></label>
+            {{/if}}
+        </td>
+        <td style="text-align: center">{{list[i].yysdbh}}</td>
+        <td>{{list[i].fymc}}</td>
+        <td>{{list[i].ah}}</td>
+        <td>{{list[i].ajmc}}</td>
+        <td>{{list[i].dsrmc}}</td>
+        <td>{{list[i].yyr}}</td>
+        <td>{{list[i].yysj}}</td>
+        <td>{{list[i].ktsj}}</td>
+        <td>{{list[i].sdymc}}</td>
+        <td>{{list[i].sdzt}}</td>
+        <td>
+            {{if list[i].wtrws > 0 }}
+            <button class="btn btn-primary" type="button" onclick="look_rwwt(this)" data-index="{{list[i].yysdbh}}">查看
+            </button>
+            {{else}}
+            暂无
+            {{/if}}
+        </td>
+        <td>
+            {{if list[i].yysdbz != null && list[i].yysdbz.trim() != ''}}
+            <button class="btn" type="button" onclick="look_yysdbz(this)" data-index="{{i}}">
+                <img src="/img/jbxx_write.png" height="16" width="16" style="margin: 0" title="查看">
+            </button>
+            {{else}}
+            暂无
+            {{/if}}
+        </td>
+        <td>{{if list[i].sdjg == 'Y'}}
+            送达成功
+            {{/if}}
+            {{if list[i].sdjg == 'N'}}
+            送达失败
+            {{/if}}
+            {{if list[i].sdjg == 'X'}}
+            已撤回
+            {{/if}}
+        </td>
+        <td class="d-flex justify-content-center">
+            {{if list[i].sdjg != 'X'}}
+            <button  class="btn p-2" style="font-size: 12px" type="button" onclick="info(this)" data-index="{{i}}">
+                <img src="/img/jbxx_write.png" height="16" width="16" style="margin: 0" title="查看">
+            </button>
+            <!--<button class="btn btn-primary" type="button" onclick="fk(this)" data-index={{i}}>反馈</button>-->
+            {{if list[i].sdzt !=='已送达'}}
+            <button  class="btn p-2" style="font-size: 12px" type="button" onclick="sdjg(this)" data-index="{{i}}">
+                <img src="/img/detail.png" height="24" width="24" style="margin: 0" title="结果">
+            </button>
+            {{/if}}
+            {{/if}}
+            <!--<button class="btn btn-primary" type="button" onclick="look_fk(this)" data-index="{{i}}">查看反馈（TEST）</button>-->
+        </td>
+    </tr>
+
+    {{/each}}
+</script>
+<script src="/js/gd/mySd.js?v=2.42"></script>
+<script id="rwwt_html" type="text/html">
+    <table class="table table-bordered table-striped table-condensed myTable">
+        <thead>
+        <tr>
+            <th style="text-align: center">委托时间</th>
+            <th style="text-align: center">受送达人名称</th>
+            <th style="text-align: center">委托人</th>
+            <th style="text-align: center">处理人</th>
+            <th style="text-align: center">委托方式</th>
+            <th style="text-align: center">反馈时间</th>
+            <th style="text-align: center">处理结果</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{each list value i}}
+        <tr>
+            <td style="text-align: center">{{value.wtsj}}</td>
+            <td>{{value.ssdrmc}}</td>
+            <td>{{value.wtrmc}}</td>
+            <td>{{value.clrmc}}</td>
+            <td>{{value.wtfs}}</td>
+            <td>{{value.fksj}}</td>
+            <td>{{value.cljg}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</script>
+<style>
+
+
+    .infoArea {
+        width: 80%;
+        margin: 0 auto;
+        padding-top: 10px;
+    }
+
+    #circle {
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    body {
+        background-color: rgb(241, 241, 241);
+    }
+
+    #ajjbxx_table_filter {
+        float: right;
+        margin-right: 100px;
+        margin-top: -50px;
+        font-size: 15px;
+    }
+
+    #ajjbxx_distribute_table_filter {
+        float: right;
+        margin-right: 100px;
+        margin-top: -50px;
+        font-size: 15px;
+    }
+
+    .layui-input {
+        height: 25px;
+    }
+
+    .layui-laydate .layui-this {
+        background-color: #2D93CA !important;
+        color: #fff !important;
+    }
+</style>
+</body>
+<th:block th:include="pop/pop_rwlz.html"></th:block>
+</html>
+

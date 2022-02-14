@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>大数据平台</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bigData.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/echarts/echarts.js"></script>
+    <script src="/js/echarts/walden.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+</head>
+<body>
+    <img src="/css/img/tj_background.png" class="bj">
+    <div id="mianframe">
+        <div class="row" style="height: 2em;"></div>
+    <div class="row" style="height: 10%">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" id="tj_title">
+            <img src="/css/img/tj_title.png" style="width:100%;height:auto;">
+            <span style="position: absolute; top: 60%; left: 18%;color: #ffff00; font-size: 18px;" id="ljsdajs"></span>
+            <span style="position: absolute; top: 60%; left: 30%;color: #00ffa7; font-size: 18px;" id="ljwtrc"></span>
+            <span style="position: absolute; top: 60%; left: 45%;color: #ffff00; font-size: 18px;" id="ljsdcs"></span>
+            <span style="position: absolute; top: 60%; left: 58%;color: #00ffa7; font-size: 18px;" id="ljsdrc"></span>
+            <span style="position: absolute; top: 61%; left: 72%;color: #ff001c; font-size: 25px;" id="sdcgl"></span>
+        </div>
+        <div class="col-md-4">
+            <span style="position: absolute;margin-top: 5%;left:30%;color: white; font-size: 20px;" id="nowTime"></span>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 0.1em;margin-left: 0.1em">
+        <div class="col-md-12">
+            <span style="position: absolute; top: 4.5%; left:6%;color: white; font-size: 18px;">实时送达数据</span>
+
+            <button type="button" id="sssdsjDay"class="myButton" style="background-color:transparent;z-index: 99999;position: absolute; width:60px;height:25px;top: 1%; left:20%; font-size: 15px;cursor: pointer;border:1px solid #26adda;"onclick="initSssdsjTable('日')">本日</button>
+            <button type="button" id="sssdsjWeek"class="myButton" style="background-color:transparent;z-index: 99999;position: absolute; width:60px;height:25px;top: 1%; left:23.5%; font-size: 15px;cursor: pointer;border:1px solid #26adda" onclick="initSssdsjTable('周')">本周</button>
+            <button type="button" id="sssdsjMonth" class="myButton"style="background-color:transparent;z-index: 99999;position: absolute;width:60px;height:25px; top: 1%; left:27%; font-size: 15px;cursor: pointer;border:1px solid #26adda"onclick="initSssdsjTable('月')">本月</button>
+            <button type="button" id="sssdsjYear" class="myButton" style="background-color:transparent;z-index: 99999;position: absolute;width:80px;height:25px; top: 1%; left:31%; font-size: 15px;cursor: pointer;border:1px solid #26adda" onclick="initSssdsjTable('年')">本年度</button>
+            <div  class="sssdsj">
+                 <div id="sssdsj_echarts"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="height: 20em;margin-top:-5em;margin-left: 3%">
+        <div class="col-md-4">
+            <div  class="tj_border1" >
+                <span style="position: absolute; top: 3%; left:13%;color: white; font-size: 16px;">失联人触达</span>
+                <div id="slrcd_sum" style="height: 6em;text-align: center;color: white;padding-top: 3em;width: 90%" >
+                    <ul style="list-style-type: none;">
+                        <li class="col-md-4" >失联人数</li>
+                        <li class="col-md-4" >触达人数</li>
+                        <li class="col-md-4" >触达率</li>
+                    </ul>
+                    <ul style="list-style-type: none;">
+                        <li class="col-md-4" style="color: yellow" id="slrsSum">0</li>
+                        <li class="col-md-4" style="color: yellow" id="cdrsSum">0</li>
+                        <li class="col-md-4" style="color: yellow" id="cdlSum">0</li>
+                    </ul>
+                </div>
+                <div id = "slrcd_echarts"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div  class="tj_border2" >
+                <div id="sdfsfb_echarts"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div  class="tj_border1" >
+                <div class="btn_left btn_left1" id="sjfypmWts" onclick="changeSjfypmLx('委托数')">委托数</div><br/>
+                <div class="btn_left btn_left2" id="sjfypmSds" onclick="changeSjfypmLx('送达数')">送达数</div><br/>
+                <div class="btn_left btn_left3" id="sjfypmCgl" onclick="changeSjfypmLx('成功率')">成功率</div>
+                <span style="position: absolute; top: 3%; left:13%;color: white; font-size: 16px;">三级法院排名</span>
+                <button id="sjfypmWeek"  type="button"  onclick="changeSjfypmTime('周')" style="background-color:transparent;position: absolute;top: 0%;   left:40%; width:60px;font-size: 15px;border:1px solid #26adda">本周</button>
+                <button id="sjfypmMonth" type="button"  onclick="changeSjfypmTime('月')"style="background-color:transparent;position: absolute; top: 0%;  left:50%; width:60px;font-size: 15px;border:1px solid #26adda">本月</button>
+                <button id="sjfypmYear"  type="button"  onclick="changeSjfypmTime('年')"style="background-color:transparent;position: absolute; top: 0%;  left:60%; width:60px;font-size: 15px;border:1px solid #26adda">本年度</button>
+                <div style="min-height: 5%"></div>
+                <table id="sjfypm_table" style="color: white;width: 90%" >
+
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<script id="sjfypm_table_tbody_html" type="text/html">
+    <thead>
+    <th style="width: 30%;text-align: center">法院名称</th>
+    <th style="width: 40%;text-align: center">{{type}}</th>
+    <th style="width: 30%;text-align: center">排名</th>
+    </thead>
+    <tbody id="sjfypm_table_tbody">
+    {{each list value i}}
+    <tr style="height: 25px">
+        <td style="text-align: center">{{list[i].name}}</td>
+        <td style="text-align: center">{{list[i].value}}</td>
+        <td style="text-align: center">{{i+1}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+
+</script>
+<script src="/js/fg/bigData.js?v=0.5"></script>
+</html>

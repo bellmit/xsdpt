@@ -1,0 +1,62 @@
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="addEmsModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 150%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    新增EMS送达任务
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">当事人：</label>
+                        <span class="col-sm-10 sdp-name">
+                        </span>
+                    </div>
+                    <div id="yddh" class="form-group">
+                        <label class="col-sm-2 control-label">电话号码：</label>
+                        <div class="col-sm-10" id="dsr_dh">
+                        </div>
+                    </div>
+                    <div id="dz" class="form-group">
+                        <label class="col-sm-2 control-label">地址：</label>
+                        <div class="col-sm-10" id="dsr_dz">
+
+                        </div>
+                    </div>
+                </form>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">关联快递单号</label>
+                    <span class="col-sm-10">
+                        <input id="kddh" type="text" onblur="getEmsInfoByKddh()">
+                    </span>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>
+                        </th>
+                        <th>快递单号</th>
+                        <th>收件人地址</th>
+                        <th>收件人姓名</th>
+                        </thead>
+                        <tbody id="kddh_tbody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="submit_ems" class="btn btn-default">确认
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script src="/js/pop/pop_addEms.js?v=1.91"></script>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>来院领取列表</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css">
+    <script src="/js/common/jquery.min.js"></script>
+    <script src="/js/common/jquery-3.3.1.js"></script>
+    <script src="/js/common/jquery.dataTables.min.js"></script>
+    <script src="/js/common/jquery.cookie.js"></script>
+    <script src="/js/common/bootstrap.min.js"></script>
+    <script src="/js/layui/layui.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <script src="/js/templatejs/template-web.js"></script>
+    <script src="/js/common/bootstrap-select.min.js"></script>
+    <script src="/js/common/common.js?v=2.0"></script>
+</head>
+<body>
+
+<div style="width: 100%;height: 80px;background-color: rgb(0,169,238)">
+    <div style="padding-top: 10px;padding-left: 30px;">
+        <div style="float: left">
+            <img  src="/css/img/mySd_fahui.png" height="50px" width="50px" style="margin-top: 5px">
+        </div>
+        <div style="float: left;padding-top: 10px;padding-bottom: 5px;margin-left: 10px;">
+            <div style="color: white;font-size: 30px;" id="current_fymc">天津市高级人民法院</div>
+        </div>
+
+        <div  id="logout" class="headLogout"><img  src="/css/img/mySD_tuichu.jpg" height="30px" width="100px"> </div>
+        <div style="margin-right: 100px">
+            <div id="userName"  style="color: white;font-size: 15px;margin-top: 20px;float: right;">
+            </div>
+            <div  style="color: white;font-size: 15px;margin-top: 20px;float: right;">欢迎 &nbsp; ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div style="float: right">
+            <img  src="/css/img/mySd_fahui.png" id="circle" width="50px" height="50px" style="margin-right: 20px;margin-top: 5px">
+        </div>
+    </div>
+</div>
+<div style="background-color: rgb(245,245,245);min-height: 60px">
+    <div style="float: left">
+        <img src="/css/img/mySd_index.png">
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5>&nbsp;&nbsp;当前位置：首页 - &nbsp;&nbsp; </h5>
+    </div>
+    <div style="float: left;margin-top: 15px">
+        <h5 style="color: rgb(0,169,238)">来院领取列表</h5>
+    </div>
+<!--    <div class="input-group" style="float: right">-->
+<!--        <div >-->
+<!--            <form class="bs-example bs-example-form" role="form">-->
+<!--                <div class="input-group"style="margin-top: 15px">-->
+<!--                    <input type="text" class="form-control"height="30px" placeholder="站内搜索">-->
+<!--                    <span class="input-group-addon" style="background-color: rgb(221,221,221)"><img src="/css/img/search_icon.png" height="20px" width="20px"></span>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+<div style="background-color: rgb(191,191,191);min-height: 1px"></div>
+<div style="margin-left: 1%;margin-right: 1%;margin-top: 20px;background-color: white;min-height: 500px">
+    <div style="background-color: rgb(0,169,238);min-height: 3px"></div>
+    <div style="margin-top: 10px;min-height: 35px">
+        <div style="float: left;margin-left: 20px">
+            来院领取列表
+            <button id="add_lylq" class="btn btn-primary" type="button" data-toggle="modal" data-target="#addLylqModel">新增</button>
+        </div>
+        <div id="return_main" style="float: right;margin-right: 10px"><img src="/css/img/return_icon.png" width="60px" height="24px"></div>
+    </div>
+    <div>
+        <div style="margin-left: 20px;float: left;">
+            <select style="width: 100px; height: 35px;" id="select_lq_state">
+                <option value="">全部</option>
+                <option value="0">待领取</option>
+                <option value="1">已领取</option>
+                <option value="2">未领取</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped table-condensed" id="lylqjbxx_table">
+            <thead>
+            <tr>
+                <th style="text-align: center;width:5% ">送达编号</th>
+                <th style="text-align: center;width:15%">案号</th>
+                <th style="text-align: center;width:15%">受送达人名称</th>
+                <th style="text-align: center;width:15%">预约领取时间</th>
+                <th style="text-align: center;width:30%">预约领取地点</th>
+                <th style="text-align: center;width:10%">领取状态</th>
+                <th style="text-align: center;width:10%">送达回执</th>
+                <th style="text-align: center;width:10%">送达结果</th>
+            </tr>
+            </thead>
+            <tbody id="lylqjbxx_tbody">
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- 新增来院领取记录弹窗 -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="addLylqModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    新增来院领取任务
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">工单号：</label>
+                        <div class="col-sm-10">
+                            <select id="lylq-yysdbh-input" class="form-control selectpicker" data-live-search="true">
+                                <option>请选择工单</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: none" id="sdp" class="form-group">
+                        <label class="col-sm-2 control-label cus-required">当事人：</label>
+                        <div class="col-sm-10">
+                            <select id="lylq-dsr" class="form-control selectpicker" data-live-search="true">
+                                <option>请选择当事人</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr/>
+<!--                    <div class="form-group">-->
+<!--                        <label class="col-sm-2 control-label cus-required">文书类别：</label>-->
+<!--                        <div id="wslbcheckboxlylqsd" class="col-sm-10" >-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">预约时间：</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly placeholder="请选择来院领取时间" class="form-control lylq-yysj-input" id="lylq-yysj-input">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">预约地点：</label>
+                        <div class="col-sm-10">
+                            <div id="lylq-address-div">
+
+                            </div>
+                            <input style="margin-top: 10px;" type="text" placeholder="请输入预约地点" class="form-control" id="lylq-address-input">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="submit-lylq">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- 编辑送达结果 -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="editSdjgModel" tabindex="-1" role="dialog" aria-labelledby="editSdjgModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="editSdjgModalLabel">
+                    选择送达结果
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label cus-required">送达结果：</label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="selectedSdjg" value="1">送达成功
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="selectedSdjg" value="2">送达失败
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="submit-edit-sdjg">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script id="lylq_td_body" type="text/html">
+    {{if isAdmin}}
+    {{each list value i}}
+    <tr>
+        <td style="text-align: center">{{list[i].yysdbh}}</td>
+        <td>{{list[i].ah}}</td>
+        <td>{{list[i].ssdrmc}}</td>
+        <td>{{list[i].yylqsjStr}}</td>
+        <td>{{list[i].lylqaddress}}</td>
+        <td>
+            {{if list[i].lqstate==0}}
+                待领取
+            {{else if list[i].lqstate==1}}
+                已领取
+            {{else if list[i].lqstate==2}}
+                未领取
+            {{/if}}
+        </td>
+        <td>
+
+            <a href="lylq/imgView_lylq_sdhz.zf?lylqId={{list[i].lylqid}}"><button data-hint="{{list[i].lylqid}}" class="btn btn-primary look_sdhz" type="button">查看</button></a>
+
+                <button data-hint="{{list[i].lylqid}}" class="btn btn-primary upload_sdhz" type="button" >上传</button>
+        </td>
+        <td>
+            {{if list[i].sdjg==1}}
+                送达成功
+            {{else if list[i].sdjg==2}}
+                送达失败
+            {{else}}
+            <button class="btn btn-primary" type="button" onclick="upload_sdjg(this)" data-yysdbh="{{list[i].yysdbh}}" data-lylqid="{{list[i].lylqid}}">上传结果</button>
+            {{/if}}
+        </td>
+    </tr>
+    {{/each}}
+    {{/if}}
+</script>
+<script src="/js/gd/lylqList.js?v=1.61"></script>
+<style>
+    #circle{
+        border-radius: 50%;      -moz-border-radius: 50%;      -webkit-border-radius: 50%;
+    }
+    body{
+        background-color: rgb(241,241,241);
+    }
+    .add-lylq-form{
+        width: 400px;
+    }
+    .col-sm-2{
+        padding-left: 0px !important;
+    }
+    .cus-required:before{
+        content: "*";
+        color: red;
+    }
+    .lylq-yysj-input{
+        background-color: white !important;
+    }
+</style>
+</body>
+<script id="upload_sdjg_html" type="text/html">
+    <div style="margin: 10px 10px 10px 10px">
+        <div class="form-group row">
+            <label class="col-sm-3">送达结果</label>
+            <div class="col-sm-6">
+                <select class="form-control sdjg_select" id="sdjg_select_lylq">
+                    <option value="1">成功</option>
+                    <option value="2">失败</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">委托方式</label>
+            <div class="col-sm-6">
+                <select  class="select_wtfs form-control" id="select_wtfs_lylq" data-id="select_wtfs_lylq"  data-change="select_wtclr_lylq" onchange="changeWtfs(this)">
+                    <option value=""></option>
+                    <option value="DHSD">电话送达</option>
+                    <option value="DXSD">短信送达</option>
+                    <option value="EMS">邮寄送达</option>
+                    <option value="LYLQ">来院领取</option>
+                    <option value="ZZSD">直接送达</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">委托流转处理人：</label>
+            <div class="col-sm-6">
+                <select  class="form-control select_wtclr" id="select_wtclr_lylq">
+                </select>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        <div>
+            <button class="layui-btn" onclick="upload_sdjg_lylq(this)" data-yysdbh="{{yysdbh}}" data-id="{{lylqid}}" data-type="LYLQ">提交</button>
+        </div>
+    </div>
+</script>
+</html>
+
